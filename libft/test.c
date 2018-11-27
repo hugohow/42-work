@@ -12,6 +12,13 @@ void test_memchr();
 void test_memcmp();
 void test_strdup();
 void test_strncpy();
+void test_strcat();
+void test_strncat();
+void test_strlcat();
+
+
+#include <stdio.h>
+#include <string.h>
 
 int main(int argc, char **argv)
 {
@@ -39,8 +46,136 @@ int main(int argc, char **argv)
     printf("--------------------------------------------  \n\n");
     test_strncpy();
     printf("--------------------------------------------  \n\n");
+    test_strcat();
+    printf("--------------------------------------------  \n\n");
+    test_strncat();
+    printf("--------------------------------------------  \n\n");
+    test_strlcat();
+    printf("--------------------------------------------  \n\n");
 
     return (0);
+}
+
+void test_strlcat()
+{
+    char str[50];
+    char test[256] = "\0zxcvzxcvzxcvxzcvzxcv";
+
+    printf("Test ft_strlcat  \n\n");
+
+    strcpy(str, "This is");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %zu, %s \n", strlcat(str, "string.h library function", sizeof(str)), str);
+    strcpy(str, "This is");
+    printf("result :\t\t %zu, %s \n", ft_strlcat(str, "string.h library function", sizeof(str)), str);
+
+    strcpy(str, "This is");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %zu, %s \n", strlcat(str, "string.h library function", sizeof(str)), str);
+    strcpy(str, "This is");
+    printf("result :\t\t %zu, %s \n", ft_strlcat(str, "string.h library function", sizeof(str)), str);
+
+    strcpy(str, "This is");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %zu, %s \n", strlcat(str, "string.h library function", 20), str);
+    strcpy(str, "This is");
+    printf("result :\t\t %zu, %s \n", ft_strlcat(str, "string.h library function", 20), str);
+
+    strcpy(str, "This is");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %zu, %s \n", strlcat(str, "string.h library function", 5), str);
+    strcpy(str, "This is");
+    printf("result :\t\t %zu, %s \n", ft_strlcat(str, "string.h library function", 5), str);
+
+    strcpy(str, "This is");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %zu, %s \n", strlcat(str, "string.h library function", 0), str);
+    strcpy(str, "This is");
+    printf("result :\t\t %zu, %s \n", ft_strlcat(str, "string.h library function", 0), str);
+
+    strcpy(str, "This is");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %zu, %s \n", strlcat(str, "string.h library function", 0), str);
+    strcpy(str, "This is");
+    printf("result :\t\t %zu, %s \n", ft_strlcat(str, "string.h library function", 0), str);
+
+    printf("original :\t\t %s \n", test);
+    printf("result attendu :\t %zu, %s \n", strlcat(test, "asdf", 16), test);
+    strcpy(test, "\0zxcvzxcvzxcvxzcvzxcv");
+    printf("result :\t\t %zu, %s \n", ft_strlcat(test, "asdf", 16), test);
+
+
+    printf("original :\t\t %s \n", test);
+    printf("result attendu :\t %zu, %s \n", strlcat(test, "asdf", 6), test);
+    strcpy(test, "asdf\0");
+    printf("result :\t\t %zu, %s \n", ft_strlcat(test, "asdf", 6), test);
+
+
+    printf("original :\t\t %s \n", test);
+    printf("result attendu :\t %zu, %s \n", strlcat(test, "asdf", 4), test);
+    strcpy(test, "asdfa\0");
+    printf("result :\t\t %zu, %s \n", ft_strlcat(test, "asdf", 4), test);
+
+
+    printf("original :\t\t %s \n", test);
+    printf("result attendu :\t %zu, %s \n", strlcat(test, "", 16), test);
+    strcpy(test, "asdfa\0");
+    printf("result :\t\t %zu, %s \n", ft_strlcat(test, "", 16), test);
+
+
+    printf("original :\t\t %s \n", test);
+    printf("result attendu :\t %zu, %s \n", strlcat(test, "asdf", 0), test);
+    strcpy(test, "asdfa\0");
+    printf("result :\t\t %zu, %s \n", ft_strlcat(test, "asdf", 0), test);
+
+}
+
+void test_strncat()
+{
+    char str[50];
+    printf("Test ft_strncat  \n\n");
+
+    strcpy(str, "This is");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", strncat(str, "string.h library function", 10));
+    strcpy(str, "This is");
+    printf("result :\t\t %s \n", ft_strncat(str, "string.h library function", 10));
+
+    strcpy(str, "");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", strncat(str, "string.h library function", 10));
+    strcpy(str, "");
+    printf("result :\t\t %s \n", ft_strncat(str, "string.h library function", 10));
+
+    strcpy(str, "This");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", strncat(str, "string.h", 3));
+    strcpy(str, "This");
+    printf("result :\t\t %s \n", ft_strncat(str, "string.h", 3));
+}
+
+void test_strcat()
+{
+    char str[50];
+    printf("Test ft_strcat  \n\n");
+
+    strcpy(str, "This is");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", strcat(str, "string.h library function"));
+    strcpy(str, "This is");
+    printf("result :\t\t %s \n", ft_strcat(str, "string.h library function"));
+
+    strcpy(str, "");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", strcat(str, "string.h library function"));
+    strcpy(str, "");
+    printf("result :\t\t %s \n", ft_strcat(str, "string.h library function"));
+
+    strcpy(str, "This");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", strcat(str, ""));
+    strcpy(str, "This");
+    printf("result :\t\t %s \n", ft_strcat(str, ""));
 }
 
 void test_strncpy()

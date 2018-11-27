@@ -1,6 +1,6 @@
 #include <string.h>
 
-size_t  ft_strlen(char *str);
+size_t  ft_strlen(const char *str);
 
 char    *ft_strncpy(char *dst, const char *src, size_t len)
 {
