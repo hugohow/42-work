@@ -8,6 +8,10 @@ void test_memccpy();
 void test_memmove();
 void test_strcpy();
 void test_strlen();
+void test_memchr();
+void test_memcmp();
+void test_strdup();
+void test_strncpy();
 
 int main(int argc, char **argv)
 {
@@ -27,8 +31,169 @@ int main(int argc, char **argv)
     printf("--------------------------------------------  \n\n");
     test_strlen();
     printf("--------------------------------------------  \n\n");
+    test_memchr();
+    printf("--------------------------------------------  \n\n");
+    test_memcmp();
+    printf("--------------------------------------------  \n\n");
+    test_strdup();
+    printf("--------------------------------------------  \n\n");
+    test_strncpy();
+    printf("--------------------------------------------  \n\n");
 
     return (0);
+}
+
+void test_strncpy()
+{
+    char str[50];
+    printf("Test ft_strncpy  \n\n");
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", strncpy(str, "okoko", 5));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %s \n", ft_strncpy(str, "okoko", 5));
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", strncpy(str, "okok", 5));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %s \n", ft_strncpy(str, "okok", 5));
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", strncpy(str, "", 5));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %s \n", ft_strncpy(str, "", 5));
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", strncpy(str, "This is string.h library function1111", 5));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %s \n", ft_strncpy(str, "This is string.h library function1111", 5));
+}
+
+void test_strdup()
+{
+    char str[50];
+    char *cpy;
+    printf("Test ft_strdup  \n\n");
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", strdup("Thi"));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %s \n", ft_strdup("Thi"));  
+
+    
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    cpy = strdup("Thi");
+    printf("result attendu :\t %s and %p != %p \n", cpy, str, cpy);
+    strcpy(str, "This is string.h library function");
+    cpy = ft_strdup("Thi");
+    printf("result attendu :\t %s and %p != %p \n", cpy, str, cpy);
+}
+
+void test_memcmp()
+{
+    char str[50];
+    printf("Test ft_memcmp  \n\n");
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %d \n", memcmp(str, "Thi", 3));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %d \n", ft_memcmp(str, "Thi", 3));  
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %d \n", memcmp(str, "Thi", 4));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %d \n", ft_memcmp(str, "Thi", 4));  
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %d \n", memcmp(str, "Thi", 10));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %d \n", ft_memcmp(str, "Thi", 10)); 
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %d \n", memcmp(str, "This is string.h library function", 10));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %d \n", ft_memcmp(str, "This is string.h library function", 10));    
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %d \n", memcmp(str, "This as string.h library function", 10));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %d \n", ft_memcmp(str, "This as string.h library function", 10)); 
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %d \n", memcmp(str, "This 2s string.h library function", 7));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %d \n", ft_memcmp(str, "This 2s string.h library function", 7));    
+
+
+    strcpy(str, "┌");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %d \n", memcmp(str, "Ê", 10));
+    strcpy(str, "┌");
+    printf("result :\t\t %d \n", ft_memcmp(str, "Ê", 10)); 
+
+    strcpy(str, "Ê┌");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %d \n", memcmp(str, "Ê", 1));
+    strcpy(str, "Ê┌");
+    printf("result :\t\t %d \n", ft_memcmp(str, "Ê", 1));    
+
+    strcpy(str, "Ê┌");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %d \n", memcmp(str, "Êa", 3));
+    strcpy(str, "Ê┌");
+    printf("result :\t\t %d \n", ft_memcmp(str, "Êa", 3));   
+
+    strcpy(str, "▄");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %d \n", memcmp(str, "", 3));
+    strcpy(str, "▄");
+    printf("result :\t\t %d \n", ft_memcmp(str, "", 3));    
+}
+
+void test_memchr()
+{
+    char str[50];
+    printf("Test ft_memchr  \n\n");
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", memchr(str, 's', 3));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %s \n", ft_memchr(str, 's', 3));
+
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", memchr(str, 's', 4));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %s \n", ft_memchr(str, 's', 4));
+
+
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", memchr(str, 's', 10));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %s \n", ft_memchr(str, 's', 10));
+
+
+    strcpy(str, "This is string.h library function");
+    printf("original :\t\t %s \n", str);
+    printf("result attendu :\t %s \n", memchr(str, '9', 10));
+    strcpy(str, "This is string.h library function");
+    printf("result :\t\t %s \n", ft_memchr(str, '9', 10));
 }
 
 void test_strcpy()
@@ -53,7 +218,6 @@ void test_strcpy()
     printf("result attendu :\t %s \n", strcpy(str, "This is string.h library function1111"));
     strcpy(str, "This is string.h library function");
     printf("result :\t\t %s \n", ft_strcpy(str, "This is string.h library function1111"));
-
 }
 
 void test_strlen()

@@ -9,13 +9,8 @@ char    *ft_strcpy(char *dst, const char *src);
 void    *ft_memmove(void *dst, const void *src, size_t len)
 {
     size_t i;
-    char *original_dst;
     char *original_src;
 
-    original_dst = (char *)malloc((ft_strlen((char *)dst) + 1) * sizeof(char));
-    if (original_dst == NULL)
-        return (original_dst);
-    original_dst = ft_strcpy(original_dst, (char *)dst);
     original_src = (char *)malloc((ft_strlen((char *)src) + 1) * sizeof(char));
     if (original_src == NULL)
         return (original_src);
