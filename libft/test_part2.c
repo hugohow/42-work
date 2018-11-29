@@ -19,8 +19,16 @@ void test_strsub();
 void test_strjoin();
 void test_strtrim();
 void test_strsplit();
-
+void test_itoa();
 void test_putchar();
+void test_putstr();
+void test_putendl();
+void test_putnbr();
+void test_putchar_fd();
+void test_putstr_fd();
+void test_putendl_fd();
+void test_putnbr_fd();
+
 int main(int argc, char **argv)
 {
 
@@ -54,10 +62,116 @@ int main(int argc, char **argv)
     test_strtrim();
     printf("--------------------------------------------  \n\n");
     test_strsplit();
-
+    printf("--------------------------------------------  \n\n");
+    test_itoa();
     printf("--------------------------------------------  \n\n");
     test_putchar();
+    printf("--------------------------------------------  \n\n");
+    test_putstr();
+    printf("--------------------------------------------  \n\n");
+    test_putendl();
+    printf("--------------------------------------------  \n\n");
+    test_putnbr();
+    printf("--------------------------------------------  \n\n");
+    test_putchar_fd();
+    printf("--------------------------------------------  \n\n");
+    test_putstr_fd();
+    printf("--------------------------------------------  \n\n");
+    test_putendl_fd();
+    printf("--------------------------------------------  \n\n");
+    test_putnbr_fd();
     return (0);
+}
+
+void test_putnbr_fd()
+{
+    printf("Test ft_putnbr_fd  \n\n");
+    printf("result :\t \n14\n");
+    ft_putnbr_fd(14, 1);
+    printf("\nresult :\t \n-12345\n");
+    ft_putnbr_fd(-12345, 1);
+    printf(" \n");
+}
+
+void test_putendl_fd()
+{
+    printf("Test ft_putendl_fd  \n\n");
+    char str[99];
+    strcpy(str, "abcdef");
+    printf("result :\t \nabcdef\n\n");
+    ft_putendl_fd(str, 1);
+    printf(" \n");
+    strcpy(str, "123456 b");
+    printf("result :\t \n123456 b\n\n");
+    ft_putendl_fd(str, 1);
+    printf(" \n"); 
+}
+
+void test_putstr_fd()
+{
+    printf("Test ft_putstr_fd  \n\n");
+    char str[99];
+    strcpy(str, "abcdef");
+    printf("result :\t \nabcdef\n");
+    ft_putstr_fd(str, 1);
+    printf(" \n");
+    strcpy(str, "123456 b");
+    printf("result :\t \n123456 b\n");
+    ft_putstr_fd(str, 1);
+    printf(" \n");
+}
+
+void test_putchar_fd()
+{
+    printf("Test ft_putchar_fd  \n\n");
+    char c;
+    c = 'a';
+    printf("result :\t \na\n");
+    ft_putchar_fd(c, 1);
+    c = 'Z';
+    printf("\nresult :\t \nZ\n");
+    ft_putchar_fd(c, 1);
+    printf(" \n");
+}
+
+
+
+void test_putnbr()
+{
+    printf("Test ft_putnbr  \n\n");
+    printf("result :\t \n14\n");
+    ft_putnbr(14);
+    printf("\nresult :\t \n-12345\n");
+    ft_putnbr(-12345);
+    printf(" \n");
+}
+
+void test_putendl()
+{
+    printf("Test ft_putendl  \n\n");
+    char str[99];
+    strcpy(str, "abcdef");
+    printf("result :\t \nabcdef\n\n");
+    ft_putendl(str);
+    printf(" \n");
+    strcpy(str, "123456 b");
+    printf("result :\t \n123456 b\n\n");
+    ft_putendl(str);
+    printf(" \n"); 
+}
+
+void test_putstr()
+{
+    printf("Test ft_putstr  \n\n");
+    char str[99];
+    strcpy(str, "abcdef");
+    printf("result :\t \nabcdef\n");
+    ft_putstr(str);
+    printf(" \n");
+    strcpy(str, "123456 b");
+    printf("result :\t \n123456 b\n");
+    ft_putstr(str);
+    printf(" \n");
 }
 
 void test_putchar()
@@ -71,6 +185,28 @@ void test_putchar()
     printf("\nresult :\t \nZ\n");
     ft_putchar(c);
     printf(" \n");
+}
+
+
+void test_itoa()
+{
+    printf("Test ft_itoa  \n\n");
+
+    printf("original :\t\t 13 \n");
+    printf("result attendu :\t 13 \n");
+    printf("result :\t\t %s \n", ft_itoa(13));
+
+    printf("original :\t\t -13 \n");
+    printf("result attendu :\t -13 \n");
+    printf("result :\t\t %s \n", ft_itoa(-13));
+
+    printf("original :\t\t +13 \n");
+    printf("result attendu :\t 13 \n");
+    printf("result :\t\t %s \n", ft_itoa(+13));
+
+    printf("original :\t\t -123456789 \n");
+    printf("result attendu :\t -123456789 \n");
+    printf("result :\t\t %s \n", ft_itoa(-123456789));
 }
 
 void test_strsplit()
