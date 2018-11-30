@@ -4,47 +4,19 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "fillit.h"
 
-char    **ft_strsplit(char const *str);
-char    *solve(char **list);
-
-int is_valid(char *buf)
-{
-    int i;
-    int j;
-
-    i = 0;
-    j = 1;
-    while (buf[i])
-    {
-        // if (buf[i] == '\n' && buf[i+1] && buf[i+1] == '\n')
-        // {
-        //     printf("l");
-        // }
-        // printf("%c", buf[i]);
-        i++;
-    }
-    return (1);
-}
-
-void    read_list(char **list)
-{
-    int i;
-    i = 0;
-    while (list[i])
-    {
-        printf("%s\n\n", list[i]);
-        i++;
-    }
-    printf("----------------------\n\n");
-}
+t_tetri    **ft_list_tetri(char const *str);
+char    *solve(t_tetri **list);
+void    print_table(char *empty, int size);
+size_t  ft_strlen(const char *str);
 
 int main(int argc, char **argv)
 {
     int fd;
     char *buf;
-    char **list;
     char *result;
+    t_tetri **list_tetri;
 
     if (argc != 2)
         return (0);
@@ -56,13 +28,13 @@ int main(int argc, char **argv)
         if (buf == NULL)
             return (0);
         read(fd, buf, 17 * 26);
-        if (is_valid(buf) == 1)
-        {
-            list = ft_strsplit(buf);
-            read_list(list);
-            result = solve(list);
-            //continue
-        }
+
+        // if (is_valid(buf) == 1)
+        // {
+            list_tetri = ft_list_tetri(buf);
+            result = solve(list_tetri);
+        //     //continue
+        // }
         close(fd);
     }
 
