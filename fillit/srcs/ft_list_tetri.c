@@ -104,10 +104,12 @@ t_tetri *create_tetri(char *str)
     }
     tetri->points = points;
     tetri->letter = letter;
-    // printf("%c\n", tetri->letter);
-    // printf("%s\n", str);
-    // printf("col : \t%d\t%d\t%d\t%d\n", tetri->points[0].col, tetri->points[1].col, tetri->points[2].col, tetri->points[3].col);
-    // printf("row : \t%d\t%d\t%d\t%d\n", tetri->points[0].row, tetri->points[1].row, tetri->points[2].row, tetri->points[3].row);
+    printf("DEF TETRI  ------\n");
+    
+    printf("%c\n", tetri->letter);
+    printf("%s\n", str);
+    printf("col : \t%d\t%d\t%d\t%d\n", tetri->points[0].col, tetri->points[1].col, tetri->points[2].col, tetri->points[3].col);
+    printf("row : \t%d\t%d\t%d\t%d\n", tetri->points[0].row, tetri->points[1].row, tetri->points[2].row, tetri->points[3].row);
 
     return (tetri);
 }
@@ -122,7 +124,7 @@ t_tetri    **ft_list_tetri(char const *str)
     size_t k;
     size_t str_len;
 
-    list_tetri = (t_tetri **)malloc((16) * sizeof(t_tetri *));
+    list_tetri = (t_tetri **)malloc((28) * sizeof(t_tetri *));
     i = 0;
     k = 0;
     str_len = ft_strlen(str);
