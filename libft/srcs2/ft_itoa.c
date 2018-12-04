@@ -26,6 +26,8 @@ char    *ft_itoa(int nb)
     long n;
 
     n = nb;
+    if (n == 0)
+        return "0";
     nb_len = ft_nblen(n);
     output = (char *)malloc((nb_len + 1) * sizeof(char));
     if (output == NULL)

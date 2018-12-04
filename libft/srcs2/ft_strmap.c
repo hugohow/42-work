@@ -9,6 +9,8 @@ char *ft_strmap(char const *str, char (*f)(char))
     size_t i;
 
     new_str = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
+    if (new_str == NULL)
+        return (NULL);
     i = 0;
     while (str[i])
     {

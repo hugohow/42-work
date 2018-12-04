@@ -14,9 +14,9 @@ char    *ft_strncpy(char *dst, const char *src, size_t len)
     }
     if (i == len)
         return (dst);
-    while (dst[i])
+    while (i < len)
     {
-        dst[i] = '\0';
+        dst[i] = 0;
         i++;
     }
     return (dst);

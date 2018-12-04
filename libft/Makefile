@@ -7,7 +7,7 @@ all: $(NAME)
 $(NAME):
 	$(CC) $(CFLAGS) -c srcs/*.c srcs2/*.c
 	ar rc $(NAME) *.o
-
+	
 clean:
 	rm -rf *.o
 
