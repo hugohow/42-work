@@ -10,9 +10,15 @@ int main(void)
     char **line;
 
     line = (char **)malloc(sizeof(char*));
-
-    printf("debut\n");
     fd = open("testfile", O_RDONLY);
+    get_next_line(fd, line);
+    get_next_line(fd, line);
+    get_next_line(fd, line);
+    get_next_line(fd, line);
+    get_next_line(fd, line);
+    get_next_line(fd, line);
+    get_next_line(fd, line);
+    get_next_line(fd, line);
     get_next_line(fd, line);
     get_next_line(fd, line);
     get_next_line(fd, line);
