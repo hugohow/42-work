@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "fillit.h"
 
 void print_table(char *table, int size);
@@ -139,17 +137,17 @@ char *solve(t_tetri **list, size_t list_len)
     int size;
 
     size = list_len >= 4 ? 4 : 2;
-    printf("list_len : %zu", list_len);
+    // printf("list_len : %zu", list_len);
     table = (char *)malloc((17 * 28) * sizeof(char));
     if (table == NULL)
         return (NULL);
     while (find_res(table, list, size) == 0 && size < 25)
     {
-        printf("Test with %d\n", size);
-        printf("-------------------------------------------------\n");
+        // printf("Test with %d\n", size);
+        // printf("-------------------------------------------------\n");
         size++;
     }
-    printf("Success, minimum square size is : %d\n\n", size);
+    // printf("Success, minimum square size is : %d\n\n", size);
     print_table(table, size);
     return (table);
 }

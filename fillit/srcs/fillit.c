@@ -1,15 +1,4 @@
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "fillit.h"
-
-t_tetri    **ft_list_tetri(char const *str);
-char    *solve(t_tetri **list, size_t list_len);
-void    print_table(char *empty, int size);
-size_t  ft_strlen(const char *str);
 
 
 size_t ft_strlist(t_tetri **list_tetri)

@@ -4,7 +4,6 @@ CFLAGS=-Wall -Wextra -Werror
 
 all:
 	$(CC) $(CFLAGS) -o $(NAME) srcs/*.c
-	./fillit valid_sample.fillit
 
 clean:
 

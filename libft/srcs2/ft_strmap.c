@@ -8,7 +8,7 @@ char *ft_strmap(char const *str, char (*f)(char))
     char *new_str;
     size_t i;
 
-    new_str = malloc((ft_strlen(str) + 1) * sizeof(char));
+    new_str = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
     i = 0;
     while (str[i])
     {

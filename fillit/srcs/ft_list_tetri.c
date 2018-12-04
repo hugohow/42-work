@@ -1,6 +1,3 @@
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "fillit.h"
 
 size_t  ft_strlen(const char *str);
@@ -104,12 +101,12 @@ t_tetri *create_tetri(char *str)
     }
     tetri->points = points;
     tetri->letter = letter;
-    printf("DEF TETRI  ------\n");
+    // printf("DEF TETRI  ------\n");
     
-    printf("%c\n", tetri->letter);
-    printf("%s\n", str);
-    printf("col : \t%d\t%d\t%d\t%d\n", tetri->points[0].col, tetri->points[1].col, tetri->points[2].col, tetri->points[3].col);
-    printf("row : \t%d\t%d\t%d\t%d\n", tetri->points[0].row, tetri->points[1].row, tetri->points[2].row, tetri->points[3].row);
+    // printf("%c\n", tetri->letter);
+    // printf("%s\n", str);
+    // printf("col : \t%d\t%d\t%d\t%d\n", tetri->points[0].col, tetri->points[1].col, tetri->points[2].col, tetri->points[3].col);
+    // printf("row : \t%d\t%d\t%d\t%d\n", tetri->points[0].row, tetri->points[1].row, tetri->points[2].row, tetri->points[3].row);
 
     return (tetri);
 }

@@ -2,6 +2,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+char *cut_str(char *str, int end)
+{
+    int i;
+    char *output;
+
+    output = malloc((end + 1) * sizeof(char));
+    i = 0;
+    while (i++ < end)
+    {
+        output[i] = str[i];
+    }
+    output[i] = '\0';
+    return (output);
+}
+
 int get_next_line(const int fd, char **line)
 {
     // int current_index;
@@ -29,10 +44,9 @@ int get_next_line(const int fd, char **line)
         }
         if (j != nb_byte)
         {
-            *(buffer + i + j) = '\0';
-            printf("buffer : %s\n", (buffer));
-            *line = buffer;
-
+            printf("buffer : %s\n", buffer);
+            *line = cut_str(buffer, i + j);
+            printf("*line : %s\n", *line);
             printf("return : %d\n", 1);
             return (1);
             break;
