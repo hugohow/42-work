@@ -66,23 +66,6 @@ char    *ft_strncat(char *s1, const char *s2, size_t n)
 }
 
 
-char *cut_str(char *str, int end)
-{
-    int i;
-    char *output;
-
-    output = malloc((end + 1) * sizeof(char));
-    i = 0;
-    while (i < end)
-    {
-        output[i] = str[i];
-        i++;
-    }
-    output[i] = '\0';
-    return (output);
-}
-
-
 int get_next_line(const int fd, char **line)
 {
     int j;
@@ -100,7 +83,7 @@ int get_next_line(const int fd, char **line)
         end = 0;
     j = 0;
     // if (rest[0] == '\n')
-        // rest++;
+    //     rest++;
     // printf("--------------\n");
     // printf("initial text :\t\t %s\n", text);
     while (rest[j] && rest[j] != '\n')
