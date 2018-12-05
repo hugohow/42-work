@@ -2,32 +2,28 @@
 #include <stdlib.h>
 
 size_t  ft_strlen(const char *str);
+char    *ft_strsub(char const *str, unsigned int start, size_t len);
 
 char *ft_strtrim(char const *str)
 {
-    char *new_str;
-    size_t i;
-    size_t j;
-    size_t nb_spaces;
+    size_t start;
+    size_t end;
+    size_t str_len;
 
-    new_str = malloc((ft_strlen(str) + 1) * sizeof(char));
-    if (new_str == NULL)
-        return (NULL);
-    i = 0;
-    j = 0;
-    nb_spaces = 0;
-    while (str[i])
-    {
-        if (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
-        {
-            nb_spaces++;
-            i++;
-        }    
-        else
-            new_str[j++] = str[i++];
-    }
-    new_str[j] = '\0';
-    if (nb_spaces == 0)
+    start = 0;
+    str_len = ft_strlen(str);
+    if (str_len == 0)
         return ((char *)str);
-    return (new_str);
+    while (str[start] && (str[start] == ' ' || str[start] == '\t' || str[start] == '\n'))
+    {
+        start++;
+    }
+    if (start == str_len)
+        return ("");
+    end = str_len - 1;
+    while (str[end] && (str[end] == ' ' || str[end] == '\t' || str[end] == '\n'))
+    {
+        end--;
+    }
+    return (ft_strsub(str, start, end - start + 1));
 }
