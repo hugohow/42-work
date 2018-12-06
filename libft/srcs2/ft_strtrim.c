@@ -10,6 +10,8 @@ char *ft_strtrim(char const *str)
     size_t end;
     size_t str_len;
 
+    if (str == NULL)
+        return (NULL);
     start = 0;
     str_len = ft_strlen(str);
     if (str_len == 0)

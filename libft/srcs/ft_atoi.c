@@ -45,7 +45,10 @@ int ft_atoi(const char *str)
         {
             while (str[i] && is_digit(str[i]) == 1)
             {
-                result = result * 10 + (str[i] - '0');
+                if (result <= (9223372036854775807 - (str[i] - '0')) / 10)
+                    result = result * 10 + (str[i] - '0');
+                else
+                    return (-1);
                 i++;
             }
             return (int)(sign * result);

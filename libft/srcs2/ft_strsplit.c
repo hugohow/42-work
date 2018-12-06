@@ -33,6 +33,8 @@ char    **ft_strsplit(char const *str, char c)
     size_t j;
     size_t k;
 
+    if (str == NULL)
+        return (NULL);
     list = (char **)malloc((count_words(str, c) + 1) * sizeof(char *));
     if (list == NULL)
         return (NULL);

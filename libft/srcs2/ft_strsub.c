@@ -7,6 +7,9 @@ char *ft_strsub(char const *str, unsigned int start, size_t len)
 {
     char *new_str;
     size_t i;
+
+    if (str == NULL)
+        return (NULL);
     if (len + start > ft_strlen(str))
         return (NULL);
     new_str = malloc((len + 1) * sizeof(char));

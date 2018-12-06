@@ -9,6 +9,8 @@ char *ft_strjoin(char const *str1, char const *str2)
     size_t i;
     size_t j;
 
+    if (str1 == NULL || str2 == NULL)
+        return (NULL);
     new_str = malloc((ft_strlen(str1) + ft_strlen(str2) + 1) * sizeof(char));
     if (new_str == NULL)
         return (NULL);
