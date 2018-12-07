@@ -99,6 +99,11 @@ t_tetri *create_tetri(char *str)
         }
         i++;
     }
+    if (k != 4)
+    {
+        // printf("k != 4 : %d \n", k);    
+        return (NULL);
+    }
     tetri->points = points;
     tetri->letter = letter;
     // printf("DEF TETRI  ------\n");
@@ -109,6 +114,13 @@ t_tetri *create_tetri(char *str)
     // printf("row : \t%d\t%d\t%d\t%d\n", tetri->points[0].row, tetri->points[1].row, tetri->points[2].row, tetri->points[3].row);
 
     return (tetri);
+}
+
+int char_is_valid(char c)
+{
+    if (c == '.' || c == '#' || c == '\0' || c == '\n')
+        return (1);
+    return (0);
 }
 
 t_tetri    **ft_list_tetri(char const *str)
@@ -133,9 +145,9 @@ t_tetri    **ft_list_tetri(char const *str)
             if (tmp_str == NULL)
                 return (NULL);
             j = 0;
-            while (str[i])
+            while (str[i] && char_is_valid(str[i]))
             {
-                if (str[i] == '\n' && str[i + 1] == '\n')
+                if ((str[i] == '\n' && str[i + 1] == '\n') || str[i + 1] == '\0')
                     break;
                 if (str[i] == '\n')
                     i++;
@@ -143,18 +155,26 @@ t_tetri    **ft_list_tetri(char const *str)
                 j++;
                 i++;
             }
+            if ((str[i + 1] && str[i + 2]) && (str[i + 2] != '.' && str[i + 2] != '#'))
+            {
+                // printf("str[i + 2] != '.' : %c \n", str[i + 2]);    
+                return (NULL);
+            }
+            if (j != 16)
+                return (NULL);
             tmp_str[j] = '\0';
             offset_vertical(tmp_str);
             offset_horizontal(tmp_str);
             tetri = create_tetri(tmp_str);
-            
+            if (tetri == NULL)
+                return (NULL);
             list_tetri[k++] = tetri;
         }
         else 
-        {
             i++;
-        }
     }
+    if (i > 2 && str[i - 2] == '\n')
+        return (NULL);
     list_tetri[k] = 0;
     return (list_tetri);
 }

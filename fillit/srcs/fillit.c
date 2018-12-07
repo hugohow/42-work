@@ -37,6 +37,12 @@ int main(int argc, char **argv)
         // if (is_valid(buf) == 1)
         // {
             list_tetri = ft_list_tetri(buf);
+            if (list_tetri == NULL)
+            {
+                printf("error\n");
+                return (0);
+            }
+            
             result = solve(list_tetri, ft_strlist(list_tetri));
         //     //continue
         // }
