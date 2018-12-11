@@ -91,31 +91,31 @@ int check_around(char *str, int i)
     count = 0;
     // check à droite
     if (col + 1 < 4 && str[row * 4 + (col + 1)] != '.')
-        count++;
+        return (1);
     // check en bas
     if (row + 1 < 4 && str[(row + 1) * 4 + col] != '.')
-        count++;
+        return (1);
     // check à gauche
     if (col - 1 >= 0 && str[row * 4 + (col - 1)] != '.')
-        count++;
+        return (1);
     // check en haut
     if (row - 1 >= 0 && str[(row - 1) * 4 + col] != '.')
-        count++;
-    // check en diagonal
-    if (row - 1 >= 0 && col - 1 >= 0 && str[(row - 1) * 4 + (col - 1)] != '.')
-        count++;
-
-    if (row - 1 >= 0 && col + 1 < 4 && str[(row - 1) * 4 + (col + 1)] != '.')
-        count++;
-
-    if (row + 1 < 4 && col - 1 >= 0 && str[(row + 1) * 4 + (col - 1)] != '.')
-        count++;
-
-    if (row + 1 < 4 && col + 1 < 4 && str[(row + 1) * 4 + (col + 1)] != '.')
-        count++;
-
-    if (count >= 2)
         return (1);
+    // check en diagonal
+    // if (row - 1 >= 0 && col - 1 >= 0 && str[(row - 1) * 4 + (col - 1)] != '.')
+    //     count++;
+
+    // if (row - 1 >= 0 && col + 1 < 4 && str[(row - 1) * 4 + (col + 1)] != '.')
+    //     count++;
+
+    // if (row + 1 < 4 && col - 1 >= 0 && str[(row + 1) * 4 + (col - 1)] != '.')
+    //     count++;
+
+    // if (row + 1 < 4 && col + 1 < 4 && str[(row + 1) * 4 + (col + 1)] != '.')
+    //     count++;
+
+    // if (count >= 2)
+    //     return (1);
     return (0);
 }
 
