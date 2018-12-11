@@ -20,6 +20,7 @@ int main(int argc, char **argv)
     char *result;
     t_tetri **list_tetri;
 
+
     if (argc != 2)
     {
         printf("usage");
@@ -33,19 +34,11 @@ int main(int argc, char **argv)
         if (buf == NULL)
             return (0);
         read(fd, buf, 25 * 28);
-
-        // if (is_valid(buf) == 1)
-        // {
-            list_tetri = ft_list_tetri(buf);
-            if (list_tetri == NULL)
-            {
-                printf("error\n");
-                return (0);
-            }
-            
+        list_tetri = ft_list_tetri(buf);
+        if (list_tetri == NULL)
+            printf("error\n"); 
+        else
             result = solve(list_tetri, ft_strlist(list_tetri));
-        //     //continue
-        // }
         close(fd);
     }
 

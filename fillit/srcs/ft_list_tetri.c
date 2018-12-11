@@ -19,12 +19,14 @@ size_t   count_tetri(char const *str)
     return (count);
 }
 
-void    offset_vertical(char *tetri)
+void    offset_vertical(char *tetri, int nb)
 {
     int i;
     int j;
 
     i = 0;
+    if (nb == 4)
+        return ;
     while (i < 4)
     {
         if (tetri[i] != '.')
@@ -42,18 +44,20 @@ void    offset_vertical(char *tetri)
         j = 4*4 - 4;
         while (j < 4*4)
             tetri[j++] = '.';
-        offset_vertical(tetri);
+        offset_vertical(tetri, nb + 1);
     }
     return ;
 }
 
 
-void    offset_horizontal(char *tetri)
+void    offset_horizontal(char *tetri, int nb)
 {
     int i;
     int j;
 
     i = 0;
+    if (nb == 4)
+        return ;
     while (i < 4*4)
     {
         if (i % 4 == 0 && tetri[i] != '.')
@@ -71,9 +75,48 @@ void    offset_horizontal(char *tetri)
             tetri[j+3] = '.';
             j += 4;
         }
-        offset_horizontal(tetri);
+        offset_horizontal(tetri, nb + 1);
     }
     return ;
+}
+
+int check_around(char *str, int i)
+{
+    int row;
+    int col;
+    int count;
+
+    row = i / 4;
+    col = i % 4;
+    count = 0;
+    // check à droite
+    if (col + 1 < 4 && str[row * 4 + (col + 1)] != '.')
+        count++;
+    // check en bas
+    if (row + 1 < 4 && str[(row + 1) * 4 + col] != '.')
+        count++;
+    // check à gauche
+    if (col - 1 >= 0 && str[row * 4 + (col - 1)] != '.')
+        count++;
+    // check en haut
+    if (row - 1 >= 0 && str[(row - 1) * 4 + col] != '.')
+        count++;
+    // check en diagonal
+    if (row - 1 >= 0 && col - 1 >= 0 && str[(row - 1) * 4 + (col - 1)] != '.')
+        count++;
+
+    if (row - 1 >= 0 && col + 1 < 4 && str[(row - 1) * 4 + (col + 1)] != '.')
+        count++;
+
+    if (row + 1 < 4 && col - 1 >= 0 && str[(row + 1) * 4 + (col - 1)] != '.')
+        count++;
+
+    if (row + 1 < 4 && col + 1 < 4 && str[(row + 1) * 4 + (col + 1)] != '.')
+        count++;
+
+    if (count >= 2)
+        return (1);
+    return (0);
 }
 
 t_tetri *create_tetri(char *str)
@@ -92,6 +135,8 @@ t_tetri *create_tetri(char *str)
     {
         if (str[i] != '.')
         {
+            if (check_around(str, i) == 0)
+                return (NULL);
             points[k].row = i / 4;
             points[k].col = i % 4;
             letter = str[i];
@@ -118,10 +163,23 @@ t_tetri *create_tetri(char *str)
 
 int char_is_valid(char c)
 {
-    if (c == '.' || c == '#' || c == '\0' || c == '\n')
+    if (c == '.' || c == '#' || c == '\n')
         return (1);
     return (0);
 }
+
+int end_tetri(char const *str, int i)
+{
+    // on suppose que str[i] n'est pas null
+    if (str[i] == '\0')
+        return (1);
+    if (str[i + 1] == '\0')
+        return (1);
+    if (str[i] == '\n' && str[i + 1] == '\n')
+        return (1);
+    return (0);
+}
+
 
 t_tetri    **ft_list_tetri(char const *str)
 {
@@ -139,32 +197,35 @@ t_tetri    **ft_list_tetri(char const *str)
     str_len = ft_strlen(str);
     while (str[i])
     {
-        if (str[i + 1] && str[i] != '\n' && str[i + 1] != '\n')
+        if (end_tetri(str, i) == 0)
         {
             tmp_str = (char *)malloc((str_len + 1) * sizeof(char));
             if (tmp_str == NULL)
                 return (NULL);
             j = 0;
-            while (str[i] && char_is_valid(str[i]))
+            while (str[i] != '\0' && char_is_valid(str[i]) == 1)
             {
-                if ((str[i] == '\n' && str[i + 1] == '\n') || str[i + 1] == '\0')
+                if (end_tetri(str, i) == 1)
                     break;
-                if (str[i] == '\n')
+                if (str[i] == '\n' && j % 4 == 0)
                     i++;
-                tmp_str[j] = str[i] == '#' ? 'A' + k : str[i];
-                j++;
-                i++;
+                else
+                {
+                    tmp_str[j] = str[i] == '#' ? 'A' + k : str[i];
+                    j++;
+                    i++;
+                    if (j % 4 == 0 && str[i] != '\n')
+                        break;
+                }
             }
             if ((str[i + 1] && str[i + 2]) && (str[i + 2] != '.' && str[i + 2] != '#'))
-            {
-                // printf("str[i + 2] != '.' : %c \n", str[i + 2]);    
                 return (NULL);
-            }
             if (j != 16)
                 return (NULL);
             tmp_str[j] = '\0';
-            offset_vertical(tmp_str);
-            offset_horizontal(tmp_str);
+            offset_vertical(tmp_str, 0);
+            offset_horizontal(tmp_str, 0);
+            
             tetri = create_tetri(tmp_str);
             if (tetri == NULL)
                 return (NULL);
@@ -173,7 +234,7 @@ t_tetri    **ft_list_tetri(char const *str)
         else 
             i++;
     }
-    if (i > 2 && str[i - 2] == '\n')
+    if ((i > 2 && str[i - 2] && str[i - 2] == '\n') || i < 4)
         return (NULL);
     list_tetri[k] = 0;
     return (list_tetri);
