@@ -1,7 +1,8 @@
 NAME=main
 
-all: $(NAME)
-	gcc -o main *.c libft.a
+all:
+	gcc -o $(NAME) *.c libft.a
+	./main
 
 clean:
 
