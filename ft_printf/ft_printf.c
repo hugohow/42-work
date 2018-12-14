@@ -131,6 +131,30 @@ int get_space(char *flag)
     return (0);
 }
 
+int get_precision(char *flag)
+{
+    unsigned int i;
+    unsigned int precision;
+
+    i = 0;
+    precision = 0;
+    while (flag[i])
+    {
+        if (flag[i] == '.' && flag[i+1] && ft_isdigit(flag[i+1]))
+        {
+            i++;
+            while (flag[i] && ft_isdigit(flag[i]))
+            {
+                precision = precision * 10 + (flag[i] - '0');
+                i++;
+            }
+            return (precision);
+        }
+        i++;
+    }
+    return (0);
+}
+
 
 char *offset_d(char *str, char *flag, int nb)
 {
@@ -218,6 +242,33 @@ char *offset(char *str, char *flag)
     return (str);
 }
 
+// char *apply_precision(char *str, int precision)
+// {
+//     unsigned int i;
+//     unsigned int k;
+//     unsigned int str_len;
+//     char *output;
+
+//     str_len = ft_strlen(str);
+//     if (str_len >= precision)
+//         return (str);
+//     i = 0;
+//     output = malloc((precision + 1) * sizeof(char));
+//     while (i < precision - str_len)
+//     {
+//         output[i] = '0';
+//         i++;
+//     }
+//     // k = 0;
+//     // while (k < str_len)
+//     // {
+//     //     output[i] = str[k];
+//     //     i++;
+//     // }
+//     // output[precision] = '\0';
+//     return (output);
+// }
+
 
 
 void define_arg(va_list *ap, char *flag)
@@ -230,6 +281,8 @@ void define_arg(va_list *ap, char *flag)
     if (conv_char == 's')
     {
         output = va_arg(*ap, char*);
+        if (get_precision(flag) > 0)
+            output = ft_strsub(output, 0, get_precision(flag));
         output = offset(output, flag);
         ft_putstr(output);
     }
@@ -245,6 +298,8 @@ void define_arg(va_list *ap, char *flag)
     {
         tmp = va_arg(*ap, int);
         output = ft_itoa(tmp < 0 ? -tmp : tmp);
+        // if (get_precision(flag) > 0)
+        //     output = apply_precision(output, get_precision(flag));
         output = offset_d(output, flag, tmp);
         ft_putstr(output);
     }

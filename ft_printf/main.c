@@ -12,7 +12,7 @@ int main(int argc, char **argv)
     // printf("printf attendu: \n");
     // printf("ok %s%s%s\t%q%s\n", "ok1", "ok2", "ok3", "ok4");
     // printf("ft_printf: \n");
-    ft_printf("on a le charactere : %%%-06.11lc et la string : %010  szddz nbr : %05d", 'y', "ok2", 34);
+    ft_printf("on a le charactere : %%%-06.11lc et la string : %.2  szddz nbr : %.2d", 'y', "ok2", 34);
     // printf("-----------------------------\n");
     // int number    =  5;
     // char *pointer = "little";
