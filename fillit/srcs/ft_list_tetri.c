@@ -80,7 +80,7 @@ void    offset_horizontal(char *tetri, int nb)
     return ;
 }
 
-int check_around(char *str, int i)
+int check_around(char *str, int i, int k)
 {
     int row;
     int col;
@@ -89,6 +89,12 @@ int check_around(char *str, int i)
     row = i / 4;
     col = i % 4;
     count = 0;
+
+    // if (k == 0)
+    //     return (1);
+    if (k == 3)
+        return (1);
+    //check if the previous 
     // check à droite
     if (col + 1 < 4 && str[row * 4 + (col + 1)] != '.')
         return (1);
@@ -101,6 +107,13 @@ int check_around(char *str, int i)
     // check en haut
     if (row - 1 >= 0 && str[(row - 1) * 4 + col] != '.')
         return (1);
+    // if (k == 0)
+    // {
+
+    // }
+    //     count++;
+    // if (k == 3)
+    //     count++;
     // check en diagonal
     // if (row - 1 >= 0 && col - 1 >= 0 && str[(row - 1) * 4 + (col - 1)] != '.')
     //     count++;
@@ -114,9 +127,19 @@ int check_around(char *str, int i)
     // if (row + 1 < 4 && col + 1 < 4 && str[(row + 1) * 4 + (col + 1)] != '.')
     //     count++;
 
-    // if (count >= 2)
+    // if (k == 3)
+    //     return (1);
+    // if (k == 1 || k == 2)
+    // {
+    //     if (count >= 2)
+    //         return (1);
+    //     else
+    //         return (0);
+    // }
+    // if (count >= 1)
     //     return (1);
     return (0);
+
 }
 
 t_tetri *create_tetri(char *str)
@@ -135,11 +158,12 @@ t_tetri *create_tetri(char *str)
     {
         if (str[i] != '.')
         {
-            if (check_around(str, i) == 0)
+            if (check_around(str, i, k) == 0)
                 return (NULL);
             points[k].row = i / 4;
             points[k].col = i % 4;
             letter = str[i];
+            // str[i] = '.';
             k++;
         }
         i++;

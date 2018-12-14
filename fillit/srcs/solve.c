@@ -99,24 +99,45 @@ int is_over(char *table, t_tetri **list)
 int place_tetri(char *table, t_tetri **list, int position, int size)
 {
     int j;
+    int new_position;
+    int col;
+    int row;
 
     if (is_over(table, list) == 1)
         return (1);
     if (position >= size*size)
         return (0);
     j = 0;
+    col = position % size;
+    row = position / size;
+    if (row == size - 1)
+    {
+        row = 0;
+        col++;
+    }
+    else
+    {
+        row++;
+    }
+    if (col == size - 1)
+        return (0);
+    new_position = position + 1;
+    // printf("new col : %d\n", col);
+    // printf("new row : %d\n", row);
+    // printf("new size : %d\n", size);
+    // printf("new position : %d\n", new_position);
     while (list[j])
     {
         if (tetri_includable(table, list[j], position, size) == 1)
         {
             include_tetri(table, list[j], position, size);
-            if (place_tetri(table, list, position + 1, size) == 1)
+            if (place_tetri(table, list, new_position, size) == 1)
                 return (1);
             exclude_tetri(table, list[j]);
         }
         j++;
     }
-    return (place_tetri(table, list, position + 1, size));
+    return (place_tetri(table, list, new_position, size));
 }
 
 int find_res(char *table, t_tetri **list, int size)
