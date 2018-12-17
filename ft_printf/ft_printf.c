@@ -157,7 +157,7 @@ int get_precision(char *flag)
 }
 
 
-char *offset_d(char *str, char *flag, int nb)
+char *offset_d(char *str, char *flag, int sign)
 {
     char *to_add;
     unsigned int str_len;
@@ -166,11 +166,11 @@ char *offset_d(char *str, char *flag, int nb)
     int has_offset_zero;
 
     str_len = ft_strlen(str);
-    if (get_plus(flag) == 1 && nb >= 0)
+    if (get_plus(flag) == 1 && sign >= 0)
         str_len++;
-    if (nb < 0)
+    if (sign < 0)
         str_len++;
-    if (get_plus(flag) == 0 && get_space(flag) == 1 && nb >= 0)
+    if (get_plus(flag) == 0 && get_space(flag) == 1 && sign >= 0)
         str_len++;
     width = get_width(flag);
     has_offset_zero = get_zero(flag);
@@ -195,21 +195,21 @@ char *offset_d(char *str, char *flag, int nb)
     if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) == 0)
     {
         str = ft_strjoin(to_add, str);
-        if (get_plus(flag) == 1 && nb >= 0)
+        if (get_plus(flag) == 1 && sign >= 0)
             str = ft_strjoin("+", str);
-        if (nb < 0)
+        if (sign < 0)
             str = ft_strjoin("-", str);
-        if (get_plus(flag) == 0 && get_space(flag) == 1 && nb >= 0)
+        if (get_plus(flag) == 0 && get_space(flag) == 1 && sign >= 0)
             str = ft_strjoin(" ", str);
         return (str);
     }
 
     // les autres cas l'espace ne doit pas être collé, du coup on join le sign pouis le add
-    if (get_plus(flag) == 1 && nb >= 0)
+    if (get_plus(flag) == 1 && sign >= 0)
         str = ft_strjoin("+", str);
-    if (nb < 0)
+    if (sign < 0)
         str = ft_strjoin("-", str);
-    if (get_plus(flag) == 0 && get_space(flag) == 1 && nb >= 0)
+    if (get_plus(flag) == 0 && get_space(flag) == 1 && sign >= 0)
         str = ft_strjoin(" ", str);
     if (get_minus(flag) == 1)
         str = ft_strjoin(str, to_add);
@@ -257,9 +257,46 @@ char *apply_precision(char *str, int precision)
         return (str);
     i = 0;
     output = malloc((precision + 2) * sizeof(char));
+    if (str[0] == '0' && str[1] == 'x')
+    {
+        output[0] = str[0];
+        output[1] = str[1];
+        i = 2;
+    }
     while (i < precision - str_len)
     {
         output[i] = '0';
+        i++;
+    }
+    k = 0;
+    while (k < str_len)
+    {
+        output[i] = str[k];
+        i++;
+        k++;
+    }
+    output[i] = '\0';
+    // printf("apply precision : %s\n", output);
+    return (output);
+}
+
+char *apply_precision_p(char *str, int precision)
+{
+    unsigned int i;
+    unsigned int k;
+    unsigned int str_len;
+    char *output;
+
+    str_len = ft_strlen(str);
+    if (str_len >= precision)
+    {
+        return (ft_strjoin("0x", str));
+    }
+    output = malloc((precision + 4) * sizeof(char));
+    i = 0;
+    while (i < precision - str_len + 2)
+    {
+        output[i] = (i == 1) ? 'x' : '0';
         i++;
     }
     k = 0;
@@ -280,7 +317,9 @@ void define_arg(va_list *ap, char *flag)
 {
     char conv_char;
     char *output;
+    char *tmp_str;
     int tmp;
+    unsigned int tmp_unsigned;
 
     conv_char = flag[ft_strlen(flag) - 1];
     if (conv_char == 's')
@@ -319,38 +358,82 @@ void define_arg(va_list *ap, char *flag)
     }
     else if (conv_char == 'o')
     {
-        output = ft_itoa_unsigned(va_arg(*ap, unsigned int));
+        tmp_unsigned = va_arg(*ap, unsigned int);
+        output = ft_itoa_unsigned(tmp_unsigned);
         output = ft_convert_base(output, "01234567");
         if (get_precision(flag) > 0)
             output = apply_precision(output, get_precision(flag));
-        output = offset_d(output, flag, tmp);
+        output = offset_d(output, flag, 1);
         ft_putstr(output);
     }
     else if (conv_char == 'x')
     {
-        output = ft_itoa_unsigned(va_arg(*ap, unsigned int));
+        tmp_unsigned = va_arg(*ap, unsigned int);
+        output = ft_itoa_unsigned(tmp_unsigned);
         output = ft_convert_base(output, "0123456789abcdef");
         if (get_precision(flag) > 0)
             output = apply_precision(output, get_precision(flag));
-        output = offset_d(output, flag, tmp);
+        output = offset_d(output, flag, 1);
         ft_putstr(output);
     }
     else if (conv_char == 'X')
     {
-        output = ft_itoa_unsigned(va_arg(*ap, unsigned int));
+        tmp_unsigned = va_arg(*ap, unsigned int);
+        output = ft_itoa_unsigned(tmp_unsigned);
         output = ft_convert_base(output, "0123456789ABCDEF");
         if (get_precision(flag) > 0)
             output = apply_precision(output, get_precision(flag));
-        output = offset_d(output, flag, tmp);
+        output = offset_d(output, flag, 1);
         ft_putstr(output);
     }
     else if (conv_char == 'u')
     {
-        output = ft_itoa_unsigned(va_arg(*ap, unsigned int));
+        tmp_unsigned = va_arg(*ap, unsigned int);
+        output = ft_itoa_unsigned(tmp_unsigned);
         if (get_precision(flag) > 0)
             output = apply_precision(output, get_precision(flag));
-        output = offset_d(output, flag, tmp);
+        output = offset_d(output, flag, 1);
         ft_putstr(output);
+    }
+    else if (conv_char == 'p')
+    {        
+        va_arg(*ap, void *);
+        unsigned char t[sizeof ap];
+        size_t i;
+
+        ft_memcpy(t, &ap, sizeof ap);
+        i = (sizeof ap) - 3;
+        output = malloc(16 * sizeof(char));
+        // output = ft_strjoin(output, "0x");
+        while (i != 0)
+        {
+            // printf("%02x", t[i]);
+            tmp_str = ft_itoa_unsigned(t[i]);
+            tmp_str = ft_convert_base(tmp_str, "0123456789abcdef");
+            output = ft_strjoin(output, tmp_str);
+            i--;
+        }
+        tmp_str = ft_itoa_unsigned(t[i]);
+        tmp_str = ft_convert_base(tmp_str, "0123456789abcdef");
+        output = ft_strjoin(output, tmp_str);
+        if (get_precision(flag) > 0)
+            output = apply_precision_p(output, get_precision(flag));
+        else
+            output = ft_strjoin("0x", output);
+        output = offset_d(output, flag, 1);
+        ft_putstr(output);
+        printf("\n");
+        printf("\n");
+        // printf("pointeur : %30.20p", ap);
+        printf("\n");
+        printf("\n");
+        // output = ft_itoa_unsigned(va_arg(*ap, unsigned int));
+        // output = ft_convert_base(output, "0123456789abcdef");
+        // if (get_precision(flag) > 0)
+        //     output = apply_precision(output, get_precision(flag));
+        // output = offset_d(output, flag, tmp);
+        // ft_putstr(output);
+        // printf("arg : %p", va_arg(*ap, void*));
     }
     else if (conv_char == 'C')
     {
@@ -361,10 +444,6 @@ void define_arg(va_list *ap, char *flag)
     {
         // même que pour C pour toute la string
         printf("arg : %S", va_arg(*ap, wchar_t*));
-    }
-    else if (conv_char == 'p')
-    {
-        printf("arg : %p", va_arg(*ap, void*));
     }
     else if (conv_char == 'D')
         printf("arg : %D", va_arg(*ap, int));
