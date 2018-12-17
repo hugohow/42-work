@@ -5,7 +5,8 @@
 #include <stdlib.h>
 #include "libft.h"
 // permet de rechercher un char et de regénérer
-
+char *ft_convert_base(char *decimal, char *base);
+char    *ft_itoa_unsigned(unsigned int nb);
 
 size_t count_var(const char *format)
 {
@@ -173,23 +174,25 @@ char *offset_d(char *str, char *flag, int nb)
         str_len++;
     width = get_width(flag);
     has_offset_zero = get_zero(flag);
+    // printf("width : %d\n", width);
+    // printf("str_len : %d\n", str_len);
     to_add = malloc((width + 2) * sizeof(char));
+    i = 0;
     if (width > str_len)
     {
-        i = 0;
         while (i < width - str_len)
         {
-            if (has_offset_zero == 1 && get_minus(flag) == 0)
+            if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) == 0)
                 to_add[i++] = '0';
             else
                 to_add[i++] = ' ';
         }
     }
     to_add[i] = '\0';
-
+    // printf("to_add : %s\n", to_add);
 
     // si l'espace doit être collé -> if (has_offset_zero == 1 && get_minus(flag) == 0)
-    if (has_offset_zero == 1 && get_minus(flag) == 0)
+    if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) == 0)
     {
         str = ft_strjoin(to_add, str);
         if (get_plus(flag) == 1 && nb >= 0)
@@ -242,32 +245,34 @@ char *offset(char *str, char *flag)
     return (str);
 }
 
-// char *apply_precision(char *str, int precision)
-// {
-//     unsigned int i;
-//     unsigned int k;
-//     unsigned int str_len;
-//     char *output;
+char *apply_precision(char *str, int precision)
+{
+    unsigned int i;
+    unsigned int k;
+    unsigned int str_len;
+    char *output;
 
-//     str_len = ft_strlen(str);
-//     if (str_len >= precision)
-//         return (str);
-//     i = 0;
-//     output = malloc((precision + 1) * sizeof(char));
-//     while (i < precision - str_len)
-//     {
-//         output[i] = '0';
-//         i++;
-//     }
-//     // k = 0;
-//     // while (k < str_len)
-//     // {
-//     //     output[i] = str[k];
-//     //     i++;
-//     // }
-//     // output[precision] = '\0';
-//     return (output);
-// }
+    str_len = ft_strlen(str);
+    if (str_len >= precision)
+        return (str);
+    i = 0;
+    output = malloc((precision + 2) * sizeof(char));
+    while (i < precision - str_len)
+    {
+        output[i] = '0';
+        i++;
+    }
+    k = 0;
+    while (k < str_len)
+    {
+        output[i] = str[k];
+        i++;
+        k++;
+    }
+    output[i] = '\0';
+    // printf("apply precision : %s\n", output);
+    return (output);
+}
 
 
 
@@ -281,7 +286,7 @@ void define_arg(va_list *ap, char *flag)
     if (conv_char == 's')
     {
         output = va_arg(*ap, char*);
-        if (get_precision(flag) > 0)
+        if (get_precision(flag) > 0 && get_precision(flag) < ft_strlen(output))
             output = ft_strsub(output, 0, get_precision(flag));
         output = offset(output, flag);
         ft_putstr(output);
@@ -298,33 +303,75 @@ void define_arg(va_list *ap, char *flag)
     {
         tmp = va_arg(*ap, int);
         output = ft_itoa(tmp < 0 ? -tmp : tmp);
-        // if (get_precision(flag) > 0)
-        //     output = apply_precision(output, get_precision(flag));
+        if (get_precision(flag) > 0)
+            output = apply_precision(output, get_precision(flag));
+        output = offset_d(output, flag, tmp);
+        ft_putstr(output);
+    }
+    else if (conv_char == 'i')
+    {
+        tmp = va_arg(*ap, int);
+        output = ft_itoa(tmp < 0 ? -tmp : tmp);
+        if (get_precision(flag) > 0)
+            output = apply_precision(output, get_precision(flag));
+        output = offset_d(output, flag, tmp);
+        ft_putstr(output);   
+    }
+    else if (conv_char == 'o')
+    {
+        output = ft_itoa_unsigned(va_arg(*ap, unsigned int));
+        output = ft_convert_base(output, "01234567");
+        if (get_precision(flag) > 0)
+            output = apply_precision(output, get_precision(flag));
+        output = offset_d(output, flag, tmp);
+        ft_putstr(output);
+    }
+    else if (conv_char == 'x')
+    {
+        output = ft_itoa_unsigned(va_arg(*ap, unsigned int));
+        output = ft_convert_base(output, "0123456789abcdef");
+        if (get_precision(flag) > 0)
+            output = apply_precision(output, get_precision(flag));
+        output = offset_d(output, flag, tmp);
+        ft_putstr(output);
+    }
+    else if (conv_char == 'X')
+    {
+        output = ft_itoa_unsigned(va_arg(*ap, unsigned int));
+        output = ft_convert_base(output, "0123456789ABCDEF");
+        if (get_precision(flag) > 0)
+            output = apply_precision(output, get_precision(flag));
+        output = offset_d(output, flag, tmp);
+        ft_putstr(output);
+    }
+    else if (conv_char == 'u')
+    {
+        output = ft_itoa_unsigned(va_arg(*ap, unsigned int));
+        if (get_precision(flag) > 0)
+            output = apply_precision(output, get_precision(flag));
         output = offset_d(output, flag, tmp);
         ft_putstr(output);
     }
     else if (conv_char == 'C')
-        printf("arg : %C", va_arg(*ap, unsigned int));
-    // else if (conv_char == 'S')
-    //     printf("arg : %S", va_arg(*ap, char*));
+    {
+        // C == lc : je dois utiliser wc ha r_t pour l'unicde et changer ft_puchar ...
+        printf("arg : %C", va_arg(*ap, wchar_t));
+    }
+    else if (conv_char == 'S')
+    {
+        // même que pour C pour toute la string
+        printf("arg : %S", va_arg(*ap, wchar_t*));
+    }
     else if (conv_char == 'p')
+    {
         printf("arg : %p", va_arg(*ap, void*));
+    }
     else if (conv_char == 'D')
         printf("arg : %D", va_arg(*ap, int));
-    else if (conv_char == 'i')
-        printf("arg : %i", va_arg(*ap, int));
-    else if (conv_char == 'o')
-        printf("arg : %o", va_arg(*ap, unsigned int));
     else if (conv_char == 'O')
         printf("arg : %O", va_arg(*ap, unsigned int));
-    else if (conv_char == 'u')
-        printf("arg : %u", va_arg(*ap, unsigned int));
     else if (conv_char == 'U')
         printf("arg : %U", va_arg(*ap, unsigned int));
-    else if (conv_char == 'x')
-        printf("arg : %x", va_arg(*ap, unsigned int));
-    else if (conv_char == 'X')
-        printf("arg : %X", va_arg(*ap, unsigned int));
     else
     {
         
