@@ -1,9 +1,4 @@
-// #include <stdarg.h>
-#include <stdio.h>
-// #include <unistd.h>
-// #include <string.h>
-#include <stdlib.h>
-#include "libft.h"
+#include "ft_printf.h"
 
 size_t size_to_malloc(long long nb, size_t base_len)
 {
