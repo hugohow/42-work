@@ -161,3 +161,64 @@ int get_precision(char *flag)
     }
     return (0);
 }
+
+int is_valid_conversion(char c)
+{
+    // if (c == '\0')
+    //     return (0);
+    // sSpdDioOuUxXcC
+    if (c == 's' || c == 'S' || c == 'p' || c == 'd' || c == 'D' || c == 'i'
+        || c == 'o' || c == 'O' || c == 'u' || c == 'U' || c == 'x' || c == 'X'
+        || c == 'c' || c == 'C')
+        return (1);
+    return (0);
+}
+
+int is_valid_length(char c)
+{
+    // if (c == '\0')
+    //     return (0);
+    // sSpdDioOuUxXcC
+    if (c == 'j' || c == 'z' || c == 'h' || c == 'l')
+        return (1);
+    return (0);
+}
+
+int get_length(char *flag)
+{
+    // invalid -> -1
+    // no -> 0
+    // hh -> 1
+    // h -> 2
+    // l -> 3
+    // ll -> 4
+    // j -> 5
+    // z -> 6
+    size_t i;
+
+    i = 0;
+    while (flag[i] && is_valid_conversion(flag[i]) == 0)
+        i++;
+    if (i > 0)
+    {
+        while (i > 0 && is_valid_length(flag[i]) == 0)
+            i--;
+        if (flag[i - 1] == 'j')
+            return (5);
+        if (flag[i - 1] == 'z')
+            return (6);
+        if (flag[i - 1] == 'h')
+        {
+            if (i > 2 && flag[i - 2] == 'h')
+                return (1);
+            return (2);
+        }
+        if (flag[i - 1] == 'l')
+        {
+            if (i > 2 && flag[i - 2] == 'l')
+                return (4);
+            return (3);
+        }
+    }
+    return (0);
+}
