@@ -2,7 +2,7 @@
 // permet de rechercher un char et de regénérer
 
 
-char *apply_precision(char *str, int precision)
+char *apply_precision(char *str, unsigned int precision)
 {
     unsigned int i;
     unsigned int k;

@@ -138,7 +138,7 @@ int get_hash(char *flag)
     return (0);
 }
 
-int get_precision(char *flag)
+unsigned int get_precision(char *flag)
 {
     unsigned int i;
     unsigned int precision;

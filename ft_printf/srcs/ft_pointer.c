@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-char *offset_d(char *str, char *flag, int sign, char conv_char)
+char *offset_p(char *str, char *flag, int sign)
 {
     char *to_add;
     unsigned int str_len;
@@ -30,13 +30,12 @@ char *offset_d(char *str, char *flag, int sign, char conv_char)
             else
                 to_add[i++] = ' ';
         }
-    }
-    if (!(has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) == 0) && get_hash(flag))
-    {
-        if (i != 0)
-            to_add[i - 1] = '0';
-        else
-            str = ft_strjoin("0", str);
+        if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) == 0)
+        {
+            to_add[i++] = '0';
+            to_add[i++] = '0';
+            to_add[1] = 'x';
+        }
     }
     to_add[i] = '\0';
     // printf("to_add : %s\n", to_add);
@@ -44,7 +43,10 @@ char *offset_d(char *str, char *flag, int sign, char conv_char)
     // si l'espace doit être collé -> if (has_offset_zero == 1 && get_minus(flag) == 0)
     if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) == 0)
     {
-        str = ft_strjoin(to_add, str);
+        if (width > str_len)
+        {
+            str = ft_strjoin(to_add, str + 2);
+        }
         if (get_plus(flag) == 1 && sign >= 0)
             str = ft_strjoin("+", str);
         if (sign < 0)
@@ -66,4 +68,35 @@ char *offset_d(char *str, char *flag, int sign, char conv_char)
     else
         str = ft_strjoin(to_add, str);
     return (str);
+}
+
+char *apply_precision_p(char *str, unsigned int precision)
+{
+    unsigned int i;
+    unsigned int k;
+    unsigned int str_len;
+    char *output;
+
+    str_len = ft_strlen(str);
+    if (str_len >= precision)
+    {
+        return (ft_strjoin("0x", str));
+    }
+    output = malloc((precision + 4) * sizeof(char));
+    i = 0;
+    while (i < precision - str_len + 2)
+    {
+        output[i] = (i == 1) ? 'x' : '0';
+        i++;
+    }
+    k = 0;
+    while (k < str_len)
+    {
+        output[i] = str[k];
+        i++;
+        k++;
+    }
+    output[i] = '\0';
+    // printf("apply precision : %s\n", output);
+    return (output);
 }

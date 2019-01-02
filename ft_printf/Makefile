@@ -1,12 +1,21 @@
-NAME=main
+NAME=libftprintf.a
+CC=gcc
+CFLAGS=-Wall -Wextra -Werror
 
-all:
-	gcc -o $(NAME) *.c libft.a
+all: $(NAME)
+
+$(NAME):
+	$(CC) $(CFLAGS) -Isrcs -c srcs/*.c
+	ar -x libft.a 
+	ar rc $(NAME) *.o
+	ranlib $(NAME)
+	gcc $(NAME) main.c -o main
 	./main
 
 clean:
+	rm -rf *.o
 
-fclean:
+fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all

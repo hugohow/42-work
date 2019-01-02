@@ -1,3 +1,6 @@
+#ifndef PRINTF_H
+# define PRINTF_H
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -29,10 +32,10 @@ int get_zero(char *str);
 int get_plus(char *flag);
 int get_minus(char *flag);
 int get_space(char *flag);
-int get_precision(char *flag);
+unsigned int get_precision(char *flag);
 int get_hash(char *flag);
 char *offset_p(char *str, char *flag, int sign);
-char *apply_precision_p(char *str, int precision);
+char *apply_precision_p(char *str, unsigned int precision);
 size_t  ft_wcslen(const wchar_t *str);
 char *offset(char *str, char *flag);
 char *offset_d(char *str, char *flag, int sign, char conv_char);
@@ -41,3 +44,5 @@ wchar_t *ft_wstrjoin(wchar_t const *str1, wchar_t const *str2);
 wchar_t *ft_wstrsub(wchar_t const *str, unsigned int start, size_t len);
 wchar_t *woffset(wchar_t *str, char *flag);
 int     get_length(char *flag);
+
+#endif

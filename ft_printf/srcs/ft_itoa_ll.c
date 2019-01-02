@@ -1,8 +1,26 @@
 #include <string.h>
 #include <stdlib.h>
-#include "libft.h"
 
-size_t  ft_nblen(long long nb);
+size_t  ft_nblen_ll(unsigned long long nb);
+
+size_t  ft_nblen_ll(unsigned long long nb)
+{
+    size_t nblen;
+
+    nblen = 0;
+    if (nb == 0)
+        return (1);
+    while (1 == 1)
+    {
+        nb /= 10;
+        nblen++;
+        if (nb == 0)
+            break;
+    }
+    return (nblen);
+}
+
+
 
 char *ft_itoa_ll(unsigned long long nb)
 {
@@ -11,7 +29,7 @@ char *ft_itoa_ll(unsigned long long nb)
     unsigned long long n;
 
     n = nb;
-    nb_len = ft_nblen(n);
+    nb_len = ft_nblen_ll(n);
     output = (char *)malloc((nb_len + 1) * sizeof(char));
     if (output == NULL)
         return (NULL);
