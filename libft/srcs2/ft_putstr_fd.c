@@ -1,11 +1,11 @@
+#include <unistd.h>
 #include <string.h>
 
-void ft_putchar_fd(char c, int fd);
+size_t ft_strlen(const char *str);
 
-void ft_putstr_fd(char const *str, int fd)
+void ft_putstr(char const *str, int fd)
 {
     if (str == NULL)
         return ;
-    while (*str)
-        ft_putchar_fd(*str++, fd);
+    write(fd, str, ft_strlen(str));
 }

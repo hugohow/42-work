@@ -37,10 +37,20 @@ char *apply_precision(char *str, unsigned int precision)
     return (output);
 }
 
+void ft_wputstr_len(wchar_t *str, size_t *len)
+{
+    ft_wputstr(str);
+    *len += ft_wcslen(str);
+}
+
+void ft_putstr_len(char *str, size_t *len)
+{
+    ft_putstr(str);
+    *len += ft_strlen(str);
+}
 
 
-
-void define_arg(va_list *ap, char *flag)
+void define_arg(va_list *ap, char *flag, size_t *len)
 {
     char conv_char;
     int length;
@@ -50,7 +60,7 @@ void define_arg(va_list *ap, char *flag)
     conv_char = flag[ft_strlen(flag) - 1];
     // if (length == -1)
     // {
-    //     ft_putstr(flag);
+    //     ft_putstr_len(flag);, len
     //     return ;
     // }
     if (conv_char == 's')
@@ -60,7 +70,7 @@ void define_arg(va_list *ap, char *flag)
         if (get_precision(flag) > 0 && get_precision(flag) < ft_strlen(output))
             output = ft_strsub(output, 0, get_precision(flag));
         output = offset(output, flag);
-        ft_putstr(output);
+        ft_putstr_len(output, len);
     }
     else if (conv_char == 'c')
     {
@@ -69,7 +79,7 @@ void define_arg(va_list *ap, char *flag)
         output[0] = (char)va_arg(*ap, int);
         output[1] = '\0';
         output = offset(output, flag);
-        ft_putstr(output);
+        ft_putstr_len(output, len);
     }
     else if (conv_char == 'd' || conv_char == 'i')
     {
@@ -119,7 +129,7 @@ void define_arg(va_list *ap, char *flag)
         if (get_precision(flag) > 0)
             output = apply_precision(output, get_precision(flag));
         output = offset_d(output, flag, 1, conv_char);
-        ft_putstr(output);
+        ft_putstr_len(output, len);
     }
     else if (conv_char == 'o' || conv_char == 'x' || conv_char == 'X' || conv_char == 'u')
     {
@@ -175,7 +185,7 @@ void define_arg(va_list *ap, char *flag)
         if (get_precision(flag) > 0)
             output = apply_precision(output, get_precision(flag));
         output = offset_d(output, flag, 1, conv_char);
-        ft_putstr(output);
+        ft_putstr_len(output, len);
     }
     else if (conv_char == 'p')
     {     
@@ -202,7 +212,7 @@ void define_arg(va_list *ap, char *flag)
         else
             output = ft_strjoin("0x", output);
         output = offset_p(output, flag, 1);
-        ft_putstr(output);
+        ft_putstr_len(output, len);
     }
     else if (conv_char == 'C')
     {
@@ -211,7 +221,7 @@ void define_arg(va_list *ap, char *flag)
         woutput[0] = (wchar_t)va_arg(*ap, int);
         woutput[1] = L'\0';
         woutput = woffset(woutput, flag);
-        ft_wputstr(woutput);
+        ft_wputstr_len(woutput, len);
     }
     else if (conv_char == 'S')
     {
@@ -220,7 +230,7 @@ void define_arg(va_list *ap, char *flag)
         if (get_precision(flag) > 0 && get_precision(flag) < ft_wcslen(woutput))
             woutput = ft_wstrsub(woutput, 0, get_precision(flag));
         woutput = woffset(woutput, flag);
-        ft_wputstr(woutput);
+        ft_wputstr_len(woutput, len);
     }
     else if (conv_char == 'D')
     {
@@ -248,6 +258,7 @@ int ft_printf(const char* format, ...)
     size_t  i;
     size_t  j;
     size_t  format_len;
+    size_t  *len;
     char    *flag;
 
     format_len = ft_strlen(format);
@@ -256,6 +267,8 @@ int ft_printf(const char* format, ...)
     va_start(ap, format);
     i = 0;
     j = 0;
+    len = malloc(sizeof(size_t));
+    *len = 0;
     // format = ft_strchr(format, '%');
     // printf("All string : %s\n\n--------------------------\n\n", format);
     while (format[i])
@@ -264,6 +277,7 @@ int ft_printf(const char* format, ...)
         {
             ft_putchar('%');
             i++;
+            *len += 2;
         }
         else if (format[i] == '%')
         {
@@ -272,7 +286,7 @@ int ft_printf(const char* format, ...)
             flag = ft_strncpy(flag, format + i, (int)count_par(format + i) + 1);
             // printf("\n-------------------------------\n");
             // printf("\nstrncpy : %s", flag);
-            define_arg(&ap, flag);
+            define_arg(&ap, flag, len);
 
             // printf("\narg : %s", arg);
             i += (int)count_par(format + i);
@@ -281,9 +295,10 @@ int ft_printf(const char* format, ...)
         else
         {
             ft_putchar(format[i]);
+            *len += 1;
         }
         i++;
     }
     va_end(ap);
-    return (0);
+    return (*len);
 }
