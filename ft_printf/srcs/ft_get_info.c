@@ -138,10 +138,10 @@ int get_hash(char *flag)
     return (0);
 }
 
-unsigned int get_precision(char *flag)
+int get_precision(char *flag)
 {
     unsigned int i;
-    unsigned int precision;
+    int precision;
 
     i = 0;
     precision = 0;
@@ -157,9 +157,13 @@ unsigned int get_precision(char *flag)
             }
             return (precision);
         }
+        else if (flag[i] == '.')
+        {
+            return (0);
+        }
         i++;
     }
-    return (0);
+    return (-1);
 }
 
 int is_valid_conversion(char c)
@@ -199,23 +203,26 @@ int get_length(char *flag)
     i = 0;
     while (flag[i] && is_valid_conversion(flag[i]) == 0)
         i++;
+    i--;
     if (i > 0)
     {
         while (i > 0 && is_valid_length(flag[i]) == 0)
-            i--;
-        if (flag[i - 1] == 'j')
-            return (5);
-        if (flag[i - 1] == 'z')
-            return (6);
-        if (flag[i - 1] == 'h')
         {
-            if (i > 2 && flag[i - 2] == 'h')
+            i--;
+        }
+        if (flag[i] == 'j')
+            return (5);
+        if (flag[i] == 'z')
+            return (6);
+        if (flag[i] == 'h')
+        {
+            if (i > 1 && flag[i - 1] == 'h')
                 return (1);
             return (2);
         }
-        if (flag[i - 1] == 'l')
+        if (flag[i] == 'l')
         {
-            if (i > 2 && flag[i - 2] == 'l')
+            if (i > 1 && flag[i - 1] == 'l')
                 return (4);
             return (3);
         }

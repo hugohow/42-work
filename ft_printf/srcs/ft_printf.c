@@ -2,7 +2,7 @@
 // permet de rechercher un char et de regénérer
 
 
-char *apply_precision(char *str, unsigned int precision)
+char *apply_precision(char *str, int precision)
 {
     unsigned int i;
     unsigned int k;
@@ -10,7 +10,11 @@ char *apply_precision(char *str, unsigned int precision)
     char *output;
 
     str_len = ft_strlen(str);
-    if (str_len >= precision)
+    if (precision == 0)
+        return ("");
+    if (precision < 0)
+        return (str);
+    if (str_len >= (unsigned int)precision)
         return (str);
     i = 0;
     output = malloc((precision + 2) * sizeof(char));
@@ -49,6 +53,12 @@ void ft_putstr_len(char *str, size_t *len)
     *len += ft_strlen(str);
 }
 
+char *ft_flag_replace(char *flag, char *to_replace)
+{
+    flag[ft_strlen(flag) - 1] = '\0';
+    return (ft_strjoin(flag, to_replace));
+}
+
 
 void define_arg(va_list *ap, char *flag, size_t *len)
 {
@@ -56,19 +66,15 @@ void define_arg(va_list *ap, char *flag, size_t *len)
     int length;
     
     length = get_length(flag);
-    // printf("\nlength : %d\n", length);
     conv_char = flag[ft_strlen(flag) - 1];
-    // if (length == -1)
-    // {
-    //     ft_putstr_len(flag);, len
-    //     return ;
-    // }
     if (conv_char == 's')
     {
         char *output;
         output = va_arg(*ap, char*);
-        if (get_precision(flag) > 0 && get_precision(flag) < ft_strlen(output))
+        if (get_precision(flag) > 0 && (unsigned int)get_precision(flag) < ft_strlen(output))
             output = ft_strsub(output, 0, get_precision(flag));
+        if (get_precision(flag) == 0)
+            output = "";
         output = offset(output, flag);
         ft_putstr_len(output, len);
     }
@@ -89,8 +95,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             int tmp;
             tmp = va_arg(*ap, int);
             output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
-            if (get_precision(flag) > 0)
-                output = apply_precision(output, get_precision(flag));
+            output = apply_precision(output, get_precision(flag));
             output = offset_d(output, flag, tmp < 0 ? -1 : 1, conv_char);
             ft_putstr_len(output, len);
         }
@@ -99,8 +104,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             int tmp;
             tmp = va_arg(*ap, int);
             output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
-            if (get_precision(flag) > 0)
-                output = apply_precision(output, get_precision(flag));
+            output = apply_precision(output, get_precision(flag));
             output = offset_d(output, flag, tmp < 0 ? -1 : 1, conv_char);
             ft_putstr_len(output, len);
         }
@@ -109,8 +113,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             int tmp;
             tmp = va_arg(*ap, int);
             output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
-            if (get_precision(flag) > 0)
-                output = apply_precision(output, get_precision(flag));
+            output = apply_precision(output, get_precision(flag));
             output = offset_d(output, flag, tmp < 0 ? -1 : 1, conv_char);
             ft_putstr_len(output, len);
         }
@@ -119,7 +122,6 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             long tmp;
             tmp = va_arg(*ap, long);
             output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
-            if (get_precision(flag) > 0)
                 output = apply_precision(output, get_precision(flag));
             output = offset_d(output, flag, tmp < 0 ? -1 : 1, conv_char);
             ft_putstr_len(output, len);
@@ -129,7 +131,6 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             long long tmp;
             tmp = va_arg(*ap, long long);
             output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
-            if (get_precision(flag) > 0)
                 output = apply_precision(output, get_precision(flag));
             output = offset_d(output, flag, tmp < 0 ? -1 : 1, conv_char);
             ft_putstr_len(output, len);
@@ -139,7 +140,6 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             intmax_t tmp;
             tmp = va_arg(*ap, intmax_t);
             output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
-            if (get_precision(flag) > 0)
                 output = apply_precision(output, get_precision(flag));
             output = offset_d(output, flag, tmp < 0 ? -1 : 1, conv_char);
             ft_putstr_len(output, len);
@@ -149,7 +149,6 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             size_t tmp;
             tmp = va_arg(*ap, size_t);
             output = ft_itoa_ll((unsigned long long)(tmp));
-            if (get_precision(flag) > 0)
                 output = apply_precision(output, get_precision(flag));
             output = offset_d(output, flag, 1, conv_char);
             ft_putstr_len(output, len);
@@ -206,8 +205,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             output = ft_convert_base(output, "0123456789abcdef");
         if (conv_char == 'X')
             output = ft_convert_base(output, "0123456789ABCDEF");
-        if (get_precision(flag) > 0)
-            output = apply_precision(output, get_precision(flag));
+        output = apply_precision(output, get_precision(flag));
         output = offset_d(output, flag, 1, conv_char);
         ft_putstr_len(output, len);
     }
@@ -251,22 +249,25 @@ void define_arg(va_list *ap, char *flag, size_t *len)
     {
         wchar_t *woutput;
         woutput = va_arg(*ap, wchar_t*);
-        if (get_precision(flag) > 0 && get_precision(flag) < ft_wcslen(woutput))
+        if (get_precision(flag) > 0 && (unsigned int)get_precision(flag) < ft_wcslen(woutput))
             woutput = ft_wstrsub(woutput, 0, get_precision(flag));
         woutput = woffset(woutput, flag);
         ft_wputstr_len(woutput, len);
     }
     else if (conv_char == 'D')
     {
-        // printf("arg : %D", va_arg(*ap, int));
+        flag = ft_flag_replace(flag, "ld");
+        define_arg(ap, flag, len);
     }
     else if (conv_char == 'O')
     {
-        // printf("arg : %O", va_arg(*ap, unsigned int));
+        flag = ft_flag_replace(flag, "lo");
+        define_arg(ap, flag, len);
     }
     else if (conv_char == 'U')
     {
-        // printf("arg : %U", va_arg(*ap, unsigned int));
+        flag = ft_flag_replace(flag, "lu");
+        define_arg(ap, flag, len);
     }
     else
     {
@@ -286,7 +287,7 @@ int ft_printf(const char* format, ...)
     char    *flag;
 
     format_len = ft_strlen(format);
-    flag = malloc((format_len + 1) * sizeof(char));
+    flag = malloc((format_len + 2) * sizeof(char));
     n = count_var(format);
     va_start(ap, format);
     i = 0;

@@ -25,12 +25,12 @@ char *offset_p(char *str, char *flag, int sign)
     {
         while (i < width - str_len)
         {
-            if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) == 0)
+            if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) < 0)
                 to_add[i++] = '0';
             else
                 to_add[i++] = ' ';
         }
-        if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) == 0)
+        if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) < 0)
         {
             to_add[i++] = '0';
             to_add[i++] = '0';
@@ -41,7 +41,7 @@ char *offset_p(char *str, char *flag, int sign)
     // printf("to_add : %s\n", to_add);
 
     // si l'espace doit être collé -> if (has_offset_zero == 1 && get_minus(flag) == 0)
-    if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) == 0)
+    if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) < 0)
     {
         if (width > str_len)
         {
@@ -70,7 +70,7 @@ char *offset_p(char *str, char *flag, int sign)
     return (str);
 }
 
-char *apply_precision_p(char *str, unsigned int precision)
+char *apply_precision_p(char *str, int precision)
 {
     unsigned int i;
     unsigned int k;
@@ -78,7 +78,11 @@ char *apply_precision_p(char *str, unsigned int precision)
     char *output;
 
     str_len = ft_strlen(str);
-    if (str_len >= precision)
+    if (precision < 0)
+        return (str);
+    if (precision == 0)
+        return ("");
+    if (str_len >= (unsigned int)precision)
     {
         return (ft_strjoin("0x", str));
     }
