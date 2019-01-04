@@ -16,8 +16,8 @@ int main(int argc, char **argv)
     // ft_printf("arg : %-10.2 l o %-10.2 l o\n", 111112, 222);
     // printf("arg : %-10.2 l o %-10.2 l o\n", 111112, 222);
 
-    ft_printf("coco\net titi \n");
-    printf("coco\net titi \n");
+    ft_printf("%d\n", -42);
+    printf("%d\n", -42);
 
     // printf("pointeur : %-020.10p", p);
     // printf("-----------------------------\n");

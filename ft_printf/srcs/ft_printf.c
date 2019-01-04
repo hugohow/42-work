@@ -89,47 +89,71 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             int tmp;
             tmp = va_arg(*ap, int);
             output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
+            if (get_precision(flag) > 0)
+                output = apply_precision(output, get_precision(flag));
+            output = offset_d(output, flag, tmp < 0 ? -1 : 1, conv_char);
+            ft_putstr_len(output, len);
         }
         else if (length == 1)
         {
             int tmp;
             tmp = va_arg(*ap, int);
             output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
+            if (get_precision(flag) > 0)
+                output = apply_precision(output, get_precision(flag));
+            output = offset_d(output, flag, tmp < 0 ? -1 : 1, conv_char);
+            ft_putstr_len(output, len);
         }
         else if (length == 2)
         {
             int tmp;
             tmp = va_arg(*ap, int);
             output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
+            if (get_precision(flag) > 0)
+                output = apply_precision(output, get_precision(flag));
+            output = offset_d(output, flag, tmp < 0 ? -1 : 1, conv_char);
+            ft_putstr_len(output, len);
         }
         else if (length == 3)
         {
             long tmp;
             tmp = va_arg(*ap, long);
             output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
+            if (get_precision(flag) > 0)
+                output = apply_precision(output, get_precision(flag));
+            output = offset_d(output, flag, tmp < 0 ? -1 : 1, conv_char);
+            ft_putstr_len(output, len);
         }
         else if (length == 4)
         {
             long long tmp;
             tmp = va_arg(*ap, long long);
             output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
+            if (get_precision(flag) > 0)
+                output = apply_precision(output, get_precision(flag));
+            output = offset_d(output, flag, tmp < 0 ? -1 : 1, conv_char);
+            ft_putstr_len(output, len);
         }
         else if (length == 5)
         {
             intmax_t tmp;
             tmp = va_arg(*ap, intmax_t);
             output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
+            if (get_precision(flag) > 0)
+                output = apply_precision(output, get_precision(flag));
+            output = offset_d(output, flag, tmp < 0 ? -1 : 1, conv_char);
+            ft_putstr_len(output, len);
         }
         else if (length == 6)
         {
             size_t tmp;
             tmp = va_arg(*ap, size_t);
             output = ft_itoa_ll((unsigned long long)(tmp));
+            if (get_precision(flag) > 0)
+                output = apply_precision(output, get_precision(flag));
+            output = offset_d(output, flag, 1, conv_char);
+            ft_putstr_len(output, len);
         }
-        if (get_precision(flag) > 0)
-            output = apply_precision(output, get_precision(flag));
-        output = offset_d(output, flag, 1, conv_char);
-        ft_putstr_len(output, len);
     }
     else if (conv_char == 'o' || conv_char == 'x' || conv_char == 'X' || conv_char == 'u')
     {
