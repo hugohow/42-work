@@ -80,8 +80,6 @@ char *apply_precision_p(char *str, int precision)
     str_len = ft_strlen(str);
     if (precision < 0)
         return (str);
-    if (precision == 0)
-        return ("");
     if (str_len >= (unsigned int)precision)
     {
         return (ft_strjoin("0x", str));

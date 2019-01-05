@@ -5,40 +5,34 @@ int ft_printf(const char* format, ...);
 
 int main(int argc, char **argv)
 {
-    ft_printf("%.0i\n", 0);
-    printf("%.0i\n", 0);
-    ft_printf("\n\n");
-    ft_printf("%.d\n", 0);
-    printf("%.d\n", 0);
-    ft_printf("\n\n");
-    ft_printf("%00+10.4d\n", 0);
-    printf("%00+10.4d\n", 0);
-    ft_printf("\n\n");
-    ft_printf("%20.ld et %.4hhi !\n", 0x11ffaa147, (signed char)-8);
-    printf("%20.ld et %.4hhi !\n", 0x11ffaa147, (signed char)-8);
-    ft_printf("\n\n");
-    ft_printf("% 20.12ld et % 05D% 4.8hi !\n", 0x11ffaa147, 24, (short)-2345);
-    printf("% 20.12ld et % 05D% 4.8hi !\n", 0x11ffaa147, 24, (short)-2345);
-    ft_printf("\n\n");
-    ft_printf("toto%.0d et %+.i et  %   .0D !!!\n", 0, 0, 0);
-    printf("toto%.0d et %+.i et  %   .0D !!!\n", 0, 0, 0);
-    ft_printf("\n\n");
-    ft_printf("hello % .d this is a test", 0);
-    printf("hello % .d this is a test", 0);
-    ft_printf("\n\n");
-    ft_printf("%U", 231009999);
-    printf("%U", 231009999);
-    ft_printf("\n\n");
-    ft_printf("%zu", (size_t)-145612220);
-    printf("%zu", (size_t)-145612220);
-    ft_printf("\n\n");
-    ft_printf("%.u", 0);
-    printf("%.u", 0);
-    // printf("pointeur : %-020.10p", p);
-    // printf("-----------------------------\n");
-    // int number    =  5;
-    // char *pointer = "little";
+    // ft_printf("coco et %-#-#--24x titi%#012o", 12, -874);
+    // printf("coco et %-#-#--24x titi%#012o", 12, -874);
+    // ft_printf("\n\n");
 
-    // printf("Here is a number-%4d-and a-%10s-word.\n", number, pointer);
+    // ft_printf("t%04.2o%#2oet %#-8.3o titi", 0, 0, 0);
+    // printf("t%04.2o%#2oet %#-8.3o titi", 0, 0, 0);
+    // ft_printf("\n\n");
+
+    ft_printf("test%#.4o et %02o %0#14.0o!!", 012, 036, 12587499);
+    printf("test%#.4o et %02o %0#14.0o!!", 012, 036, 12587499);
+    ft_printf("\n\n");
+
+
+    // ft_printf("\n%024hho et%#1.2o %0012.O", (unsigned char)12, 0, 123654789);
+    // printf("\n%024hho et%#1.2o %0012.O", (unsigned char)12, 0, 123654789);
+    // ft_printf("\n\n");
+    // ft_printf("%test%#.4o et %02o %0#14.0o!!", 012, 036, 12587499);
+    // printf("%test%#.4o et %02o %0#14.0o!!", 012, 036, 12587499);
+    // ft_printf("\n\n");
+    // ft_printf("%toto %###.0o%#.O et %#.1o !", 0, 0, 0);
+    // printf("%toto %###.0o%#.O et %#.1o !", 0, 0, 0);
+    // ft_printf("\n\n");
+    // ft_printf("%x", 0);
+    // printf("%x", 0);
+    // ft_printf("\n\n");
+
+    // ft_printf("%toto et %02u coco %-5lu mimi", 19, (unsigned long)-20);
+    // printf("%toto et %02u coco %-5lu mimi", 19, (unsigned long)-20);
+    // ft_printf("\n\n");
     return (0);
 }

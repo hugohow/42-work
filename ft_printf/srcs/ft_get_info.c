@@ -22,7 +22,7 @@ int is_valid_par(char c)
         return (1);
     if (ft_isdigit(c) == 1)
         return (1);
-    if (c == 'h' || c == 'l' || c == 'j' || c == 'z')
+    if (c == 'h' || c == 'l' || c == 'j' || c == 'z' || c == 'L' || c == 't')
         return (1);
     return (0);
 }
@@ -87,7 +87,7 @@ int get_plus(char *flag)
     unsigned int i;
 
     i = 0;
-    while (flag[i] && ft_isdigit(flag[i]) == 0)
+    while (flag[i] && (ft_isdigit(flag[i]) == 0 || flag[i] == '0'))
     {
         if (flag[i] == '+')
             return (1);
@@ -183,7 +183,7 @@ int is_valid_length(char c)
     // if (c == '\0')
     //     return (0);
     // sSpdDioOuUxXcC
-    if (c == 'j' || c == 'z' || c == 'h' || c == 'l')
+    if (c == 'h' || c == 'l' || c == 'j' || c == 'z' || c == 'L' || c == 't')
         return (1);
     return (0);
 }

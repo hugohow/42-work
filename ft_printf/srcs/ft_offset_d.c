@@ -8,6 +8,24 @@ char *offset_d(char *str, char *flag, int sign, char conv_char)
     unsigned int width;
     int has_offset_zero;
 
+    width = get_width(flag);
+    if (sign == 0 && get_precision(flag) == 0)
+    {
+        to_add = malloc((width + 1) * sizeof(char));
+        i = 0;
+        while (i < width)
+        {
+            to_add[i] = ' ';
+            i++;
+        }
+        to_add[i] = '\0';
+        if (get_plus(flag) == 1)
+            return (ft_strjoin("+", to_add));
+        if (get_space(flag) == 1)
+            return (ft_strjoin(" ", to_add));
+        else
+            return (to_add);
+    }
     str_len = ft_strlen(str);
     if (get_plus(flag) == 1 && sign >= 0)
         str_len++;
@@ -15,8 +33,36 @@ char *offset_d(char *str, char *flag, int sign, char conv_char)
         str_len++;
     if (get_plus(flag) == 0 && get_space(flag) == 1 && sign >= 0)
         str_len++;
-    width = get_width(flag);
-    has_offset_zero = get_zero(flag);
+    if (get_zero(flag) == 1 && get_precision(flag) != 0)
+        has_offset_zero = 1;
+    else
+        has_offset_zero = 0;
+    if (get_hash(flag) && sign != 0)
+    {
+        // le - annule le offset 0 et le remplace par un ' '
+        if (!(has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) < 0))
+        {
+            if (conv_char == 'o')
+            {
+                printf("get_precision(flag) : %d\n", get_precision(flag));
+                str_len += 1;
+            }
+            else if (conv_char == 'x')
+            {
+                printf("get_precision(flag) : %d\n", get_precision(flag));
+                str_len += 2;
+            }
+            else if (conv_char == 'X')
+            {
+                printf("get_precision(flag) : %d\n", get_precision(flag));
+                str_len += 2;
+            }
+            else
+            {
+                
+            }
+        }
+    }
     // printf("width : %d\n", width);
     // printf("str_len : %d\n", str_len);
     to_add = malloc((width + 2) * sizeof(char));
@@ -31,12 +77,22 @@ char *offset_d(char *str, char *flag, int sign, char conv_char)
                 to_add[i++] = ' ';
         }
     }
-    if (!(has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) < 0) && get_hash(flag))
+    if (get_hash(flag) && sign != 0)
     {
-        if (i != 0)
-            to_add[i - 1] = '0';
-        else
-            str = ft_strjoin("0", str);
+        // le - annule le offset 0 et le remplace par un ' '
+        if (!(has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) < 0))
+        {
+            if (conv_char == 'o')
+                str = ft_strjoin("0", str);
+            else if (conv_char == 'x')
+                str = ft_strjoin("0x", str);
+            else if (conv_char == 'X')
+                str = ft_strjoin("0X", str);
+            else
+            {
+                
+            }
+        }
     }
     to_add[i] = '\0';
     // printf("to_add : %s\n", to_add);

@@ -34,6 +34,8 @@ char *ft_convert_base(char *decimal, char *base)
     len = size_to_malloc(result, base_len);
     output = malloc((len + 2) * sizeof(char));
     output[len--] = '\0';
+    if (result == 0)
+        output[0] = base[0];
     while (result != 0)
     {
         output[len] = base[result % base_len];
