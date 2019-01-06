@@ -129,7 +129,7 @@ int get_hash(char *flag)
     unsigned int i;
 
     i = 0;
-    while (flag[i] && ft_isdigit(flag[i]) == 0)
+    while (flag[i] && (ft_isdigit(flag[i]) == 0 || flag[i] == '0'))
     {
         if (flag[i] == '#')
             return (1);

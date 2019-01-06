@@ -35,6 +35,7 @@ int get_space(char *flag);
 int get_precision(char *flag);
 int get_hash(char *flag);
 char *offset_p(char *str, char *flag, int sign);
+char *apply_precision(char *str, char* flag);
 char *apply_precision_p(char *str, int precision);
 size_t  ft_wcslen(const wchar_t *str);
 char *offset(char *str, char *flag);
