@@ -230,7 +230,7 @@ char *add_element(char *str, char *flag, int i)
     {
         int j;
         j = 0;
-        while (j < i)
+        while (j < i - 1)
         {
             str[j] = str[j + 1];
             j++;
