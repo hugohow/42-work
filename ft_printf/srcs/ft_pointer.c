@@ -25,12 +25,12 @@ char *offset_p(char *str, char *flag, int sign)
     {
         while (i < width - str_len)
         {
-            if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) < 0)
+            if (has_offset_zero == 1 && get_minus(flag) == 0)
                 to_add[i++] = '0';
             else
                 to_add[i++] = ' ';
         }
-        if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) < 0)
+        if (has_offset_zero == 1 && get_minus(flag) == 0)
         {
             to_add[i++] = '0';
             to_add[i++] = '0';
@@ -41,7 +41,7 @@ char *offset_p(char *str, char *flag, int sign)
     // printf("to_add : %s\n", to_add);
 
     // si l'espace doit être collé -> if (has_offset_zero == 1 && get_minus(flag) == 0)
-    if (has_offset_zero == 1 && get_minus(flag) == 0 && get_precision(flag) < 0)
+    if (has_offset_zero == 1 && get_minus(flag) == 0)
     {
         if (width > str_len)
         {

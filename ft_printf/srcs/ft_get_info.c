@@ -34,6 +34,8 @@ size_t count_par(const char *str)
     // à voir après pour les cas moins basiques type ll, ...
     while (str[i] && is_valid_par(str[i]) == 1)
     {
+        if (str[i] == '%')
+            break;
         i++;
     }
     return (i);
@@ -87,6 +89,8 @@ int get_plus(char *flag)
     unsigned int i;
 
     i = 0;
+    if (flag[ft_strlen(flag) - 1] == '%')
+        return (0);
     while (flag[i] && (ft_isdigit(flag[i]) == 0 || flag[i] == '0'))
     {
         if (flag[i] == '+')
@@ -115,6 +119,8 @@ int get_space(char *flag)
     unsigned int i;
 
     i = 0;
+    if (flag[ft_strlen(flag) - 1] == '%')
+        return (0);
     while (flag[i] && ft_isdigit(flag[i]) == 0)
     {
         if (flag[i] == ' ')
@@ -129,6 +135,8 @@ int get_hash(char *flag)
     unsigned int i;
 
     i = 0;
+    if (flag[ft_strlen(flag) - 1] == '%')
+        return (0);
     while (flag[i] && (ft_isdigit(flag[i]) == 0 || flag[i] == '0'))
     {
         if (flag[i] == '#')

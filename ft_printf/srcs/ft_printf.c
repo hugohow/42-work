@@ -28,7 +28,6 @@ void define_arg(va_list *ap, char *flag, size_t *len)
     
     length = get_length(flag);
     conv_char = flag[ft_strlen(flag) - 1];
-    // printf("\nflag : %s\n", flag);
     if (conv_char == 's')
     {
         char *output;
@@ -37,7 +36,16 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             output = ft_strsub(output, 0, get_precision(flag));
         if (get_precision(flag) == 0)
             output = "";
+        if (output == NULL)
+            output = "(null)";
         output = offset(output, flag);
+        ft_putstr_len(output, len);
+    }
+    else if (conv_char == '%')
+    {
+        char *output;
+        output = "%";
+        output = offset_d(output, flag, 1, conv_char);
         ft_putstr_len(output, len);
     }
     else if (conv_char == 'c')
@@ -46,6 +54,8 @@ void define_arg(va_list *ap, char *flag, size_t *len)
         output = malloc(2 * sizeof(char));
         output[0] = (char)va_arg(*ap, int);
         output[1] = '\0';
+        if (output[0] == '\0' || output[0] == 0)
+            *len += 1;
         output = offset(output, flag);
         ft_putstr_len(output, len);
     }
@@ -270,28 +280,28 @@ void define_arg(va_list *ap, char *flag, size_t *len)
     else if (conv_char == 'p')
     {     
         char *output;   
-        unsigned char t[sizeof ap];
-        char *tmp_str;
-        size_t i;
-
         va_arg(*ap, void *);
-        ft_memcpy(t, &ap, sizeof ap);
-        i = (sizeof ap) - 3;
+        unsigned char t[(sizeof ap) + 1];
+        // char *tmp_str;
+        size_t i;
+        ft_memcpy(t, &ap, (sizeof ap) + 1);
+        i = (sizeof ap) - 1;
         output = malloc(16 * sizeof(char));
         while (1)
         {
-            tmp_str = ft_itoa_u(t[i]);
-            tmp_str = ft_convert_base(tmp_str, "0123456789abcdef");
-            output = ft_strjoin(output, tmp_str);
+            printf("%x", t[i]);
+            // tmp_str = ft_itoa_u(t[i]);
+            // tmp_str = ft_convert_base(tmp_str, "0123456789abcdef");
+            // output = ft_strjoin(output, tmp_str);
             if (i == 0)
                 break;
             i--;
         }
-        if (get_precision(flag) > 0)
-        if (get_precision(flag) <= 0)
-            output = ft_strjoin("0x", output);
-        output = offset_p(output, flag, 1);
-        ft_putstr_len(output, len);
+        // output = offset_p(output, flag, 1);
+        // if (get_precision(flag) > 0)
+        // if (get_precision(flag) <= 0)
+        //     output = ft_strjoin("0x", output);
+        // ft_putstr_len(output, len);
     }
     else if (conv_char == 'C')
     {
@@ -354,19 +364,11 @@ int ft_printf(const char* format, ...)
     // printf("All string : %s\n\n--------------------------\n\n", format);
     while (format[i])
     {
-        if (format[i+1] && format[i] == '%' && format[i+1] == '%')
-        {
-            ft_putchar('%');
-            i++;
-            *len += 2;
-        }
-        else if (format[i] == '%')
+        if (format[i] == '%')
         {
             // printf("\n");
             bzero((void *)flag, format_len + 1);
             flag = ft_strncpy(flag, format + i, (int)count_par(format + i) + 1);
-            // printf("\n-------------------------------\n");
-            // printf("\nstrncpy : %s", flag);
             define_arg(&ap, flag, len);
 
             // printf("\narg : %s", arg);

@@ -35,38 +35,8 @@ char *offset_d(char *str, char *flag, int sign, char conv_char)
     unsigned int i;
     unsigned int width;
     int has_offset_zero;
-    int to_add_len;
 
     width = get_width(flag);
-    to_add_len = 0;
-    // cas particlier
-    // printf("\nget_hash(flag) : %d\n", get_hash(flag));
-    
-    // -------------------------------------------
-    // cas où on a 0
-    // if (get_hash(flag) == 1 && get_precision(flag) == 0 && sign == 0)
-    // {
-    //     str = "0";
-    // }
-    // if (get_hash(flag) == 0 && get_precision(flag) == 0 && sign == 0)
-    // {
-    //     to_add = malloc((width + 1) * sizeof(char));
-    //     i = 0;
-    //     while (i < width)
-    //     {
-    //         to_add[i] = ' ';
-    //         i++;
-    //     }
-    //     to_add_len = i;
-    //     to_add[i] = '\0';
-    //     if (get_plus(flag) == 1)
-    //         return (ft_strjoin("+", to_add));
-    //     if (get_space(flag) == 1)
-    //         return (ft_strjoin(" ", to_add));
-    //     else
-    //         return (to_add);
-    // }
-    // -------------------------------------------
     str_len = ft_strlen(str);
     if (get_plus(flag) == 1 && sign >= 0)
         str_len++;
@@ -80,8 +50,6 @@ char *offset_d(char *str, char *flag, int sign, char conv_char)
         has_offset_zero = 0;
     if (get_hash(flag) && sign != 0)
     {
-        // if (!(has_offset_zero == 1 && get_minus(flag) == 0))
-        // {
             if (conv_char == 'o')
             {
                 if (!(str[0] && str[0] == '0'))
@@ -103,7 +71,6 @@ char *offset_d(char *str, char *flag, int sign, char conv_char)
             {
                 
             }
-        // }
     }
     to_add = malloc((width + 2) * sizeof(char));
     i = 0;
