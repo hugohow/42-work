@@ -61,7 +61,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = tmp < 0 ? -1 : 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (length == 1)
@@ -73,7 +73,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = tmp < 0 ? -1 : 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (length == 2)
@@ -85,7 +85,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = tmp < 0 ? -1 : 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (length == 3)
@@ -97,7 +97,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = tmp < 0 ? -1 : 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (length == 4)
@@ -109,7 +109,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = tmp < 0 ? -1 : 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (length == 5)
@@ -121,7 +121,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = tmp < 0 ? -1 : 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (length == 6)
@@ -133,7 +133,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
     }
@@ -155,7 +155,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (length == 1)
@@ -173,7 +173,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (length == 2)
@@ -191,7 +191,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (length == 3)
@@ -209,7 +209,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (length == 4)
@@ -227,7 +227,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (length == 5)
@@ -245,7 +245,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (length == 6)
@@ -263,7 +263,7 @@ void define_arg(va_list *ap, char *flag, size_t *len)
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
             output = offset_d(output, flag, sign, conv_char);
-            output = apply_precision(output, flag);
+            output = apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
     }

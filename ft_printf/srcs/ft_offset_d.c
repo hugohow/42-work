@@ -5,20 +5,20 @@ char *add_prefix(char *str, char conv_char)
 {
     if (conv_char == 'o')
     {
-        if (!(str[0] && str[0] == '0'))
+        // if (!(str[0] && str[0] == '0'))
             str = ft_strjoin("0", str);
     }
     else if (conv_char == 'x')
     {
-        if (!(str[0] && str[0] == '0' && str[1] && str[1] == 'x'))
+        // if (!(str[0] && str[0] == '0' && str[1] && str[1] == 'x'))
             str = ft_strjoin("0x", str);
     }
     else if (conv_char == 'X')
     {
-        if (!(str[0] && str[0] == '0' && str[1] && str[1] == 'X'))
-        {
+        // if (!(str[0] && str[0] == '0' && str[1] && str[1] == 'X'))
+        // {
             str = ft_strjoin("0X", str);
-        }
+        // }
     }
     else
     {
@@ -154,11 +154,5 @@ char *offset_d(char *str, char *flag, int sign, char conv_char)
             str = ft_strjoin(to_add, str);   
         }     
     }
-
-
-        
     return (str);
-    // à effacer
-    if (conv_char)
-        return (str);
 }
