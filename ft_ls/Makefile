@@ -6,7 +6,7 @@ all: $(NAME)
 
 $(NAME):
 	$(CC) $(CFLAGS) -o $(NAME) srcs/*.c lib/*.a
-	./$(NAME)
+	./$(NAME) -l
 
 clean:
 	rm -rf srcs/*.o
