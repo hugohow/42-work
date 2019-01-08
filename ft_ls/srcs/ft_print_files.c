@@ -16,18 +16,34 @@ int get_level(char *path)
     return (level);
 }
 
+char **sort(char **list)
+{
+    return (list);
+}
 
 void ft_print_files(char *path, t_flag *flag)
 {
     char *new_path;
+    char **t_file_info_list;
     struct dirent *pDirent;
     DIR *pDir;
+    int k;
 
     pDir = opendir(path);
+    t_file_info_list = malloc((999) * sizeof(char *));
     if (pDir == NULL) {
         ft_print_file_info(path, flag);
         return ;
     }
+    if (flag->has_cap_r == 1)
+    {
+        ft_printf("\n%s:\n", path);
+    }
+    if (flag->has_l == 1)
+    {
+        ft_printf("total xxxxx\n");
+    }
+    k = 0;
     while ((pDirent = readdir(pDir)) != NULL) 
     {
         if (path[ft_strlen(path) - 1] != '/')
@@ -48,8 +64,23 @@ void ft_print_files(char *path, t_flag *flag)
         {
             if (pDirent->d_type == 4 && ft_strcmp(pDirent->d_name, ".") != 0 
             && ft_strcmp(pDirent->d_name, "..") != 0)
-                ft_print_files(new_path, flag);
+            {
+                t_file_info_list[k] = new_path;
+                k++;
+            }
         }
     }
+    t_file_info_list[k] = 0;
+
+    sort(t_file_info_list);
+    int i;
+
+    i = 0;
+    while (i < k)
+    {
+        ft_print_files(t_file_info_list[i], flag);
+        i++;
+    }
+
     closedir (pDir);
 }

@@ -37,7 +37,7 @@ void ft_print_file_info(char *file, t_flag *flag)
             ft_printf("%-6d", fileStat.st_gid);
         ft_printf("%5lld",fileStat.st_size);
         ft_printf("\t");
-        ft_printf("%.16s", ctime(&fileStat.st_mtime));
+        ft_printf("%.12s", ctime(&fileStat.st_mtime) + 4);
         ft_printf("\t");
         ft_printf("%s", get_file_name(file));
         ft_printf("\n");
@@ -45,6 +45,6 @@ void ft_print_file_info(char *file, t_flag *flag)
     else
     {
         ft_printf("%s", get_file_name(file));
-        ft_printf("\t");
+        ft_printf("    ");
     }
 }
