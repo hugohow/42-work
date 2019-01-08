@@ -6,13 +6,14 @@ int main(int argc, char **argv)
     int i;
 
     i = 1;
+    flag = NULL;
     // on essaye, si NULL c'est que argv 1 est autre chose
     if (argc >= 2)
         flag = ft_get_flag_info(argv[1]);
-    else
-        flag = ft_get_flag_info("");
     if (flag != NULL)
         i++;
+    else
+        flag = ft_get_flag_info("");
     if (i >= argc)
     {
         ft_print_files(".", flag);
