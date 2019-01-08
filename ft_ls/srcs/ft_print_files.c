@@ -25,7 +25,6 @@ void ft_print_files(char *path, t_flag *flag)
 
     pDir = opendir(path);
     if (pDir == NULL) {
-        ft_printf("\n%s is not a dir, is it a file ?", path);
         ft_print_file_info(path, flag);
         return ;
     }

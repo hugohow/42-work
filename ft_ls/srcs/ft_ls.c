@@ -3,20 +3,25 @@
 int main(int argc, char **argv)
 {
     t_flag *flag;
+    int i;
 
-    if (argc == 3)
-    {
+    i = 1;
+    // on essaye, si NULL c'est que argv 1 est autre chose
+    if (argc >= 2)
         flag = ft_get_flag_info(argv[1]);
-        ft_print_files(argv[2], flag);
-        return (0);
-    }
-    if (argc == 2)
+    else
+        flag = ft_get_flag_info("");
+    if (flag != NULL)
+        i++;
+    if (i >= argc)
     {
-        flag = ft_get_flag_info(argv[1]);
         ft_print_files(".", flag);
         return (0);
     }
-    flag = ft_get_flag_info("");
-    ft_print_files(".", flag);
+    while (i < argc)
+    {
+        ft_print_files(argv[i], flag);
+        i++;
+    }
     return (0);
 }

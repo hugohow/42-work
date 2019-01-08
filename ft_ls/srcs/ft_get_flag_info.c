@@ -28,7 +28,7 @@ t_flag *ft_get_flag_info(char *argv)
     if (argv[i] && argv[i] != '-')
     {
         ft_printf("erreur");
-        return (flag);
+        return (NULL);
     }
     i++;
     while (argv[i])
