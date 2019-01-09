@@ -5,7 +5,7 @@ CFLAGS=-Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME):
-	$(CC) $(CFLAGS) -c srcs/*.c srcs2/*.c
+	$(CC) $(CFLAGS) -c srcs/*.c srcs2/*.c srcs3/*.c
 	ar rc $(NAME) *.o
 	
 clean:
