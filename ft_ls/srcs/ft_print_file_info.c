@@ -1,17 +1,18 @@
 #include "ft_ls.h"
 
-void ft_print_file_info(char *file, t_flag *flag)
+
+void ft_print_file_info(char *path, t_flag *flag)
 {
     struct stat fileStat;
     struct passwd *pwd;
     struct group *grp;
 
-    if (stat(file, &fileStat) < 0)
+    if (stat(path, &fileStat) < 0)
     {
-        ft_printf("ft_ls: %s: No such file or directory\n", file);
+        ft_printf("ft_ls: %s: No such file or directory\n", path);
         return ;
     }
-    if (flag->has_l == 1)
+    if (flag && flag->has_l == 1)
     {
         ft_printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
         ft_printf( (fileStat.st_mode & S_IRUSR) ? "r" : "-");
@@ -39,12 +40,12 @@ void ft_print_file_info(char *file, t_flag *flag)
         ft_printf("\t");
         ft_printf("%.12s", ctime(&fileStat.st_mtime) + 4);
         ft_printf("\t");
-        ft_printf("%s", get_file_name(file));
+        ft_printf("%s", get_file_name(path));
         ft_printf("\n");
     }
     else
     {
-        ft_printf("%s", get_file_name(file));
+        ft_printf("%s", get_file_name(path));
         ft_printf("    ");
     }
 }

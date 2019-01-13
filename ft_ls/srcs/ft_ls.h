@@ -18,7 +18,7 @@ typedef struct s_file_info
 {
     char *path;
     time_t modified;
-}               t_file_info;
+}               t_file;
 
 typedef struct s_flag
 {
@@ -30,9 +30,18 @@ typedef struct s_flag
     int has_t;
 }               t_flag;
 
+
+typedef struct s_btree
+{
+    void           *content;
+    struct s_btree  *left;
+    struct s_btree  *right;
+}               t_btree;
+
+
 int ft_printf(const char* format, ...);
-void ft_print_files(char *dir_name, t_flag *flag);
-void ft_print_file_info(char *file, t_flag *flag);
+void ft_print_files(char *path, t_flag *flag);
+void ft_print_file_info(char *path, t_flag *flag);
 int ft_strcmp(char *str1, char *str2);
 char **ft_strsplit(char const *s, char c);
 char *ft_strjoin(char const *s1, char const *s2);
@@ -40,4 +49,10 @@ size_t  ft_strlen(const char *str);
 t_flag *ft_get_flag_info(char *argv);
 char    *ft_strrchr(const char *s, int c);
 char *get_file_name(char *path);
+
+t_btree		*btree_create_node(void *item);
+// void ft_insert_btree(t_btree **root, void *content, int (*cmp)(void *, void *));
+void	btree_insert_data(t_btree **root, void *item, int (*cmpf)(void *, void *));
+void ft_traverse_tree(t_btree *root, void (*f)(t_btree *));
+
 #endif
