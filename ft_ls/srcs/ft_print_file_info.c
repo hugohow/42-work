@@ -1,16 +1,5 @@
 #include "ft_ls.h"
 
-// t_file *get_file_info(char *path)
-// {
-//     t_file *file;
-//     struct stat fileStat;
-
-//     file = malloc(sizeof(t_file));
-//     if (file == NULL)
-//         return (NULL);
-
-// }
-
 time_t get_file_modified_time(const char *path)
 {
     struct stat attr;
@@ -22,7 +11,29 @@ time_t get_file_modified_time(const char *path)
     return 0;
 }
 
-void ft_print_and_get_file_info(t_file **file, t_flag *flag)
+// pas ultra performant....
+unsigned long get_file_st_blocks(const char *path)
+{
+    struct stat attr;
+    if (stat(path, &attr) == 0)
+    {
+        return (attr.st_blocks);
+    }
+    return 0;
+}
+
+int file_is_dir(char *path)
+{
+    struct stat attr;
+    if (stat(path, &attr) == 0)
+    {
+        return (S_ISDIR(attr.st_mode));
+    }
+    return 0;
+}
+
+
+void ft_print_file_info(t_file **file, t_flag *flag)
 {
     struct stat fileStat;
     struct passwd *pwd;
@@ -75,5 +86,4 @@ void ft_print_and_get_file_info(t_file **file, t_flag *flag)
         ft_printf("%s", get_file_name(path));
         ft_printf("    ");
     }
-    (*file)->m_time = fileStat.st_mtime;
 }

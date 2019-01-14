@@ -1,5 +1,6 @@
 #include "ft_ls.h"
 
+
 int get_level(char *path)
 {
     int level;
@@ -16,6 +17,21 @@ int get_level(char *path)
     return (level);
 }
 
+int cmp_date_r(void *content1, void *content2)
+{
+    t_file *file1;
+    t_file *file2;
+
+    file1 = ((t_file *)content1);
+    file2 = ((t_file *)content2);
+    return (get_file_modified_time(file1->path) - get_file_modified_time(file2->path));
+}
+
+int cmp_path_r(void *content1, void *content2)
+{
+    return (ft_strcmp(((t_file *)(content2))->path, ((t_file *)(content1))->path));
+}
+
 int cmp_date(void *content1, void *content2)
 {
     t_file *file1;
@@ -23,28 +39,31 @@ int cmp_date(void *content1, void *content2)
 
     file1 = ((t_file *)content1);
     file2 = ((t_file *)content2);
-
-    // printf("date 1 : %ld\n", get_file_modified_time(file1->path));
-    // printf("date 2 : %ld\n", get_file_modified_time(file2->path));
     return (get_file_modified_time(file2->path) - get_file_modified_time(file1->path));
 }
 
 int cmp_path(void *content1, void *content2)
 {
-    // char *path1;
-    // char *path2;
+    return (ft_strcmp(((t_file *)(content1))->path, ((t_file *)(content2))->path));
+}
 
-    // path1 = ((t_file *)(content1->content))->path;
-    // path2 = ((t_file *)(node2->content))->path;
-    // // usual case for name
-    if (content1 && content2)
+
+void insert_data_tree(t_btree **root, t_file *file, t_flag *flag)
+{
+    if (flag->has_t)
     {
-        // printf("ft_strcmp(((t_file *)(content1))->path, ((t_file *)(content2))->path)  : %d \n", ft_strcmp(((t_file *)(content1))->path, ((t_file *)(content2))->path));
-        return (ft_strcmp(((t_file *)(content1))->path, ((t_file *)(content2))->path));
-    //     printf("node 2 : %s\n", ((t_file *)(node2->content))->path);
-    // //     // insert le node
+        if (flag->has_r)
+            btree_insert_data(root, file, cmp_date_r);
+        else
+            btree_insert_data(root, file, cmp_date);
     }
-    return (0);
+    else
+    {
+        if (flag->has_r)
+            btree_insert_data(root, file, cmp_path_r);
+        else
+            btree_insert_data(root, file, cmp_path);
+    }
 }
 
 void ft_print_tree(t_btree *root, t_flag *flag, t_btree **sub_root)
@@ -60,18 +79,14 @@ void ft_print_tree(t_btree *root, t_flag *flag, t_btree **sub_root)
     {
         file = ((t_file *)(root->content));
         // ft_printf("file: %s\n", ((t_file *)(root->content))->path);
-        ft_print_and_get_file_info(&file, flag);
+        ft_print_file_info(&file, flag);
         if (flag->has_cap_r == 1)
         {
             if (file->d_type == 4 && 
             ft_strcmp(file->d_name, ".") != 0 
             && ft_strcmp(file->d_name, "..") != 0)
             {
-                if (flag->has_t)
-                    btree_insert_data(sub_root, file, cmp_date);
-                else
-                    btree_insert_data(sub_root, file, cmp_path);
-                // ft_print_files(file->path, flag);
+                insert_data_tree(sub_root, file, flag);
             }
         }
         file = NULL;
@@ -104,27 +119,24 @@ void ft_print_files(char *path, t_flag *flag)
     struct dirent *pDirent;
     DIR *pDir;
     int k;
+    long total;
+    int nb_files;
 
+    total = 0;
+    nb_files = 0;
     if (path == NULL)
     {
         return ;
     }
     root = NULL;
     sub_root = NULL;
-    if ((pDir = opendir (path)) == NULL) {
+    if ((pDir = opendir (path)) == NULL)
+    {
         new_file = malloc(sizeof(t_file));
         new_file->path = path;
-        ft_print_and_get_file_info(&new_file, flag);
+        ft_print_file_info(&new_file, flag);
         // ft_printf("file: %s\n", new_file->path);
         return ;
-    }
-    if (flag->has_cap_r == 1 || flag->has_l == 1)
-    {
-        ft_printf("\n%s:\n", path);
-    }
-    if (flag->has_l == 1)
-    {
-        ft_printf("total xxxxx\n");
     }
     k = 0;
     while ((pDirent = readdir(pDir)) != NULL) 
@@ -143,14 +155,23 @@ void ft_print_files(char *path, t_flag *flag)
         }
         else
         {
-            if (flag->has_t)
-                btree_insert_data(&root, new_file, cmp_date);
-            else
-                btree_insert_data(&root, new_file, cmp_path);
+            insert_data_tree(&root, new_file, flag);
+            nb_files++;
+        }
+        if (flag->has_l)
+        {
+            total += get_file_st_blocks(new_path);
         }
     }
     closedir (pDir);
 
+    if (flag->has_cap_r == 1 || flag->has_l == 1)
+    {
+        if (ft_strcmp(path, ".") != 0)
+            ft_printf("\n%s:\n", path);
+    }
+    if (flag->has_l == 1 && nb_files != 0)
+        ft_printf("total %ld\n", total);
     ft_print_tree(root, flag, &sub_root);
     free(root);
     if (flag->has_cap_r == 1)

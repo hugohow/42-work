@@ -27,7 +27,6 @@ t_flag *ft_get_flag_info(char *argv)
         return (flag);
     if (argv[i] && argv[i] != '-')
     {
-        ft_printf("erreur flag");
         return (NULL);
     }
     i++;
@@ -35,7 +34,6 @@ t_flag *ft_get_flag_info(char *argv)
     {
         if (is_valid_flag(argv[i]) == 0)
         {
-            ft_printf("erreur flag");
             return (flag);
         }
         if (argv[i] == 'l')

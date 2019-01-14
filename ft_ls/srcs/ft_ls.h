@@ -43,7 +43,7 @@ typedef struct s_btree
 
 int ft_printf(const char* format, ...);
 void ft_print_files(char *path, t_flag *flag);
-void ft_print_and_get_file_info(t_file **file, t_flag *flag);
+void ft_print_file_info(t_file **file, t_flag *flag);
 int ft_strcmp(char *str1, char *str2);
 char **ft_strsplit(char const *s, char c);
 char *ft_strjoin(char const *s1, char const *s2);
@@ -52,10 +52,14 @@ t_flag *ft_get_flag_info(char *argv);
 char    *ft_strrchr(const char *s, int c);
 char *get_file_name(char *path);
 time_t get_file_modified_time(const char *path);
+unsigned long get_file_st_blocks(const char *path);
+int file_is_dir(char *path);
+t_file *ft_create_file(char *path);
 
 t_btree		*btree_create_node(void *item);
 // void ft_insert_btree(t_btree **root, void *content, int (*cmp)(void *, void *));
 void	btree_insert_data(t_btree **root, void *item, int (*cmpf)(void *, void *));
 void ft_traverse_tree(t_btree *root, void (*f)(t_btree *));
+void insert_data_tree(t_btree **root, t_file *file, t_flag *flag);
 
 #endif
