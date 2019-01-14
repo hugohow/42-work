@@ -16,8 +16,10 @@
 #include <stdlib.h>
 typedef struct s_file_info
 {
-    char *path;
-    time_t modified;
+    char    *path;
+    time_t  m_time;
+    char    *d_name;
+    int     d_type;
 }               t_file;
 
 typedef struct s_flag
@@ -41,7 +43,7 @@ typedef struct s_btree
 
 int ft_printf(const char* format, ...);
 void ft_print_files(char *path, t_flag *flag);
-void ft_print_file_info(char *path, t_flag *flag);
+void ft_print_and_get_file_info(t_file **file, t_flag *flag);
 int ft_strcmp(char *str1, char *str2);
 char **ft_strsplit(char const *s, char c);
 char *ft_strjoin(char const *s1, char const *s2);
@@ -49,6 +51,7 @@ size_t  ft_strlen(const char *str);
 t_flag *ft_get_flag_info(char *argv);
 char    *ft_strrchr(const char *s, int c);
 char *get_file_name(char *path);
+time_t get_file_modified_time(const char *path);
 
 t_btree		*btree_create_node(void *item);
 // void ft_insert_btree(t_btree **root, void *content, int (*cmp)(void *, void *));

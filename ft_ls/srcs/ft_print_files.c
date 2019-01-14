@@ -16,6 +16,19 @@ int get_level(char *path)
     return (level);
 }
 
+int cmp_date(void *content1, void *content2)
+{
+    t_file *file1;
+    t_file *file2;
+
+    file1 = ((t_file *)content1);
+    file2 = ((t_file *)content2);
+
+    // printf("date 1 : %ld\n", get_file_modified_time(file1->path));
+    // printf("date 2 : %ld\n", get_file_modified_time(file2->path));
+    return (get_file_modified_time(file2->path) - get_file_modified_time(file1->path));
+}
+
 int cmp_path(void *content1, void *content2)
 {
     // char *path1;
@@ -34,65 +47,78 @@ int cmp_path(void *content1, void *content2)
     return (0);
 }
 
-
-void print_list(t_file **list, t_flag *flag)
+void ft_print_tree(t_btree *root, t_flag *flag, t_btree **sub_root)
 {
-    int i;
+    t_file *file;
 
-    i = 0;
-    // traverser le binary tree par ordre
-    while (list[i])
+    file = NULL;
+    if (root == NULL)
+        return ;
+    if (root->left)
+        ft_print_tree(root->left, flag, sub_root);
+    if (root->content)
     {
-        // print la première list
-        ft_print_file_info(list[i]->path, flag);
+        file = ((t_file *)(root->content));
+        // ft_printf("file: %s\n", ((t_file *)(root->content))->path);
+        ft_print_and_get_file_info(&file, flag);
         if (flag->has_cap_r == 1)
         {
-            //     if (pDirent->d_type == 4 && ft_strcmp(pDirent->d_name, ".") != 0 
-            //     && ft_strcmp(pDirent->d_name, "..") != 0)
-            //     {
-            //         t_sub_file_info_list[k] = new_file;
-            //         k++;
-            //     }
-            // ft_print_files(list[i]->path, flag)
-            ft_printf("\nici la sub list\n");
+            if (file->d_type == 4 && 
+            ft_strcmp(file->d_name, ".") != 0 
+            && ft_strcmp(file->d_name, "..") != 0)
+            {
+                if (flag->has_t)
+                    btree_insert_data(sub_root, file, cmp_date);
+                else
+                    btree_insert_data(sub_root, file, cmp_path);
+                // ft_print_files(file->path, flag);
+            }
         }
-        i++;
+        file = NULL;
     }
+    if (root->right)
+        ft_print_tree(root->right, flag, sub_root);
 }
 
-
-
-void print_tree(t_btree *node)
+void ft_print_sub_tree(t_btree *sub_root, t_flag *flag)
 {
-    if (node && node->content)
-   {
-    //    printf("%s\n",((t_file *)(node->content))->path);
-        ft_print_file_info(((t_file *)(node->content))->path, NULL);
+    if (sub_root == NULL)
+        return ;
+    if (sub_root->left)
+        ft_print_sub_tree(sub_root->left, flag);
+    if (sub_root->content && ((t_file *)(sub_root->content))->path)
+    {
+        ft_print_files(((t_file *)(sub_root->content))->path, flag);
     }
+    if (sub_root->right)
+        ft_print_sub_tree(sub_root->right, flag);
 }
+
 
 void ft_print_files(char *path, t_flag *flag)
 {
     char *new_path;
     t_file *new_file;
     t_btree *root;
-    // t_btree *node;
-    t_file **t_file_info_list;
-    // t_file **t_sub_file_info_list;
+    t_btree *sub_root;
     struct dirent *pDirent;
     DIR *pDir;
     int k;
-    int j;
 
-    pDir = opendir(path);
-    // t_sub_file_info_list = malloc((999) * sizeof(t_file *));
-    t_file_info_list = malloc((999) * sizeof(t_file *));
-    root = malloc(sizeof(t_btree));
-    if (pDir == NULL) {
-        ft_print_file_info(path, flag);
+    if (path == NULL)
+    {
         return ;
     }
-    if (flag->has_cap_r == 1)
+    root = NULL;
+    sub_root = NULL;
+    if ((pDir = opendir (path)) == NULL) {
+        new_file = malloc(sizeof(t_file));
+        new_file->path = path;
+        ft_print_and_get_file_info(&new_file, flag);
+        // ft_printf("file: %s\n", new_file->path);
+        return ;
+    }
+    if (flag->has_cap_r == 1 || flag->has_l == 1)
     {
         ft_printf("\n%s:\n", path);
     }
@@ -101,15 +127,15 @@ void ft_print_files(char *path, t_flag *flag)
         ft_printf("total xxxxx\n");
     }
     k = 0;
-    j = 0;
-    // ft_create_node
     while ((pDirent = readdir(pDir)) != NULL) 
     {
         new_file = malloc(sizeof(t_file));
-        if (path[ft_strlen(path) - 1] != '/')
+        if (ft_strlen(path) > 0 && path[ft_strlen(path) - 1] != '/')
             new_path = ft_strjoin(path, "/");
         new_path = ft_strjoin(new_path, pDirent->d_name);
         new_file->path = new_path;
+        new_file->d_type = pDirent->d_type;
+        new_file->d_name = pDirent->d_name;
         // ft_printf("Path: %s, get_level(path): %d\n", new_path, get_level(path));
         if (flag->has_a == 0 && (ft_strcmp(pDirent->d_name, ".") == 0 
             || ft_strcmp(pDirent->d_name, "..") == 0))
@@ -117,29 +143,21 @@ void ft_print_files(char *path, t_flag *flag)
         }
         else
         {
-            // if (root)
-            // {
-                // node = btree_create_node(new_file);
-
+            if (flag->has_t)
+                btree_insert_data(&root, new_file, cmp_date);
+            else
                 btree_insert_data(&root, new_file, cmp_path);
-                // ft_insert_node
-            // }
-            // else
-            // {
-            //     root = btree_create_node(new_file);
-            // }
-            t_file_info_list[j] = new_file;
-            j++;
         }
     }
-
-    t_file_info_list[j] = 0;
-
-
-
-    ft_traverse_tree(root, print_tree);
-
-
-    // print_list(t_file_info_list, flag);
     closedir (pDir);
+
+    ft_print_tree(root, flag, &sub_root);
+    free(root);
+    if (flag->has_cap_r == 1)
+    {
+        ft_print_sub_tree(sub_root, flag);
+    }
+    free(sub_root);
+
+
 }

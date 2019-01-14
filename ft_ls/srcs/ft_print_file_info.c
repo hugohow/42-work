@@ -1,12 +1,39 @@
 #include "ft_ls.h"
 
+// t_file *get_file_info(char *path)
+// {
+//     t_file *file;
+//     struct stat fileStat;
 
-void ft_print_file_info(char *path, t_flag *flag)
+//     file = malloc(sizeof(t_file));
+//     if (file == NULL)
+//         return (NULL);
+
+// }
+
+time_t get_file_modified_time(const char *path)
+{
+    struct stat attr;
+    if (stat(path, &attr) == 0)
+    {
+        // printf("%s: last modified time: %s", path, ctime(&attr.st_mtime));
+        return (attr.st_mtime);
+    }
+    return 0;
+}
+
+void ft_print_and_get_file_info(t_file **file, t_flag *flag)
 {
     struct stat fileStat;
     struct passwd *pwd;
     struct group *grp;
+    char *path;
 
+    path = (*file)->path;
+    if (path == NULL)
+    {
+        return ;
+    }
     if (stat(path, &fileStat) < 0)
     {
         ft_printf("ft_ls: %s: No such file or directory\n", path);
@@ -48,4 +75,5 @@ void ft_print_file_info(char *path, t_flag *flag)
         ft_printf("%s", get_file_name(path));
         ft_printf("    ");
     }
+    (*file)->m_time = fileStat.st_mtime;
 }

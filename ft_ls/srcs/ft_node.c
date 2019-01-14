@@ -19,7 +19,7 @@ void	btree_insert_data(t_btree **root, void *item, int (*cmpf)(void *, void *))
 {
 	t_btree	*node;
 
-	if (!*root)
+	if (*root == NULL)
 	{
 		*root = btree_create_node(item);
 		return ;
@@ -28,16 +28,20 @@ void	btree_insert_data(t_btree **root, void *item, int (*cmpf)(void *, void *))
 	if ((*cmpf)(item, node->content) < 0)
 	{
 		if (node->left)
-			btree_insert_data(&node->left, item, cmpf);
+			btree_insert_data(&(node->left), item, cmpf);
 		else
-			node->left = btree_create_node(item);
+        {
+            node->left = btree_create_node(item);
+        }
 	}
 	else
 	{
 		if (node->right)
-			btree_insert_data(&node->right, item, cmpf);
+			btree_insert_data(&(node->right), item, cmpf);
 		else
-			node->right = btree_create_node(item);
+        {
+            node->right = btree_create_node(item);
+        }
 	}
 }
 
