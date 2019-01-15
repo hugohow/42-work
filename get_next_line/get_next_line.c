@@ -4,33 +4,61 @@
 #include <stdlib.h>
 #include <string.h>
 
+void read_element(t_list *elem)
+{
+    ft_putstr((char *)(elem->content));
+}
+
+char *get_line(t_list **begin_text)
+{
+    t_list *element;
+    char *line;
+    unsigned int size;
+
+    element = *begin_text;
+    size = 0;
+    while (element)
+    {
+        size += element->content_size;
+        element = element->next;
+    }
+    line = malloc(size + 1);
+    element = *begin_text;
+    while (element)
+    {
+        line = ft_strjoin(line, (char *)(element->content));
+        element = element->next;
+    }
+    return (line);
+}
 
 int get_next_line(const int fd, char **line)
 {
     int j;
     char *buffer;
+    t_list *text_list;
+    t_list **begin_text;
     char *text;
     int nb_byte;
     static char *rest;
-    // static int end;
 
-    text = (char *)malloc(1000 * sizeof(char));
+    text = (char *)malloc((BUFF_SIZE + 1) * sizeof(char));
     buffer = (char *)malloc((BUFF_SIZE + 1) * sizeof(char)); 
     if (!rest)
         rest = (char *)malloc((BUFF_SIZE + 1) * sizeof(char)); 
-    // if (!end)
-    //     end = 0;
     j = 0;
     if (rest[0] == '\n')
         rest++;
-    // printf("--------------\n");
-    // printf("initial text :\t\t %s\n", text);
     while (rest[j] && rest[j] != '\n')
     {
         text[j] = rest[j];
         j++;
     }
     text[j] = '\0';
+    text_list = ft_lstnew(text, j);
+    begin_text = (t_list **)malloc(sizeof(t_list *));
+    *begin_text = text_list;
+    text_list->next = NULL;
     // printf("end :\t\t %d\n", end);    
     // printf("text :\t\t %s\n", text);
     // printf("--------------\n");
@@ -51,15 +79,15 @@ int get_next_line(const int fd, char **line)
             j++;
         if (j != nb_byte)
         {
-            ft_strncat(text, buffer, j);
+            text_list->next = ft_lstnew(ft_strsub(buffer, 0, j), j);
+            text_list = text_list->next;
+            // ft_strncat(text, buffer, j);
             ft_strcat(rest, buffer + j + 1);
             break;
         }
-        ft_strcat(text, buffer);
+        text_list->next = ft_lstnew(buffer, BUFF_SIZE);
+        text_list = text_list->next;
     }
-    *line = text;
-    ft_putendl(*line);
-    // if (nb_byte == 0)
-    //     end = 1;
+    *line = get_line(begin_text);
     return (nb_byte);
 }
