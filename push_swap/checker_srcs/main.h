@@ -1,5 +1,5 @@
 #include <stdlib.h>
-
+#include <stdio.h>
 void    ft_putstr(char const *str);
 void    ft_putchar(char const c);
 char    *ft_strtrim(char const *str);

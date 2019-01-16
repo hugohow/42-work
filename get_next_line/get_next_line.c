@@ -46,7 +46,7 @@ int get_next_line(const int fd, char **line)
     if (!rest)
         rest = (char *)malloc((BUFF_SIZE + 1) * sizeof(char)); 
     j = 0;
-    if (rest[0] == '\n')
+    if (rest[0] && rest[0] == '\n')
         rest++;
     while (rest[j] && rest[j] != '\n')
     {
@@ -80,10 +80,11 @@ int get_next_line(const int fd, char **line)
         {
             text_list->next = ft_lstnew(ft_strsub(buffer, 0, j), j);
             // printf("text_list->next : %s\n", ft_strsub(buffer, 0, j));
-            // printf("nb_byte : %d\n", nb_byte);
+            // printf("nb_byte : %d\n", j);
             text_list = text_list->next;
             // ft_strncat(text, buffer, j);
-            ft_strcat(rest, buffer + j + 1);
+            if (fd != 1)
+                ft_strcat(rest, buffer + j + 1);
             break;
         }
         text_list->next = ft_lstnew(ft_strsub(buffer, 0, nb_byte), BUFF_SIZE);

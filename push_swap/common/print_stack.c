@@ -9,5 +9,6 @@ void print_stack(char **stack)
     {
         ft_putstr(stack[i]);
         ft_putchar('\n');
+        i++;
     }
 }
