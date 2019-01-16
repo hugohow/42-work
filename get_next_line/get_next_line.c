@@ -1,4 +1,3 @@
-#include "libft.h"
 #include "get_next_line.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -80,14 +79,22 @@ int get_next_line(const int fd, char **line)
         if (j != nb_byte)
         {
             text_list->next = ft_lstnew(ft_strsub(buffer, 0, j), j);
+            // printf("text_list->next : %s\n", ft_strsub(buffer, 0, j));
+            // printf("nb_byte : %d\n", nb_byte);
             text_list = text_list->next;
             // ft_strncat(text, buffer, j);
             ft_strcat(rest, buffer + j + 1);
             break;
         }
-        text_list->next = ft_lstnew(buffer, BUFF_SIZE);
+        text_list->next = ft_lstnew(ft_strsub(buffer, 0, nb_byte), BUFF_SIZE);
+        // printf("text_list->next : %s\n", ft_strsub(buffer, 0, nb_byte));
+        // printf("nb_byte : %d\n", nb_byte);
         text_list = text_list->next;
     }
     *line = get_line(begin_text);
-    return (nb_byte);
+    if (nb_byte < 0)
+        return (-1);
+    if (ft_strlen(*line) > 0)
+        return (1);
+    return (0);
 }

@@ -7,8 +7,8 @@ all:
 	./main
 
 clean: 
-
-
-fclean: 
+	rm -f get_next_line.o
+	
+fclean: clean
 
 re: fclean all
