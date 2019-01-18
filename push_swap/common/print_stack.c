@@ -1,14 +1,13 @@
 #include "common.h"
 
-void print_stack(char **stack)
+void print_stack(t_stack *stack)
 {
-    int i;
+    size_t i;
 
     i = 0;
-    while (stack[i])
+    while (i < stack->len)
     {
-        ft_putstr(stack[i]);
-        ft_putchar('\n');
+        ft_printf("%lld\n", (stack->list)[i]);
         i++;
     }
 }
