@@ -6,18 +6,13 @@ int search_path_exe(char *cmd, char *path, char **argv)
     DIR *pDir;
     struct dirent *pDirent;
     char *new_path;
-    // char **n_argv;
     pid_t pid;
 
-    // n_argv = (char **)malloc((4 * sizeof(char *)));
-    // n_argv[0] = "ok";
-    // n_argv[1] = "ok";
-    // n_argv[2] = NULL;
     if (path == NULL)
-        return (0);
+        return (-1);
     if ((pDir = opendir (path)) == NULL)
     {
-        return (0);
+        return (-1);
     }
     while ((pDirent = readdir(pDir)) != NULL) 
     {
@@ -25,10 +20,6 @@ int search_path_exe(char *cmd, char *path, char **argv)
         {
             new_path = ft_strjoin(path, "/");
             new_path = ft_strjoin(new_path, pDirent->d_name);
-            if (argv)
-            {
-
-            }
             pid = fork();
             if (pid < 0) {
                 ft_printf("Failed to fork process 1\n");
@@ -43,11 +34,21 @@ int search_path_exe(char *cmd, char *path, char **argv)
                 wait(NULL);
             }
             closedir (pDir);
-            return (1);
+            return (0);
         }
     }
     closedir (pDir);
-    return (0);
+    return (-1);
+}
+
+int list_size(char **list)
+{
+    int size;
+
+    size = 0;
+    while (list[size])
+        size++;
+    return (size);
 }
 
 void execute_command(char *cmd, char **paths)
@@ -60,15 +61,20 @@ void execute_command(char *cmd, char **paths)
     cmd_list = ft_strsplit(cmd, ' ');
     if (cmd_list[0] == NULL)
         return ;
+    if (ft_strcmp(cmd_list[0], "echo") == 0)
+    {
+        ft_echo(list_size(cmd_list), cmd_list);
+        return ;
+    }
     while (paths[i])
     {
-        if (search_path_exe(cmd_list[0], paths[i], cmd_list) == 1)
+        if (search_path_exe(cmd_list[0], paths[i], cmd_list) == 0)
             break;
         i++;
     }
     if (paths[i] == 0)
     {
-        ft_printf("Command not found : %s\n", cmd);
+        ft_printf("minishell: command not found: %s\n", cmd);
     }
 }
 

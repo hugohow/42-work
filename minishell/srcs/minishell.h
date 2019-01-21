@@ -8,5 +8,6 @@ int ft_printf(const char* format, ...);
 int     ft_strcmp(const char *s1, const char *s2);
 char    **ft_strsplit(char const *str, char c);
 char    *ft_strjoin(char const *str1, char const *str2);
+int     ft_echo(int argc, char **argv);
 
 extern char **environ;
