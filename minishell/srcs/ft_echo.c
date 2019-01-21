@@ -25,7 +25,12 @@ int ft_echo(int argc, char **argv)
     }
     if (flag_n)
     {
-        ft_putstr("\n");
+
     }
+    else
+    {
+        
+    }
+    ft_putstr("\n");
     return (0);
 }

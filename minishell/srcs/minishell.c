@@ -66,6 +66,11 @@ void execute_command(char *cmd, char **paths)
         ft_echo(list_size(cmd_list), cmd_list);
         return ;
     }
+    if (ft_strcmp(cmd_list[0], "cd") == 0)
+    {
+        ft_cd(list_size(cmd_list), cmd_list);
+        return ;
+    }
     while (paths[i])
     {
         if (search_path_exe(cmd_list[0], paths[i], cmd_list) == 0)
@@ -84,29 +89,14 @@ int ask_command(char **command)
     return (get_next_line(1, command));
 }
 
+
 int main()
 {
     char *command;
     char **paths;
-    int i;
 
-    i = 0;
-    while (environ[i])
-    {
-        if (environ[i][0] == 'P' && environ[i][1] == 'A' && environ[i][2] == 'T' && environ[i][3] == 'H')
-        {
-            paths = ft_strsplit(environ[i] + 5, ':');
-            i = 0;
-            while (paths[i])
-            {
-                // ft_printf("%s\n", paths[i]);
-                i++;
-            }
-            break;
-        }
-        i++;
-    }
-    while (ft_strcmp(command, "exit"))
+    paths = ft_strsplit(get_line_env("PATH") + 5, ':');
+    while (1)
     {
         ask_command(&command);
         execute_command(command, paths);
