@@ -24,6 +24,12 @@ int main(int argc, char **argv)
     i = 0;
     while (post_analyse_stacks(&stack_a, &stack_b) != 1)
     {
+
+        
+
+
+
+
         i++;
         if (i == 10)
             break;
