@@ -65,5 +65,6 @@ int main(int argc, char **argv)
         i++;
     }
     ft_print_tree_ls(root, flag);
+    ft_putchar('\n');
     return (0);
 }

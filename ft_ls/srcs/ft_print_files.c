@@ -150,7 +150,7 @@ void ft_print_files(char *path, t_flag *flag)
         new_file->d_name = pDirent->d_name;
         // ft_printf("Path: %s, get_level(path): %d\n", new_path, get_level(path));
         if (flag->has_a == 0 && (ft_strcmp(pDirent->d_name, ".") == 0 
-            || ft_strcmp(pDirent->d_name, "..") == 0))
+            || ft_strcmp(pDirent->d_name, "..") == 0 || pDirent->d_name[0] == '.'))
         {
         }
         else

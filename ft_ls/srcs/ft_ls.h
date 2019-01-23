@@ -56,6 +56,7 @@ time_t get_file_modified_time(const char *path);
 unsigned long get_file_st_blocks(const char *path);
 int file_is_dir(char *path);
 t_file *ft_create_file(char *path);
+void    ft_putchar(char c);
 
 t_btree		*btree_create_node(void *item);
 // void ft_insert_btree(t_btree **root, void *content, int (*cmp)(void *, void *));
