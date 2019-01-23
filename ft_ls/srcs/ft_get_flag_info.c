@@ -7,24 +7,31 @@ int is_valid_flag(char c)
     return (0);
 }
 
-t_flag *ft_get_flag_info(char *argv)
+t_flag *ft_get_flag_info(char *argv, t_flag *flag)
 {
-    t_flag *flag;
+    t_flag *new_flag;
     int i;
 
-    flag = malloc(sizeof(t_flag));
-    if (flag == NULL)
+    new_flag = malloc(sizeof(t_flag));
+    if (new_flag == NULL)
         return (NULL);
-    flag->flag = argv;
-    flag->has_l = 0;
-    flag->has_cap_r = 0;
-    flag->has_a = 0;
-    flag->has_r = 0;
-    flag->has_t = 0;
+    if (flag == NULL)
+    {
+        new_flag->flag = argv;
+        new_flag->has_l = 0;
+        new_flag->has_cap_r = 0;
+        new_flag->has_a = 0;
+        new_flag->has_r = 0;
+        new_flag->has_t = 0;
+    }
+    else
+    {
+        *new_flag = *flag;
+    }
 
     i = 0;
     if (argv[i] == '\0')
-        return (flag);
+        return (new_flag);
     if (argv[i] && argv[i] != '-')
     {
         return (NULL);
@@ -34,19 +41,19 @@ t_flag *ft_get_flag_info(char *argv)
     {
         if (is_valid_flag(argv[i]) == 0)
         {
-            return (flag);
+            return (new_flag);
         }
         if (argv[i] == 'l')
-            flag->has_l = 1;
+            new_flag->has_l = 1;
         if (argv[i] == 'R')
-            flag->has_cap_r = 1;
+            new_flag->has_cap_r = 1;
         if (argv[i] == 'a')
-            flag->has_a = 1;
+            new_flag->has_a = 1;
         if (argv[i] == 'r')
-            flag->has_r = 1;
+            new_flag->has_r = 1;
         if (argv[i] == 't')
-            flag->has_t = 1;
+            new_flag->has_t = 1;
         i++;
     }
-    return (flag);
+    return (new_flag);
 }

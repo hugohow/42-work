@@ -14,6 +14,7 @@
 #include <time.h> 
 #include <string.h>
 #include <stdlib.h>
+
 typedef struct s_file_info
 {
     char    *path;
@@ -48,7 +49,7 @@ int ft_strcmp(char *str1, char *str2);
 char **ft_strsplit(char const *s, char c);
 char *ft_strjoin(char const *s1, char const *s2);
 size_t  ft_strlen(const char *str);
-t_flag *ft_get_flag_info(char *argv);
+t_flag *ft_get_flag_info(char *argv, t_flag *flag);
 char    *ft_strrchr(const char *s, int c);
 char *get_file_name(char *path);
 time_t get_file_modified_time(const char *path);
