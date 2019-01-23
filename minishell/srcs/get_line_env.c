@@ -50,3 +50,37 @@ int change_line_env(char *key, char *line)
     }
     return (0);
 }
+
+int delete_line_env(char *key)
+{
+    size_t i;
+    size_t j;
+    size_t k;
+
+    i = 0;
+    while (environ[i])
+    {
+
+        if (environ[i][0] == key[0])
+        {
+            j = 0;
+            while (key[j] && environ[i][j] && environ[i][j] == key[j])
+            {
+                j++;
+            }
+            if (j == ft_strlen(key))
+            {
+                k = i + 1;
+                while (environ[k])
+                {
+                    environ[k - 1] = environ[k];
+                    k++;
+                }
+                environ[k - 1] = environ[k];
+                return (1);
+            }
+        }
+        i++;
+    }
+    return (0);
+}

@@ -76,6 +76,11 @@ void execute_command(char *cmd, char **paths)
         ft_setenv(list_size(cmd_list), cmd_list);
         return ;
     }
+    if (ft_strcmp(cmd_list[0], "unsetenv") == 0)
+    {
+        ft_unsetenv(list_size(cmd_list), cmd_list);
+        return ;
+    }
     while (paths[i])
     {
         if (search_path_exe(cmd_list[0], paths[i], cmd_list) == 0)

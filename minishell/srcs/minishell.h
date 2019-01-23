@@ -12,6 +12,7 @@ char    *ft_strjoin(char const *str1, char const *str2);
 int     ft_echo(int argc, char **argv);
 int     ft_cd(int argc, char **argv);
 int     ft_setenv(int argc, char **argv);
+int ft_unsetenv(int argc, char **argv);
 size_t  ft_strlen(const char *str);
 char *get_line_env(char *str);
 
