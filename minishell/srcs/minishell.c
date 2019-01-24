@@ -88,6 +88,11 @@ void execute_command(char *cmd, char **paths, char ***p_environ)
         ft_env(list_size(cmd_list), cmd_list, p_environ);
         return ;
     }
+    if (ft_strcmp(command, "exit") == 0)
+    {
+        exit(0);
+        return ;
+    }
     while (paths[i])
     {
         if (search_path_exe(command, paths[i], cmd_list) == 0)
@@ -138,7 +143,6 @@ int main()
     {
         ask_command(&command);
         execute_command(command, paths, &copy_env);
-        // ft_printf("command : %s\n", command);
     }
     return (0);
 }
