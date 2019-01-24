@@ -1,7 +1,7 @@
 #include "ft_setenv.h"
 
 
-int ft_setenv(int argc, char **argv)
+int ft_setenv(int argc, char **argv, char ***p_environ)
 {
     char **new_environ;
     char *env_line;
@@ -20,18 +20,18 @@ int ft_setenv(int argc, char **argv)
         env_line = ft_strjoin(env_line, "");
     else
         env_line = ft_strjoin(env_line, argv[2]);
-    if (change_line_env(argv[1], env_line) == 0)
+    if (change_line_env(argv[1], env_line, p_environ) == 0)
     {
-        new_environ = (char **)malloc((list_size(environ) + 2) * sizeof(char *));
+        new_environ = (char **)malloc((list_size(*p_environ) + 2) * sizeof(char *));
         i = 0;
-        while (i < list_size(environ))
+        while (i < list_size(*p_environ))
         {
-            new_environ[i] = environ[i];
+            new_environ[i] = (*p_environ)[i];
             i++;
         }
         new_environ[i++] = env_line;
         new_environ[i] = 0;
-        *(&environ) = new_environ;
+        *p_environ = new_environ;
     }
 
     return (0);
