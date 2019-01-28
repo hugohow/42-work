@@ -8,3 +8,4 @@
 #include <unistd.h>
 
 void    ft_putstr(char const *str);
+int     ft_printf(const char* format, ...);

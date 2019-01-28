@@ -6,16 +6,28 @@
 #define TRUE 1
 #define CTRL_KEY(k) ((k) & 0x1f)
 #include <sys/ioctl.h>
+#include <signal.h>
 
 int 	getWindowSize(int *rows, int *cols);
 int 	iscntrl(int c);
 
 struct editorConfig {
+  int cx;
+  int cy;
   int 	screenrows;
   int 	screencols;
   struct termios orig_termios;
 };
 struct editorConfig E;
+
+
+
+enum editorKey {
+  ARROW_LEFT = 1000,
+  ARROW_RIGHT,
+  ARROW_UP,
+  ARROW_DOWN
+};
 
 
 void print_example()
@@ -41,21 +53,16 @@ void print_example()
 	putchar('!');
 }
 
-void editorDrawRows() {
-  int y;
-  for (y = 0; y < E.screenrows; y++) {
-    write(STDOUT_FILENO, "~\r\n", 3);
-  }
-}
-
 void initEditor() {
+  E.cx = 0;
+  E.cy = 0;
   if (getWindowSize(&E.screenrows, &E.screencols) == -1)
   {
 	  return ;
   }
 }
 
-char editorReadKey() {
+int editorReadKey() {
   int nread;
   char c;
   while ((nread = read(STDIN_FILENO, &c, 1)) != 1) {
@@ -63,51 +70,140 @@ char editorReadKey() {
 		return 0;
 	};
   }
-  return c;
+  if (c == '\x1b') {
+    char seq[3];
+    if (read(STDIN_FILENO, &seq[0], 1) != 1) return '\x1b';
+    if (read(STDIN_FILENO, &seq[1], 1) != 1) return '\x1b';
+    if (seq[0] == '[') {
+      switch (seq[1]) {
+        case 'A': return ARROW_UP;
+        case 'B': return ARROW_DOWN;
+        case 'C': return ARROW_RIGHT;
+        case 'D': return ARROW_LEFT;
+      }
+    }
+    return '\x1b';
+  } else {
+    return c;
+  }
 }
 
-void editorRefreshScreen() {
-  write(STDOUT_FILENO, "\x1b[2J", 4);
-  write(STDOUT_FILENO, "\x1b[H", 3);
+void print_selected(char *str)
+{
+	ft_putstr("selected : ");
+	ft_putstr(str);
+}
 
-  editorDrawRows();
-  write(STDOUT_FILENO, "\x1b[H", 3);
+void print_over(char *str)
+{
+	fputs(tgetstr("us", NULL), stdout);
+	printf("%-20s", str);
+	fputs(tgetstr("me", NULL), stdout);
+}
+
+void print_argv(char **argv)
+{
+	int i;
+
+	i = 1;
+	while (argv[i])
+	{
+		if (i == E.cx)
+			print_over(argv[i]);
+		else
+			printf("%-20s", argv[i]);
+		
+		i++;
+	}
+	printf("\r\nE.cx : %d\r\n", E.cx);
+	printf("\r\nE.cy : %d\r\n", E.cy);
+	printf("\r\nE.screenrows : %d\r\n", E.screenrows);
+	printf("\r\nE.screencols : %d\r\n", E.screencols);
+}
+
+void editorRefreshScreen(char **argv) {
+//   write(STDOUT_FILENO, "\x1b[2J", 4);
+//   write(STDOUT_FILENO, "\x1b[H", 3);
+//   write(STDOUT_FILENO, "\x1b[H", 3);
+	print_argv(argv);
+}
+
+void exit_select()
+{
+	write(STDOUT_FILENO, "\x1b[2J", 4);
+	write(STDOUT_FILENO, "\x1b[H", 3);
+	tcsetattr(0, TCSAFLUSH, &E.orig_termios);
+	exit(0);
+}
+
+void editorMoveCursor(int key) {
+  switch (key) {
+    case ARROW_LEFT:
+      E.cx--;
+      break;
+    case ARROW_RIGHT:
+      E.cx++;
+      break;
+    case ARROW_UP:
+      E.cy--;
+      break;
+    case ARROW_DOWN:
+      E.cy++;
+      break;
+  }
 }
 
 
 /*** input ***/
 void editorProcessKeypress() {
-	char buf[1024];
 	char *ap;
 	char *standstr;
-  char c = editorReadKey();
+  int c = editorReadKey();
   switch (c) {
-    case CTRL_KEY('q'):
-      write(STDOUT_FILENO, "\x1b[2J", 4);
-      write(STDOUT_FILENO, "\x1b[H", 3);
-      exit(0);
+    case CTRL_KEY('z'):
+      exit_select();
       break;
-  }
-  if (c == 'j')
-  {
-	  editorRefreshScreen();
-  }
-	tgetent(buf, getenv("TERM"));
-	if (iscntrl(c)) {
-		standstr = tgetstr("so", &ap);
-		fputs(standstr, stdout);
-		printf("%d\r\n", c);
-	} else {
-		standstr = tgetstr("se", &ap);
-		fputs(standstr, stdout);
-		printf("%d ('%c')\r\n", c, c);
+
+    case ARROW_UP:
+    case ARROW_DOWN:
+    case ARROW_LEFT:
+    case ARROW_RIGHT:
+		editorMoveCursor(c);
+		break;
+	// case 'j':
+	// 	editorRefreshScreen();
+	// default:
+	// {
+	// 	if (iscntrl(c)) {
+	// 		standstr = tgetstr("so", &ap);
+	// 		fputs(standstr, stdout);
+	// 		printf("%d\r\n", c);
+	// 	} else {
+	// 		standstr = tgetstr("se", &ap);
+	// 		fputs(standstr, stdout);
+	// 		printf("%d ('%c')\r\n", c, c);
+	// 	}
+	// 	}
+	}
+}
+
+
+void sig_handler(int signo)
+{
+    if (signo == SIGWINCH)
+	{
+		printf("received SIGWINCH\n");
+		if (getWindowSize(&E.screenrows, &E.screencols) == -1)
+		{
+			return ;
+		}
 	}
 }
 
 
 int getWindowSize(int *rows, int *cols) {
   struct winsize ws;
-  if (1 || ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == -1 || ws.ws_col == 0) {
+  if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == -1 || ws.ws_col == 0) {
 	return -1;
   } else {
     *cols = ws.ws_col;
@@ -132,7 +228,8 @@ int main(int argc, char **argv)
 	i = 1;
 	if (argc < 2)
 		return (0);
-
+    if (signal(SIGWINCH, sig_handler) == SIG_ERR)
+        printf("\ncan't catch SIGWINCH\n");
 
     if ((term_name = getenv("TERM")) == NULL)
         return (-1);
@@ -179,18 +276,12 @@ int main(int argc, char **argv)
 	// tcsetattr(0, TCSANOW, new_termios_p);
 
 
-	while (argv[i])
-	{
-		// ft_putstr(argv[i]);
-		i++;
-	}
-
 	stop = 0;
 
 	c = 0;
 
 	while (1) {
-		// editorRefreshScreen();
+		editorRefreshScreen(argv);
 		editorProcessKeypress();
 	}
 
@@ -221,6 +312,5 @@ int main(int argc, char **argv)
 	// 	if (c == CTRL_KEY('q')) break;
   	// }
 
-	tcsetattr(0, TCSAFLUSH, &E.orig_termios);
 	return (0);
 }
