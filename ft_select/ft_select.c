@@ -14,6 +14,13 @@ int 	iscntrl(int c);
 struct editorConfig {
   int cx;
   int cy;
+  int index;
+  int origin_x;
+  int origin_y;
+  int nb_row;
+  int nb_col;
+  char **argv;
+  int argc;
   int 	screenrows;
   int 	screencols;
   struct termios orig_termios;
@@ -53,14 +60,18 @@ void print_example()
 	putchar('!');
 }
 
-void initEditor() {
+void initEditor(int argc, char **argv) {
   E.cx = 0;
   E.cy = 0;
+  E.index = 0;
+  E.argv = argv;
+  E.argc = argc;
   if (getWindowSize(&E.screenrows, &E.screencols) == -1)
   {
 	  return ;
   }
 }
+
 
 int editorReadKey() {
   int nread;
@@ -88,12 +99,6 @@ int editorReadKey() {
   }
 }
 
-void print_selected(char *str)
-{
-	ft_putstr("selected : ");
-	ft_putstr(str);
-}
-
 void print_over(char *str)
 {
 	fputs(tgetstr("us", NULL), stdout);
@@ -101,56 +106,106 @@ void print_over(char *str)
 	fputs(tgetstr("me", NULL), stdout);
 }
 
-void print_argv(char **argv)
+void print_argv(int argc, char **argv)
 {
 	int i;
 
-	i = 1;
+	if (argc > E.screencols/20)
+		E.nb_col = E.screencols/40;
+	else
+		E.nb_col = E.screencols/20;
+	// printf("\r\nE.nb_col : %d\r\n", E.nb_col);
+	// printf("\r\nargc - 1 : %d\r\n", argc - 1);
+	E.nb_row = (argc - 1)/E.nb_col;
+	// printf("\r\nE.nb_row : %d\r\n", E.nb_row);
+
+	i = 0;
 	while (argv[i])
 	{
-		if (i == E.cx)
+		if (i % E.nb_col == 0)
+			printf("\r\n");
+		if (i == E.index)
+		{
 			print_over(argv[i]);
+		}
 		else
+		{
 			printf("%-20s", argv[i]);
+		}
 		
 		i++;
 	}
-	printf("\r\nE.cx : %d\r\n", E.cx);
-	printf("\r\nE.cy : %d\r\n", E.cy);
-	printf("\r\nE.screenrows : %d\r\n", E.screenrows);
-	printf("\r\nE.screencols : %d\r\n", E.screencols);
+	printf("\r\n");
+	// printf("\r\nE.screenrows : %d\r\n", E.screenrows);
+	// printf("\r\nE.screencols : %d\r\n", E.screencols);
 }
 
-void editorRefreshScreen(char **argv) {
-//   write(STDOUT_FILENO, "\x1b[2J", 4);
-//   write(STDOUT_FILENO, "\x1b[H", 3);
-//   write(STDOUT_FILENO, "\x1b[H", 3);
-	print_argv(argv);
+void editorRefreshScreen(int argc, char **argv) {
+	// write(STDOUT_FILENO, "\x1b[2;4J", 4);
+	int i;
+
+	i = 0;
+	while (i < E.nb_row + 1)
+	{
+		printf("\033[K");
+		printf("\033[A");
+		i++;
+	}
+	// printf("%d", E.nb_row);
+	// printf("\033[u");	
+	print_argv(argc, argv);
 }
 
 void exit_select()
 {
-	write(STDOUT_FILENO, "\x1b[2J", 4);
-	write(STDOUT_FILENO, "\x1b[H", 3);
+	// write(STDOUT_FILENO, "\x1b[2;4J", 4);
+	// printf("\033[K");
+	// printf("\033[A");
+	// printf("\033[%d;0H", E.screenrows);	
+	printf("\033[u");
 	tcsetattr(0, TCSAFLUSH, &E.orig_termios);
 	exit(0);
 }
 
 void editorMoveCursor(int key) {
-  switch (key) {
-    case ARROW_LEFT:
-      E.cx--;
-      break;
-    case ARROW_RIGHT:
-      E.cx++;
-      break;
-    case ARROW_UP:
-      E.cy--;
-      break;
-    case ARROW_DOWN:
-      E.cy++;
-      break;
-  }
+	if (key == ARROW_LEFT)
+	{
+		if (E.cx != 0)
+		{
+			E.cx--;
+			E.index = E.cy * E.nb_col + E.cx;
+		}
+	}
+	if (key == ARROW_RIGHT)
+	{
+		if (E.cx != E.nb_col)
+		{
+			E.cx++;
+			E.index = E.cy * E.nb_col + E.cx;
+		}
+	}
+	if (key == ARROW_UP)
+	{
+		if (E.cy != 0)
+		{
+			E.cy--;
+			E.index = E.cy * E.nb_col + E.cx;
+		}
+	}
+	if (key == ARROW_DOWN)
+	{
+		if (E.cy != E.nb_row - 1)
+		{
+			E.cy++;
+			E.index = E.cy * E.nb_col + E.cx;
+		}
+	}
+	// printf("E.cx : %d\n", E.cx);
+	// printf("E.nb_col : %d\n", E.nb_col);
+	// printf("E.cy : %d\n", E.cy);
+	// printf("E.nb_row : %d\n", E.nb_row);
+	// printf("E.index : %d\n", E.index);
+
 }
 
 
@@ -192,11 +247,13 @@ void sig_handler(int signo)
 {
     if (signo == SIGWINCH)
 	{
-		printf("received SIGWINCH\n");
 		if (getWindowSize(&E.screenrows, &E.screencols) == -1)
 		{
 			return ;
 		}
+		E.cy = E.index / E.nb_col;
+		E.cx = E.index % E.nb_col;
+		editorRefreshScreen(E.argc, E.argv);
 	}
 }
 
@@ -220,10 +277,7 @@ int main(int argc, char **argv)
 	char *term_name;
 	int ret;
 	int res;
-	char c;
-	struct termios *termios_p;
-	struct termios *new_termios_p;
-	int stop;
+	struct termios raw;
 
 	i = 1;
 	if (argc < 2)
@@ -233,9 +287,7 @@ int main(int argc, char **argv)
 
     if ((term_name = getenv("TERM")) == NULL)
         return (-1);
-
 	ret = tgetent(NULL, term_name);
-	initEditor();
     if (ret == -1)
     {
         printf("Could not access to the termcap database..\n");
@@ -246,42 +298,22 @@ int main(int argc, char **argv)
         printf("Terminal type '%s' is not defined in termcap database (or have too few informations).\n", term_name);
         return -1;
     }
-
-	termios_p = malloc(sizeof(struct termios));
-	new_termios_p = malloc(sizeof(struct termios));
 	tcgetattr(STDIN_FILENO, &E.orig_termios);
-
-	struct termios raw = E.orig_termios;
-//   tcgetattr(0, termios_p);
+	raw = E.orig_termios;
 	raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
 	raw.c_oflag &= ~(OPOST);
 	raw.c_cflag |= (CS8);
 	raw.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
 	raw.c_cc[VMIN] = 1;
 	raw.c_cc[VTIME] = 1;
-	
-  tcsetattr(0, TCSAFLUSH, &raw);
+  	tcsetattr(0, TCSAFLUSH, &raw);
 
-
-	// new_termios_p = malloc(sizeof(struct termios));
-	// // new_termios_p->c_cflag = BAUDRATE | CRTSCTS | CS8 | CLOCAL | CREAD;
-	// // new_termios_p->c_iflag = IGNPAR;
-	// // new_termios_p->c_oflag = 0;
-	// // new_termios_p->c_lflag = 0;
-	// // new_termios_p->c_cc[VTIME]    = 0;
-	// // new_termios_p->c_cc[VMIN]     = 0;
-	// *new_termios_p = *termios_p;
-	// new_termios_p->c_lflag &= ~(ECHO);
-
-	// tcsetattr(0, TCSANOW, new_termios_p);
-
-
-	stop = 0;
-
-	c = 0;
-
-	while (1) {
-		editorRefreshScreen(argv);
+	argc++;
+	argv++;
+	initEditor(argc, argv);
+	while (1)
+	{
+		editorRefreshScreen(argc, argv);
 		editorProcessKeypress();
 	}
 
