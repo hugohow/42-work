@@ -118,7 +118,17 @@ void print_argv(int argc, char **argv)
 	// printf("\r\nargc - 1 : %d\r\n", argc - 1);
 	E.nb_row = (argc - 1)/E.nb_col;
 	// printf("\r\nE.nb_row : %d\r\n", E.nb_row);
+	if (E.index >= argc - 1)
+	{
 
+	}
+	else
+	{
+		E.cy = E.index / E.nb_col;
+		E.cx = E.index % E.nb_col;
+	}
+	printf("E.cy : %d\n", E.cy);
+	printf("E.cx : %d\n", E.cx);
 	i = 0;
 	while (argv[i])
 	{
@@ -142,15 +152,15 @@ void print_argv(int argc, char **argv)
 
 void editorRefreshScreen(int argc, char **argv) {
 	// write(STDOUT_FILENO, "\x1b[2;4J", 4);
-	int i;
+	// int i;
 
-	i = 0;
-	while (i < E.nb_row + 1)
-	{
-		printf("\033[K");
-		printf("\033[A");
-		i++;
-	}
+	// i = 0;
+	// while (i < E.nb_row + 1)
+	// {
+	// 	printf("\033[K");
+	// 	printf("\033[A");
+	// 	i++;
+	// }
 	// printf("%d", E.nb_row);
 	// printf("\033[u");	
 	print_argv(argc, argv);
@@ -170,7 +180,7 @@ void exit_select()
 void editorMoveCursor(int key) {
 	if (key == ARROW_LEFT)
 	{
-		if (E.cx != 0)
+		if (E.cx > 0)
 		{
 			E.cx--;
 			E.index = E.cy * E.nb_col + E.cx;
@@ -178,7 +188,7 @@ void editorMoveCursor(int key) {
 	}
 	if (key == ARROW_RIGHT)
 	{
-		if (E.cx != E.nb_col)
+		if (E.cx < E.nb_col)
 		{
 			E.cx++;
 			E.index = E.cy * E.nb_col + E.cx;
@@ -186,7 +196,7 @@ void editorMoveCursor(int key) {
 	}
 	if (key == ARROW_UP)
 	{
-		if (E.cy != 0)
+		if (E.cy > 0)
 		{
 			E.cy--;
 			E.index = E.cy * E.nb_col + E.cx;
@@ -194,17 +204,17 @@ void editorMoveCursor(int key) {
 	}
 	if (key == ARROW_DOWN)
 	{
-		if (E.cy != E.nb_row - 1)
+		if (E.cy < E.nb_row - 1)
 		{
 			E.cy++;
 			E.index = E.cy * E.nb_col + E.cx;
 		}
 	}
-	// printf("E.cx : %d\n", E.cx);
-	// printf("E.nb_col : %d\n", E.nb_col);
-	// printf("E.cy : %d\n", E.cy);
-	// printf("E.nb_row : %d\n", E.nb_row);
-	// printf("E.index : %d\n", E.index);
+	printf("E.cx : %d\n", E.cx);
+	printf("E.nb_col : %d\n", E.nb_col);
+	printf("E.cy : %d\n", E.cy);
+	printf("E.nb_row : %d\n", E.nb_row);
+	printf("E.index : %d\n", E.index);
 
 }
 
@@ -251,8 +261,6 @@ void sig_handler(int signo)
 		{
 			return ;
 		}
-		E.cy = E.index / E.nb_col;
-		E.cx = E.index % E.nb_col;
 		editorRefreshScreen(E.argc, E.argv);
 	}
 }
