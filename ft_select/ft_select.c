@@ -267,6 +267,8 @@ void editorProcessKeypress() {
 	char *standstr;
   int c = editorReadKey();
   switch (c) {
+	case 27:
+	case 13:
     case CTRL_KEY('z'):
       exit_select();
       break;
