@@ -200,20 +200,6 @@ void exit_select()
 }
 
 
-void delete_element_list()
-{
-	int i;
-
-	i = E.index;
-	while (E.argv[i + 1])
-	{
-		E.argv[i] = E.argv[i + 1];
-		i++;
-	}
-	E.argc--;
-	editorRefreshScreen(E.argc, E.argv);
-}
-
 void editor_move_cursor(int key) {
 	int index;
 
@@ -254,6 +240,21 @@ void editor_move_cursor(int key) {
 		}
 	}
 
+}
+
+void delete_element_list()
+{
+	int i;
+
+	i = E.index;
+	while (E.argv[i + 1])
+	{
+		E.argv[i] = E.argv[i + 1];
+		i++;
+	}
+	E.argc--;
+	editor_move_cursor(ARROW_LEFT);
+	// editorRefreshScreen(E.argc, E.argv);
 }
 
 void select_element_list()
