@@ -1,6 +1,78 @@
 
 #include "minishell.h"
 
+typedef struct s_token
+{
+    char* type;
+    char* value;
+}           t_token;
+
+
+void print_tokens(t_token **list)
+{
+    int i;
+
+    i = 0;
+    while (list[i])
+    {
+        ft_printf("type : %s, value : %s\n", list[i]->type, list[i]->value);
+        i++;
+    }
+}
+
+int is_separator(char *str)
+{
+    if (str[0] && str[0] == ';')
+        return (1);
+    return (0);
+}
+
+t_token **tokenize_command(char *cmd)
+{
+    t_token **list;
+    t_token *token;
+    int i;
+    int k;
+    int len;
+    char *value;
+
+    list = (t_token **)malloc(1000*sizeof(t_token *));
+    i = 0;
+    k = 0;
+    while (cmd[i])
+    {
+        token = malloc(sizeof(t_token));
+        if (is_separator(cmd + i) == 0)
+        {
+            value = malloc((ft_strlen(cmd) * sizeof(char)));
+            len = 0;
+            while (cmd[i] && is_separator(cmd + i) == 0)
+            {
+                value[len] = cmd[i];
+                len++;
+                i++;
+            }
+            value[len] = 0;
+            token->value = value;
+            token->type = "cmd";
+            list[k] = token;
+            k++;
+        }
+        else if (is_separator(cmd + i))
+        {
+            token->type = "separator";
+            token->value = ft_strsub(cmd, i, 1);
+            list[k] = token;
+            k++;
+            i++;
+        }
+    }
+    list[k] = 0;
+    // print_tokens(list);
+    return (list);
+}
+
+
 int search_path_exe(char *cmd, char *path, char **argv)
 {
     DIR *pDir;
@@ -136,13 +208,24 @@ int main()
     char *command;
     char **paths;
     char **copy_env;
-
+    t_token **list;
+    int i;
+    
     copy_env = copy_environ((char **)environ);
     paths = ft_strsplit(get_line_env("PATH", copy_env) + 5, ':');
     while (1)
     {
         ask_command(&command);
-        execute_command(command, paths, &copy_env);
+        list = tokenize_command(command);
+        i = 0;
+        while (list[i])
+        {
+            if (ft_strcmp(list[i]->type, "separator") != 0)
+            {
+                execute_command(list[i]->value, paths, &copy_env);
+            }
+            i++;
+        }
     }
     return (0);
 }

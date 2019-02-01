@@ -18,4 +18,5 @@ size_t  ft_strlen(const char *str);
 char *get_line_env(char *str, char **environ);
 char    *ft_strtrim(char const *str);
 int ft_env(int argc, char **argv, char ***p_environ);
+char    *ft_strsub(char const *s, unsigned int start, size_t len);
 extern char **environ;
