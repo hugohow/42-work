@@ -252,6 +252,7 @@ int main()
             if (ft_strcmp(list[i]->type, "separator") != 0)
             {
                 execute_command(list[i]->value, paths, &copy_env);
+                break;
             }
             i++;
         }
