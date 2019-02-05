@@ -24,6 +24,8 @@ int is_separator(char *str)
 {
     if (str[0] && str[0] == ';')
         return (1);
+    if (str[0] && str[0] == '<')
+        return (1);
     return (0);
 }
 
@@ -210,7 +212,7 @@ void execute_command(char *cmd, char **paths, char ***p_environ)
 
 int ask_command(int fd, char **command)
 {
-    if (fd == 0)
+    if (fd == 0 && isatty(0) == 1)
         ft_putstr("$> ");
     return (get_next_line(fd, command));
 }
@@ -274,20 +276,42 @@ int main(int argc, char **argv)
         fd = 0;
         copy_env = copy_environ((char **)environ);
         paths = ft_strsplit(get_line_env("PATH", &copy_env) + 5, ':');
-        while (1)
+
+        if (isatty(0) == 1)
         {
-            copy_env = copy_environ((char **)environ);
-            paths = ft_strsplit(get_line_env("PATH", &copy_env) + 5, ':');
-            ask_command(fd, &command);
-            list = tokenize_command(command);
-            i = 0;
-            while (list[i])
+            while (42)
             {
-                if (ft_strcmp(list[i]->type, "separator") != 0)
+                copy_env = copy_environ((char **)environ);
+                paths = ft_strsplit(get_line_env("PATH", &copy_env) + 5, ':');
+                ask_command(fd, &command);
+                list = tokenize_command(command);
+                i = 0;
+                while (list[i])
                 {
-                    execute_command(list[i]->value, paths, &copy_env);
+                    if (ft_strcmp(list[i]->type, "separator") != 0)
+                    {
+                        execute_command(list[i]->value, paths, &copy_env);
+                    }
+                    i++;
                 }
-                i++;
+            }
+        }
+        else
+        {
+            while (ask_command(fd, &command) != 0)
+            {
+                copy_env = copy_environ((char **)environ);
+                paths = ft_strsplit(get_line_env("PATH", &copy_env) + 5, ':');
+                list = tokenize_command(command);
+                i = 0;
+                while (list[i])
+                {
+                    if (ft_strcmp(list[i]->type, "separator") != 0)
+                    {
+                        execute_command(list[i]->value, paths, &copy_env);
+                    }
+                    i++;
+                }
             }
         }
     }
