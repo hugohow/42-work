@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <fcntl.h>
 
 int     get_next_line(const int fd, char **line);
 int     ft_printf(const char* format, ...);
@@ -19,4 +20,5 @@ char *get_line_env(char *str, char ***p_environ);
 char    *ft_strtrim(char const *str);
 int ft_env(int argc, char **argv, char ***p_environ);
 char    *ft_strsub(char const *s, unsigned int start, size_t len);
+void    ft_putstr(char const *str);
 extern char **environ;
