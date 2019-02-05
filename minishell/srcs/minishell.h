@@ -15,7 +15,7 @@ int     ft_cd(int argc, char **argv, char ***p_environ);
 int     ft_setenv(int argc, char **argv, char ***p_environ);
 int ft_unsetenv(int argc, char **argv, char ***p_environ);
 size_t  ft_strlen(const char *str);
-char *get_line_env(char *str, char **environ);
+char *get_line_env(char *str, char ***p_environ);
 char    *ft_strtrim(char const *str);
 int ft_env(int argc, char **argv, char ***p_environ);
 char    *ft_strsub(char const *s, unsigned int start, size_t len);

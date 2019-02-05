@@ -18,7 +18,6 @@ int ft_cd(int argc, char **argv, char ***p_environ)
 {
     char *path;
 
-
     if (argc && argv[1])
     {
         path = ft_strjoin(get_path(BUF_SIZE), "/");
@@ -26,7 +25,7 @@ int ft_cd(int argc, char **argv, char ***p_environ)
     }
     else
     {
-        path = get_line_env("HOME", *p_environ) + 5;
+        path = get_line_env("HOME", p_environ) + 5;
     }
     if (chdir(path) < 0)
         ft_printf("cd: no such file or directory: %s\n", argv[1]);

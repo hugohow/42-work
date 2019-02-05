@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-char *get_line_env(char *str, char **environ);
+char *get_line_env(char *str, char ***p_environ);
 int change_line_env(char *key, char *line, char ***p_environ);
 char    *ft_strjoin(char const *str1, char const *str2);
 int list_size(char **list);

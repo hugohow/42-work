@@ -1,13 +1,13 @@
 #include "ft_env.h"
 
-void ft_print_env(char **environ)
+void ft_print_env(char **str)
 {
     int i;
 
     i = 0;
-    while (environ[i])
+    while (str[i])
     {
-        ft_putstr(environ[i]);
+        ft_putstr(str[i]);
         ft_putchar('\n');
         i++;
     }

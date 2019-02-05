@@ -1,23 +1,23 @@
 #include "get_line_env.h"
 
-char *get_line_env(char *str, char **environ)
+char *get_line_env(char *str, char ***p_environ)
 {
     size_t i;
     size_t j;
 
     i = 0;
-    while (environ[i])
+    while ((*p_environ)[i])
     {
 
-        if (environ[i][0] == str[0])
+        if ((*p_environ)[i][0] == str[0])
         {
             j = 0;
-            while (str[j] && environ[i][j] && environ[i][j] == str[j])
+            while (str[j] && (*p_environ)[i][j] && (*p_environ)[i][j] == str[j])
             {
                 j++;
             }
             if (j == ft_strlen(str))
-                return (environ[i]);
+                return ((*p_environ)[i]);
         }
         i++;
     }

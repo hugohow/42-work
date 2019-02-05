@@ -44,7 +44,7 @@ t_token **tokenize_command(char *cmd)
         token = malloc(sizeof(t_token));
         if (is_separator(cmd + i) == 0)
         {
-            value = malloc((ft_strlen(cmd) * sizeof(char)));
+            value = malloc(((ft_strlen(cmd) + 1) * sizeof(char)));
             len = 0;
             while (cmd[i] && is_separator(cmd + i) == 0)
             {
@@ -52,7 +52,7 @@ t_token **tokenize_command(char *cmd)
                 len++;
                 i++;
             }
-            value[len] = 0;
+            value[len] = '\0';
             token->value = value;
             token->type = "cmd";
             list[k] = token;
@@ -72,14 +72,32 @@ t_token **tokenize_command(char *cmd)
     return (list);
 }
 
+void execute_path(char *path, char **argv, char ***p_environ)
+{
+    pid_t pid;
 
-int search_path_exe(char *cmd, char *path, char **argv)
+    pid = fork();
+    if (pid < 0) {
+        ft_printf("Failed to fork process 1\n");
+        exit(1);
+    }
+    if (pid == 0)
+    {
+        execve(path, argv, *p_environ);
+    }
+    else
+    {
+        wait(NULL);
+    }
+}
+
+int search_path_exe(char *cmd, char *path, char **argv, char ***p_environ)
 {
     DIR *pDir;
     struct dirent *pDirent;
     char *new_path;
-    pid_t pid;
 
+    (void)p_environ;
     if (path == NULL)
         return (-1);
     if ((pDir = opendir (path)) == NULL)
@@ -92,19 +110,8 @@ int search_path_exe(char *cmd, char *path, char **argv)
         {
             new_path = ft_strjoin(path, "/");
             new_path = ft_strjoin(new_path, pDirent->d_name);
-            pid = fork();
-            if (pid < 0) {
-                ft_printf("Failed to fork process 1\n");
-                exit(1);
-            }
-            if (pid == 0)
-            {
-                execve(new_path, argv, environ);
-            }
-            else
-            {
-                wait(NULL);
-            }
+            argv[0] = pDirent->d_name;
+            execute_path(new_path, argv, p_environ);
             closedir (pDir);
             return (0);
         }
@@ -123,6 +130,20 @@ int list_size(char **list)
     return (size);
 }
 
+int is_path(char *cmd)
+{
+    int i;
+
+    i = 0;
+    while (cmd[i])
+    {
+        if (cmd[i] == '/')
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
 void execute_command(char *cmd, char **paths, char ***p_environ)
 {
     int i;
@@ -135,6 +156,12 @@ void execute_command(char *cmd, char **paths, char ***p_environ)
     if (cmd_list[0] == NULL)
         return ;
     command = ft_strtrim(cmd_list[0]);
+    if (is_path(command) == 1)
+    {
+        cmd_list[0] = "name";
+        execute_path(command, cmd_list, p_environ);
+        return ;
+    }
     if (ft_strcmp(command, "echo") == 0)
     {
         ft_echo(list_size(cmd_list), cmd_list);
@@ -167,7 +194,7 @@ void execute_command(char *cmd, char **paths, char ***p_environ)
     }
     while (paths[i])
     {
-        if (search_path_exe(command, paths[i], cmd_list) == 0)
+        if (search_path_exe(command, paths[i], cmd_list, p_environ) == 0)
             break;
         i++;
     }
@@ -183,19 +210,19 @@ int ask_command(char **command)
     return (get_next_line(1, command));
 }
 
-char **copy_environ(char **environ)
+char **copy_environ(char **str)
 {
     char **copy;
     int i;
 
     i = 0;
-    while (environ[i])
+    while (str[i])
         i++;
     copy = (char **)malloc((i + 1) * sizeof(char *));
     i = 0;
-    while (environ[i])
+    while (str[i])
     {
-        copy[i] = environ[i];
+        copy[i] = str[i];
         i++;
     }
     copy[i] = 0;
@@ -212,9 +239,11 @@ int main()
     int i;
     
     copy_env = copy_environ((char **)environ);
-    paths = ft_strsplit(get_line_env("PATH", copy_env) + 5, ':');
+    paths = ft_strsplit(get_line_env("PATH", &copy_env) + 5, ':');
     while (1)
     {
+        copy_env = copy_environ((char **)environ);
+        paths = ft_strsplit(get_line_env("PATH", &copy_env) + 5, ':');
         ask_command(&command);
         list = tokenize_command(command);
         i = 0;
