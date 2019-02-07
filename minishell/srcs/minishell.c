@@ -5,7 +5,7 @@ typedef struct s_token
 {
     char* type;
     char* value;
-}           t_token;
+}              t_token;
 
 
 void print_tokens(t_token **list)
@@ -74,23 +74,29 @@ t_token **tokenize_command(char *cmd)
     return (list);
 }
 
-void execute_path(char *path, char **argv, char ***p_environ)
+int execute_path(char *path, char **argv, char ***p_environ)
 {
     pid_t pid;
 
     pid = fork();
+    if (access(path, X_OK) == -1)
+    {
+        ft_putstr_fd("Permission denied\n", 2);
+        return (-1);
+    }
     if (pid < 0) {
         ft_putstr("Failed to fork process 1\n");
         exit(1);
     }
     if (pid == 0)
     {
-        execve(path, argv, *p_environ);
+       execve(path, argv, *p_environ);
     }
     else
     {
         wait(NULL);
     }
+    return (0);
 }
 
 int search_path_exe(char *cmd, char *path, char **argv, char ***p_environ)
@@ -98,7 +104,9 @@ int search_path_exe(char *cmd, char *path, char **argv, char ***p_environ)
     DIR *pDir;
     struct dirent *pDirent;
     char *new_path;
+    int result;
 
+    result = 0;
     (void)p_environ;
     if (path == NULL)
         return (-1);
@@ -113,9 +121,9 @@ int search_path_exe(char *cmd, char *path, char **argv, char ***p_environ)
             new_path = ft_strjoin(path, "/");
             new_path = ft_strjoin(new_path, pDirent->d_name);
             argv[0] = pDirent->d_name;
-            execute_path(new_path, argv, p_environ);
+            result = execute_path(new_path, argv, p_environ);
             closedir (pDir);
-            return (0);
+            return (result);
         }
     }
     closedir (pDir);
@@ -146,68 +154,70 @@ int is_path(char *cmd)
     return (0);
 }
 
-void execute_command(char *cmd, char **paths, char ***p_environ)
+int execute_command(char *cmd, char **paths, char ***p_environ)
 {
     int i;
-
+    int result;
     i = 0;
     char **cmd_list;
     char *command;
 
     cmd_list = ft_strsplit(cmd, ' ');
     if (cmd_list[0] == NULL)
-        return ;
+        return 0;
     command = ft_strtrim(cmd_list[0]);
+    result = 0;
     if (is_path(command) == 1)
     {
         cmd_list[0] = "name";
-        execute_path(command, cmd_list, p_environ);
-        return ;
+        result = execute_path(command, cmd_list, p_environ);
+        return (result);
     }
     if (ft_strcmp(command, "echo") == 0)
     {
         ft_echo(list_size(cmd_list), cmd_list);
-        return ;
+        return 0;
     }
     if (ft_strcmp(command, "cd") == 0)
     {
         ft_cd(list_size(cmd_list), cmd_list, p_environ);
-        return ;
+        return 0;
     }
     if (ft_strcmp(command, "setenv") == 0)
     {
         ft_setenv(list_size(cmd_list), cmd_list, p_environ);
-        return ;
+        return 0;
     }
     if (ft_strcmp(command, "unsetenv") == 0)
     {
         ft_unsetenv(list_size(cmd_list), cmd_list, p_environ);
-        return ;
+        return 0;
     }
     if (ft_strcmp(command, "env") == 0)
     {
         ft_env(list_size(cmd_list), cmd_list, p_environ);
-        return ;
+        return 0;
     }
     if (ft_strcmp(command, "exit") == 0)
     {
         exit(0);
-        return ;
     }
     while (paths[i])
     {
         if (search_path_exe(command, paths[i], cmd_list, p_environ) == 0)
         {
-            break;
+            return (0);
         }
         i++;
     }
     if (paths[i] == 0)
     {
-        ft_putstr("minishell: command not found:");
-        ft_putstr(cmd);
-        ft_putstr("\n");
+        ft_putstr_fd("minishell: command not found: ", 2);
+        ft_putstr_fd(cmd, 2);
+        ft_putstr_fd("\n", 2);
+        return (1);
     }
+    return (1);
 }
 
 int ask_command(int fd, char **command)
@@ -245,27 +255,31 @@ int main(int argc, char **argv)
     t_token **list;
     int i;
     int fd;
-    
+    int *success;
+    char *path_line;
 
+    success = malloc(sizeof(int));
+    *success = 0;
+    copy_env = copy_environ((char **)environ);
+    path_line = get_line_env("PATH", &copy_env);
+    if (path_line)
+        path_line = ft_strjoin(get_line_env("PATH", &copy_env), ":.") + 5;
+    else
+        path_line = "/usr/sbin:/usr/bin:/sbin:/bin:.";
+    paths = ft_strsplit(path_line, ':');
     if (argc > 1)
     {
         fd = open(argv[1], O_RDONLY);
         if (fd > 0)
         {
-            copy_env = copy_environ((char **)environ);
-            paths = ft_strsplit(get_line_env("PATH", &copy_env) + 5, ':');
             while (ask_command(fd, &command) != 0)
             {
-                copy_env = copy_environ((char **)environ);
-                paths = ft_strsplit(get_line_env("PATH", &copy_env) + 5, ':');
                 list = tokenize_command(command);
                 i = 0;
                 while (list[i])
                 {
                     if (ft_strcmp(list[i]->type, "separator") != 0)
-                    {
-                        execute_command(list[i]->value, paths, &copy_env);
-                    }
+                        *success = execute_command(list[i]->value, paths, &copy_env);
                     i++;
                 }
             }
@@ -274,24 +288,17 @@ int main(int argc, char **argv)
     else
     {
         fd = 0;
-        copy_env = copy_environ((char **)environ);
-        paths = ft_strsplit(get_line_env("PATH", &copy_env) + 5, ':');
-
         if (isatty(0) == 1)
         {
             while (42)
             {
-                copy_env = copy_environ((char **)environ);
-                paths = ft_strsplit(get_line_env("PATH", &copy_env) + 5, ':');
                 ask_command(fd, &command);
                 list = tokenize_command(command);
                 i = 0;
                 while (list[i])
                 {
                     if (ft_strcmp(list[i]->type, "separator") != 0)
-                    {
-                        execute_command(list[i]->value, paths, &copy_env);
-                    }
+                        *success = execute_command(list[i]->value, paths, &copy_env);
                     i++;
                 }
             }
@@ -300,21 +307,16 @@ int main(int argc, char **argv)
         {
             while (ask_command(fd, &command) != 0)
             {
-                copy_env = copy_environ((char **)environ);
-                paths = ft_strsplit(get_line_env("PATH", &copy_env) + 5, ':');
                 list = tokenize_command(command);
                 i = 0;
                 while (list[i])
                 {
                     if (ft_strcmp(list[i]->type, "separator") != 0)
-                    {
-                        execute_command(list[i]->value, paths, &copy_env);
-                    }
+                        *success = execute_command(list[i]->value, paths, &copy_env);
                     i++;
                 }
             }
         }
     }
-    exit(0);
-    return (0);
+    return (*success);
 }
