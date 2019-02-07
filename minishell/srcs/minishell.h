@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 
 int     get_next_line(const int fd, char **line);
 int     ft_printf(const char* format, ...);

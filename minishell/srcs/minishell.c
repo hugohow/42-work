@@ -77,13 +77,20 @@ t_token **tokenize_command(char *cmd)
 int execute_path(char *path, char **argv, char ***p_environ)
 {
     pid_t pid;
+    struct stat fileStat;
 
-    pid = fork();
+    // le fichier existe mais impossible d'avoir stat -> loop symbolic links
+    if (stat(path, &fileStat) < 0)
+    {
+        ft_putstr_fd("Too many symbolic links\n", 2);
+        return (-1);
+    }
     if (access(path, X_OK) == -1)
     {
         ft_putstr_fd("Permission denied\n", 2);
         return (-1);
     }
+    pid = fork();
     if (pid < 0) {
         ft_putstr("Failed to fork process 1\n");
         exit(1);
@@ -180,8 +187,7 @@ int execute_command(char *cmd, char **paths, char ***p_environ)
     }
     if (ft_strcmp(command, "cd") == 0)
     {
-        ft_cd(list_size(cmd_list), cmd_list, p_environ);
-        return 0;
+        return (ft_cd(list_size(cmd_list), cmd_list, p_environ));
     }
     if (ft_strcmp(command, "setenv") == 0)
     {

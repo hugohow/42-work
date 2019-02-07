@@ -28,24 +28,23 @@ int change_line_env(char *key, char *line, char ***p_environ)
 {
     size_t i;
     size_t j;
-    char **environ;
+    char **envp;
 
-    environ = *p_environ;
+    envp = *p_environ;
     i = 0;
-    while (environ[i])
+    while (envp[i])
     {
-
-        if (environ[i][0] == key[0])
+        if (envp[i][0] == key[0])
         {
             j = 0;
-            while (key[j] && environ[i][j] && environ[i][j] == key[j])
+            while (key[j] && envp[i][j] && envp[i][j] == key[j])
             {
                 j++;
             }
             if (j == ft_strlen(key))
             {
-                *(environ + i) = line;
-                *p_environ = environ;
+                *(envp + i) = line;
+                *p_environ = envp;
                 return (1);
             }
         }
@@ -59,35 +58,35 @@ int delete_line_env(char *key, char ***p_environ)
     size_t i;
     size_t j;
     size_t k;
-    char **environ;
+    char **envp;
 
-    environ = *p_environ;
+    envp = *p_environ;
     i = 0;
-    while (environ[i])
+    while (envp[i])
     {
 
-        if (environ[i][0] == key[0])
+        if (envp[i][0] == key[0])
         {
             j = 0;
-            while (key[j] && environ[i][j] && environ[i][j] == key[j])
+            while (key[j] && envp[i][j] && envp[i][j] == key[j])
             {
                 j++;
             }
             if (j == ft_strlen(key))
             {
                 k = i + 1;
-                while (environ[k])
+                while (envp[k])
                 {
-                    environ[k - 1] = environ[k];
+                    envp[k - 1] = envp[k];
                     k++;
                 }
-                environ[k - 1] = environ[k];
-                *p_environ = environ;
+                envp[k - 1] = envp[k];
+                *p_environ = envp;
                 return (1);
             }
         }
         i++;
     }
-    *p_environ = environ;
+    *p_environ = envp;
     return (0);
 }
