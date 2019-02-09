@@ -70,7 +70,7 @@ t_token **tokenize_command(char *cmd)
         }
     }
     list[k] = 0;
-    print_tokens(list);
+    // print_tokens(list);
     return (list);
 }
 
@@ -78,11 +78,13 @@ int execute_path(char *path, char **argv, char ***p_environ)
 {
     pid_t pid;
     struct stat fileStat;
+    int result;
 
+    result = 0;
     // le fichier existe mais impossible d'avoir stat -> loop symbolic links
     if (stat(path, &fileStat) < 0)
     {
-        ft_putstr_fd("Too many symbolic links\n", 2);
+        ft_putstr_fd("Command not found\n", 2);
         return (-1);
     }
     if (access(path, X_OK) == -1)
@@ -92,49 +94,46 @@ int execute_path(char *path, char **argv, char ***p_environ)
     }
     pid = fork();
     if (pid < 0) {
-        ft_putstr("Failed to fork process 1\n");
+        ft_putstr_fd("Failed to fork process 1\n", 2);
         exit(1);
     }
     if (pid == 0)
     {
        execve(path, argv, *p_environ);
+        //  en cas d'erreur
+       exit(1);
     }
     else
     {
         wait(NULL);
     }
-    return (0);
+    return (result);
 }
 
-int search_path_exe(char *cmd, char *path, char **argv, char ***p_environ)
+char *search_path_exe(char *cmd, char *path, char ***p_environ)
 {
     DIR *pDir;
     struct dirent *pDirent;
-    char *new_path;
     int result;
 
     result = 0;
     (void)p_environ;
     if (path == NULL)
-        return (-1);
+        return (NULL);
     if ((pDir = opendir (path)) == NULL)
     {
-        return (-1);
+        return (NULL);
     }
     while ((pDirent = readdir(pDir)) != NULL) 
     {
         if (ft_strcmp(pDirent->d_name, cmd) == 0)
         {
-            new_path = ft_strjoin(path, "/");
-            new_path = ft_strjoin(new_path, pDirent->d_name);
-            argv[0] = pDirent->d_name;
-            result = execute_path(new_path, argv, p_environ);
             closedir (pDir);
-            return (result);
+            return (pDirent->d_name);
         }
     }
     closedir (pDir);
-    return (-1);
+    return (NULL);
 }
 
 int list_size(char **list)
@@ -168,12 +167,15 @@ int execute_command(char *cmd, char **paths, char ***p_environ)
     i = 0;
     char **cmd_list;
     char *command;
+    char *new_path;
+    char *d_name;
 
     cmd_list = ft_strsplit(cmd, ' ');
     if (cmd_list[0] == NULL)
         return 0;
     command = ft_strtrim(cmd_list[0]);
     result = 0;
+    new_path = NULL;
     if (is_path(command) == 1)
     {
         cmd_list[0] = "name";
@@ -201,8 +203,7 @@ int execute_command(char *cmd, char **paths, char ***p_environ)
     }
     if (ft_strcmp(command, "env") == 0)
     {
-        ft_env(list_size(cmd_list), cmd_list, p_environ);
-        return 0;
+        return (ft_env(list_size(cmd_list), cmd_list, p_environ));
     }
     if (ft_strcmp(command, "exit") == 0)
     {
@@ -210,9 +211,13 @@ int execute_command(char *cmd, char **paths, char ***p_environ)
     }
     while (paths[i])
     {
-        if (search_path_exe(command, paths[i], cmd_list, p_environ) == 0)
+        if ((d_name = search_path_exe(command, paths[i], p_environ)) != NULL)
         {
-            return (0);
+            new_path = ft_strjoin(paths[i], "/");
+            new_path = ft_strjoin(new_path, d_name);
+            cmd_list[0] = d_name;
+            result = execute_path(new_path, cmd_list, p_environ);
+            return (result);
         }
         i++;
     }
@@ -267,7 +272,7 @@ char **get_paths(char **copy_env)
 }
 
 
-int prepare_command(char *cmd, char **copy_env)
+int prepare_command(char *cmd, char ***copy_env)
 {
     t_token **list;
     int i;
@@ -279,7 +284,7 @@ int prepare_command(char *cmd, char **copy_env)
     while (list[i])
     {
         if (ft_strcmp(list[i]->type, "separator") != 0)
-            success = execute_command(list[i]->value, get_paths(copy_env), &copy_env);
+            success = execute_command(list[i]->value, get_paths(*copy_env), copy_env);
         i++;
     }
     return (success);
@@ -300,12 +305,11 @@ int main(int argc, char **argv)
     if (argc > 1 || isatty(0) == 0)
     {
         fd = isatty(0) == 0 ? 0 : open(argv[1], O_RDONLY);
-        if (fd > 0)
+        while (ask_command(fd, &command) != 0)
         {
-            while (ask_command(fd, &command) != 0)
-            {
-                *success = prepare_command(command, copy_env);
-            }
+            *success = prepare_command(command, &copy_env);
+            if (*success != 0)
+                exit(-1);
         }
     }
     else
@@ -313,8 +317,10 @@ int main(int argc, char **argv)
         while (42)
         {
             ask_command(0, &command);
-            *success = prepare_command(command, copy_env);
+            *success = prepare_command(command, &copy_env);
         }
     }
+    if (*success != 0)
+        return (-1);
     return (*success);
 }

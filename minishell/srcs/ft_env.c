@@ -69,8 +69,6 @@ t_token_env **tokenize_argv(int argc, char **argv)
     utility = "";
     while (i < argc)
     {
-
-        ft_printf("argv[i] : %s\n", argv[i]);
         if (i == 0)
         {
             list[k++] = create_token_env("command", 0, argv[0]);
@@ -93,8 +91,8 @@ t_token_env **tokenize_argv(int argc, char **argv)
                     }
                     else
                     {
-                        ft_printf("Error P n'a pas de path\n");
-                        exit(0);
+                        ft_putstr_fd("Error P n'a pas de path\n", 2);
+                        exit(-1);
                     }
                 }
                 else if (argv[i][j] == 'S')
@@ -106,8 +104,8 @@ t_token_env **tokenize_argv(int argc, char **argv)
                     }
                     else
                     {
-                        ft_printf("Error S n'a pas de path\n");
-                        exit(0);
+                        ft_putstr_fd("Error S n'a pas de path\n", 2);
+                        exit(-1);
                     }
                 }
                 else if (argv[i][j] == 'u')
@@ -119,38 +117,90 @@ t_token_env **tokenize_argv(int argc, char **argv)
                     }
                     else
                     {
-                        ft_printf("Error u n'a pas de path\n");
-                        exit(0);
+                        ft_putstr_fd("Error u n'a pas de path\n", 2);
+                        exit(-1);
                     }
                 }
                 else
                 {
-                    ft_printf("Illegal option %c !\n", argv[i][j]);
-                    exit(0);
+                    ft_putstr_fd("Illegal option !", 2);
+                    ft_putchar_fd(argv[i][j], 2);
+                    ft_putstr_fd("\n", 2);
+                    exit(-1);
                 }
                 j++;
             }
         }
         else
         {
-            while (is_option(argv[i]))
+            while (argv[i] && is_option(argv[i]) == 1)
             {
                 list[k++] = create_token_env("option", 0, argv[i]);
                 i++;
             }
-            while (argv[i])
+            if (argv[i])
             {
-                utility = ft_strjoin(utility, " ");
-                utility = ft_strjoin(utility, argv[i]);
-                i++;
+                while (argv[i])
+                {
+                    utility = ft_strjoin(utility, " ");
+                    utility = ft_strjoin(utility, argv[i]);
+                    i++;
+                }
+                list[k++] = create_token_env("utility", 0, utility);
             }
-            list[k++] = create_token_env("utility", 0, utility);
         }
 
         i++;
     }
     list[k] = 0;
     return (list);
+}
+
+int has_i(t_token_env **token_ls)
+{
+    int i;
+
+    i = 0;
+    while (token_ls[i])
+    {
+        if (token_ls[i]->flag_type == 'i')
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+int execute_ls(t_token_env **token_ls, char ***p_environ)
+{
+    int i;
+    int j;
+    char **copy_env;
+    char *tmp;
+
+    i = 0;
+    if (has_i(token_ls))
+        copy_env = clear_environ();
+    else
+        copy_env = copy_environ(*p_environ);
+    while (token_ls[i])
+    {
+        if (ft_strcmp(token_ls[i]->type, "option") == 0)
+        {
+            tmp = token_ls[i]->string;
+            j = 0;
+            while (tmp[j] && tmp[j] != '=')
+            {
+                j++;
+            }
+            ft_setenv_args(ft_strsub(tmp, 0, j), tmp + j + 1, &copy_env);
+        }
+        i++;
+    }
+    if (i > 0 && ft_strcmp(token_ls[i - 1]->type, "utility") == 0)
+        return (prepare_command(token_ls[i - 1]->string, &copy_env));
+    else
+        ft_print_env(copy_env);
+    return (0);
 }
 
 void print_token_ls(t_token_env **token_ls)
@@ -168,9 +218,7 @@ void print_token_ls(t_token_env **token_ls)
 int ft_env(int argc, char **argv, char ***p_environ)
 {
     pid_t pid;
-
-    char **copy_env;
-
+    int *status;
     t_token_env **token_ls;
 
     if (argc == 1)
@@ -178,24 +226,25 @@ int ft_env(int argc, char **argv, char ***p_environ)
         ft_print_env(*p_environ);
         return (0);
     }
+    status = malloc(sizeof(int));
     pid = fork();
     if (pid == 0)
     {
         token_ls = tokenize_argv(argc, argv);
-        print_token_ls(token_ls);
-        copy_env = copy_environ(*p_environ);
-        // prepare_command("ls", copy_env);
-        exit(0);
+        // permet de vérfier si il y a des anomalies
+        // print_token_ls(token_ls);
+        *status = execute_ls(token_ls, p_environ);
+        exit(*status);
     }
     else if (pid < 0)
     {
         ft_printf("erreur pid");
-        exit(0);
+        exit(-1);
     }
     else
     {
         //father
-        wait(NULL);
+        wait(status);
     }
-    return (0);
+    return (*status);
 }
