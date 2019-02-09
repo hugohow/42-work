@@ -197,7 +197,7 @@ int execute_ls(t_token_env **token_ls, char ***p_environ)
         i++;
     }
     if (i > 0 && ft_strcmp(token_ls[i - 1]->type, "utility") == 0)
-        return (prepare_command(token_ls[i - 1]->string, &copy_env));
+        return (prepare_command(token_ls[i - 1]->string, &copy_env, 0));
     else
         ft_print_env(copy_env);
     return (0);

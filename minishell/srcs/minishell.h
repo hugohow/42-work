@@ -23,4 +23,6 @@ int ft_env(int argc, char **argv, char ***p_environ);
 char    *ft_strsub(char const *s, unsigned int start, size_t len);
 void    ft_putstr(char const *str);
 void    ft_putstr_fd(char const *str, int fd);
+int     ft_atoi(const char *str);
+int     ft_isdigit(int c);
 extern char **environ;

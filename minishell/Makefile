@@ -11,5 +11,5 @@ fclean: clean
 re: fclean all
 
 test:
-	bash ~/42ShellTester/42ShellTester.sh /Users/hugohow-choong/42/minishell/minishell --reference "bash" --filter "minishell.*env" > error | cat
+	bash ~/42ShellTester/42ShellTester.sh /Users/hugohow-choong/42/minishell/minishell --reference "bash" --filter "minishell.*exit" > error | cat
 	head -n 100 error

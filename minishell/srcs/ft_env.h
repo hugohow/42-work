@@ -10,7 +10,7 @@ char **copy_environ(char **str);
 int ft_printf(const char* format, ...);
 void    ft_putstr_fd(char const *str, int fd);
 char    *ft_strjoin(char const *str1, char const *str2);
-int     prepare_command(char *cmd, char ***copy_env);
+int     prepare_command(char *cmd, char ***copy_env, int prev_res);
 char    **ft_strsplit(char const *str, char c);
 void    ft_setenv_args(char *prefix, char *line, char ***p_environ);
 char    *ft_strsub(char const *s, unsigned int start, size_t len);

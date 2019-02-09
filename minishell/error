@@ -1,5 +1,46 @@
-[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m
+[31m[38;5;34m.[0m[31m[1;33m~[0m[31m[38;5;160mx[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m    
 
-Total tests: 17
-Total failed tests: 0
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/exit/002-status-passed-as-argument[0m [31m[1;33m(WARNING)[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using a number as first argument with the builtin `exit` results in the Shell termination with given number as exit status.[0m
+
+  STDIN:
+[38;5;239m  01: exit 42[0m
+
+  STDOUT:
+[31m[1;33m  WARNING    might be_empty[0m
+[38;5;239m  01: success : 0[0m
+
+  STDERR:
+[38;5;239m  (no output)[0m
+
+  MISC:
+[31m[38;5;34m  SUCCESS    expected_to exit_with_status `42`[0m
+
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/exit/003-status-of-last-command[0m [31m[38;5;160m(FAILED)[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using the builtin `exit` without any argument results in a Shell termination and the exit status of the previous command.[0m
+
+  STDIN:
+[38;5;239m  01: ./exit_with_status 42
+  02: exit[0m
+
+  STDOUT:
+[31m[1;33m  WARNING    might be_empty[0m
+[38;5;239m  01: success : 0success : 10752execute_path result: 10752exit with : success 10752[0m
+
+  STDERR:
+[38;5;239m  (no output)[0m
+
+  MISC:
+[31m[38;5;160m  FAILURE    expected_to exit_with_status `42`[0m
+
+Total tests: 5
+Total failed tests: 1
 Total pending tests: 0

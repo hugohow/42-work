@@ -29,6 +29,22 @@ int is_separator(char *str)
     return (0);
 }
 
+int is_exit(char *cmd)
+{
+    int i;
+
+    i = 0;
+    while (cmd[i] && cmd[i] == ' ')
+        i++;
+    if (cmd[i] == 'e')
+    {
+        if (ft_strcmp(cmd + i, "exit") == 0 || ft_strcmp(cmd + i, "exit ") >= 0)
+            return (1);
+        else
+            return (0);
+    }
+    return (0);
+}
 t_token **tokenize_command(char *cmd)
 {
     t_token **list;
@@ -56,7 +72,10 @@ t_token **tokenize_command(char *cmd)
             }
             value[len] = '\0';
             token->value = value;
-            token->type = "cmd";
+            if (is_exit(value) == 1)
+                token->type = "exit";
+            else
+                token->type = "cmd";
             list[k] = token;
             k++;
         }
@@ -78,9 +97,10 @@ int execute_path(char *path, char **argv, char ***p_environ)
 {
     pid_t pid;
     struct stat fileStat;
-    int result;
+    int *result;
 
-    result = 0;
+    result = malloc(sizeof(int));
+    *result = 0;
     // le fichier existe mais impossible d'avoir stat -> loop symbolic links
     if (stat(path, &fileStat) < 0)
     {
@@ -105,9 +125,10 @@ int execute_path(char *path, char **argv, char ***p_environ)
     }
     else
     {
-        wait(NULL);
+        wait(result);
     }
-    return (result);
+    printf("execute_path result: %d", *result);
+    return (*result);
 }
 
 char *search_path_exe(char *cmd, char *path, char ***p_environ)
@@ -205,10 +226,6 @@ int execute_command(char *cmd, char **paths, char ***p_environ)
     {
         return (ft_env(list_size(cmd_list), cmd_list, p_environ));
     }
-    if (ft_strcmp(command, "exit") == 0)
-    {
-        exit(0);
-    }
     while (paths[i])
     {
         if ((d_name = search_path_exe(command, paths[i], p_environ)) != NULL)
@@ -271,8 +288,39 @@ char **get_paths(char **copy_env)
     return (paths);
 }
 
+void ft_exit(char *cmd, int success)
+{
+    char **cmd_list;
+    int i;
 
-int prepare_command(char *cmd, char ***copy_env)
+    cmd_list = ft_strsplit(cmd, ' ');
+    if (cmd_list[1])
+    {
+        if (cmd_list[2])
+        {
+            ft_putstr_fd("Too many arguments Argument list too long", 2);
+            return ;
+        }
+        i = 0;
+        while (cmd_list[1][i] && cmd_list[1][i] == ' ')
+            i++;
+        while (cmd_list[1][i])
+        {
+            if (ft_isdigit(cmd_list[1][i]) == 0)
+            {
+                ft_putstr_fd("Numeric argument required", 2);
+                exit(-1);
+            }
+            i++;
+        }
+        exit(ft_atoi(cmd_list[1]));
+    }   
+    printf("exit with : success %d", success);
+    exit(success);
+}
+
+
+int prepare_command(char *cmd, char ***copy_env, int prev_res)
 {
     t_token **list;
     int i;
@@ -280,10 +328,13 @@ int prepare_command(char *cmd, char ***copy_env)
 
     list = tokenize_command(cmd);
     i = 0;
-    success = 0;
+    success = prev_res;
     while (list[i])
     {
-        if (ft_strcmp(list[i]->type, "separator") != 0)
+        ft_printf("success : %d", success);
+        if (ft_strcmp(list[i]->type, "exit") == 0)
+            ft_exit(list[i]->value, success);
+        else if (ft_strcmp(list[i]->type, "separator") != 0)
             success = execute_command(list[i]->value, get_paths(*copy_env), copy_env);
         i++;
     }
@@ -307,9 +358,7 @@ int main(int argc, char **argv)
         fd = isatty(0) == 0 ? 0 : open(argv[1], O_RDONLY);
         while (ask_command(fd, &command) != 0)
         {
-            *success = prepare_command(command, &copy_env);
-            if (*success != 0)
-                exit(-1);
+            *success = prepare_command(command, &copy_env, *success);
         }
     }
     else
@@ -317,10 +366,8 @@ int main(int argc, char **argv)
         while (42)
         {
             ask_command(0, &command);
-            *success = prepare_command(command, &copy_env);
+            *success = prepare_command(command, &copy_env, *success);
         }
     }
-    if (*success != 0)
-        return (-1);
     return (*success);
 }
