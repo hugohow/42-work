@@ -75,13 +75,14 @@ int ft_go_to(char *abs_path)
         {
             if (lstat(abs_path, &fileStat) == 0)
             {
-                ft_putstr_fd("Too many symbolic links\n", 2);
+                ft_putstr_fd("No such file or directory or Too many symbolic links\n", 2);
+                return (-1);
             }
             else
             {
                 ft_putstr_fd("No such file or directory\n", 2);
+                return (-1);
             }
-            return (-1);
         }
         // is it a directory ?
         if (S_ISDIR(fileStat.st_mode) == 0)
@@ -110,7 +111,10 @@ int ft_change_dir(char *element, char ***p_environ)
     {
         if (ft_strcmp(element, "/") == 0 || ft_strcmp(element, "/.") == 0)
             return (go_to_root(old_pwd_line, p_environ));
-        abs_path = get_absolute_path(element);
+        if (ft_strcmp(element, "-") == 0)
+            abs_path = get_line_env("OLDPWD", p_environ) + 7;
+        else
+            abs_path = get_absolute_path(element);
     }
     else
     {

@@ -70,7 +70,7 @@ t_token **tokenize_command(char *cmd)
         }
     }
     list[k] = 0;
-    // print_tokens(list);
+    print_tokens(list);
     return (list);
 }
 
@@ -252,76 +252,68 @@ char **copy_environ(char **str)
     return (copy);
 }
 
-
-int main(int argc, char **argv)
+char **get_paths(char **copy_env)
 {
-    char *command;
-    char **paths;
-    char **copy_env;
-    t_token **list;
-    int i;
-    int fd;
-    int *success;
     char *path_line;
+    char **paths;
 
-    success = malloc(sizeof(int));
-    *success = 0;
-    copy_env = copy_environ((char **)environ);
     path_line = get_line_env("PATH", &copy_env);
     if (path_line)
         path_line = ft_strjoin(get_line_env("PATH", &copy_env), ":.") + 5;
     else
         path_line = "/usr/sbin:/usr/bin:/sbin:/bin:.";
     paths = ft_strsplit(path_line, ':');
-    if (argc > 1)
+    return (paths);
+}
+
+
+int prepare_command(char *cmd, char **copy_env)
+{
+    t_token **list;
+    int i;
+    int success;
+
+    list = tokenize_command(cmd);
+    i = 0;
+    success = 0;
+    while (list[i])
     {
-        fd = open(argv[1], O_RDONLY);
+        if (ft_strcmp(list[i]->type, "separator") != 0)
+            success = execute_command(list[i]->value, get_paths(copy_env), &copy_env);
+        i++;
+    }
+    return (success);
+}
+
+
+int main(int argc, char **argv)
+{
+    char *command;
+    char **copy_env;
+    int fd;
+    int *success;
+
+    success = malloc(sizeof(int));
+    *success = 0;
+    copy_env = copy_environ((char **)environ);
+
+    if (argc > 1 || isatty(0) == 0)
+    {
+        fd = isatty(0) == 0 ? 0 : open(argv[1], O_RDONLY);
         if (fd > 0)
         {
             while (ask_command(fd, &command) != 0)
             {
-                list = tokenize_command(command);
-                i = 0;
-                while (list[i])
-                {
-                    if (ft_strcmp(list[i]->type, "separator") != 0)
-                        *success = execute_command(list[i]->value, paths, &copy_env);
-                    i++;
-                }
+                *success = prepare_command(command, copy_env);
             }
         }
     }
     else
     {
-        fd = 0;
-        if (isatty(0) == 1)
+        while (42)
         {
-            while (42)
-            {
-                ask_command(fd, &command);
-                list = tokenize_command(command);
-                i = 0;
-                while (list[i])
-                {
-                    if (ft_strcmp(list[i]->type, "separator") != 0)
-                        *success = execute_command(list[i]->value, paths, &copy_env);
-                    i++;
-                }
-            }
-        }
-        else
-        {
-            while (ask_command(fd, &command) != 0)
-            {
-                list = tokenize_command(command);
-                i = 0;
-                while (list[i])
-                {
-                    if (ft_strcmp(list[i]->type, "separator") != 0)
-                        *success = execute_command(list[i]->value, paths, &copy_env);
-                    i++;
-                }
-            }
+            ask_command(0, &command);
+            *success = prepare_command(command, copy_env);
         }
     }
     return (*success);

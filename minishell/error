@@ -1,8 +1,434 @@
-[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[1;33m~[0m[31m[38;5;34m.[0m[31m[38;5;160mx[0m[31m[38;5;160mx[0m      
+[31m[38;5;160mx[0m[31m[38;5;160mx[0m[31m[38;5;160mx[0m[31m[38;5;160mx[0m[31m[38;5;160mx[0m[31m[38;5;160mx[0m[31m[38;5;160mx[0m[31m[38;5;34m.[0m[31m[38;5;160mx[0m[31m[38;5;160mx[0m[31m[38;5;160mx[0m[31m[38;5;160mx[0m[31m[38;5;160mx[0m[31m[38;5;34m.[0m[31m[38;5;34m.[0m[31m[38[31m[38;5;34m.[0m[31m[38;5;160mx[0m[31m[38;5;34m.[0m[31m[38;5;160mx[0m[31m[38;5;34m.[0m[31m[38;5;160mx[0m[31m[38;5;160mx[0m                            
 
 ----------------------------------------------------------------
 
-[37;1mminishell/builtins/cd/errors/009-no-such-file-or-directory-symlink[0m [31m[1;33m(WARNING)[0m
+[37;1mminishell/builtins/cd/006-root-path-2[0m [31m[38;5;160m(FAILED)[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using the root path as first argument with the builtin `cd` results in moving to the correct directory.[0m
+
+  STDIN:
+[38;5;239m  01: cd /.
+  02: /Users/hugohow-choong/42ShellTester/tmp/display_pwd
+  03: /Users/hugohow-choong/42ShellTester/tmp/display_env[0m
+
+  STDOUT:
+[31m[38;5;160m  FAILURE    expected_to match_regex `PWD:/:PWD`[0m
+[31m[38;5;160m  FAILURE    expected_to match_regex `^PWD=/$`[0m
+[38;5;239m  01: PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD
+  02: ------------------------------
+  03: TERM_PROGRAM=Apple_Terminal
+  04: TERM=xterm-256color
+  05: SHELL=/bin/zsh
+  06: TMPDIR=/var/folders/7f/9kzlj6h169359rtzggmmg31c0000gn/T/
+  07: Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.jnfnMxHiws/Render
+  08: TERM_PROGRAM_VERSION=388.1.1
+  09: TERM_SESSION_ID=DF380C55-02A0-41C3-8ECC-373CDB125BAA
+  10: LC_ALL=en_US.UTF-8
+  11: USER=hugohow-choong
+  12: RBENV_ROOT=/Users/hugohow-choong/.rbenv
+  13: SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.Pps5EY6hA2/Listeners
+  14: __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x1
+  15: PAGER=less
+  16: LSCOLORS=Gxfxcxdxbxegedabagacad
+  17: PATH=/usr/local/opt/ncurses/bin:./bin:/Users/hugohow-choong/.rbenv/shims:/Users/hugohow-choong/.rbenv/bin:/usr/local/bin:/usr/local/share:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/X11/bin:/usr/texbin:~/bin
+  18: PWD=/Users/hugohow-choong/42ShellTester/tmp
+  19: LANG=en_US.UTF-8
+  20: XPC_FLAGS=0x0
+  21: RBENV_SHELL=zsh
+  22: XPC_SERVICE_NAME=0
+  23: HOME=/Users/hugohow-choong
+  24: SHLVL=2
+  25: BUNDLER_EDITOR='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'export
+  26: LESS=-R
+  27: LOGNAME=hugohow-choong
+  28: LC_CTYPE=fr_FR.UTF-8
+  29: OLDPWD=/Users/hugohow-choong/42ShellTester
+  30: _=/Users/hugohow-choong/42/minishell/minishell
+  31: ------------------------------
+  32: TOTAL ENVIRONMENT VARIABLES: 28[0m
+
+  STDERR:
+[31m[38;5;34m  SUCCESS    expected_to be_empty[0m
+[38;5;239m  (no output)[0m
+
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/cd/007-symbolic-link[0m [31m[38;5;160m(FAILED)[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using a symbolic link as first argument with the builtin `cd` results in moving the linked directory.[0m
+
+  Before test:
+[38;5;239m  01: rm -f "./symbolic_link"
+  02: mkdir -p "./sub_directory"
+  03: ln -s "./sub_directory" "./symbolic_link"[0m
+
+  STDIN:
+[38;5;239m  01: cd symbolic_link
+  02: /Users/hugohow-choong/42ShellTester/tmp/display_pwd
+  03: /Users/hugohow-choong/42ShellTester/tmp/display_env[0m
+
+  STDOUT:
+[31m[38;5;34m  SUCCESS    expected_to match_regex `PWD:/Users/hugohow-choong/42ShellTester/tmp/sub_directory:PWD$`[0m
+[31m[38;5;160m  FAILURE    expected_to match_regex `^PWD=/Users/hugohow-choong/42ShellTester/tmp/symbolic_link$`[0m
+[38;5;239m  01: PWD:/Users/hugohow-choong/42ShellTester/tmp/sub_directory:PWD
+  02: ------------------------------
+  03: TERM_PROGRAM=Apple_Terminal
+  04: TERM=xterm-256color
+  05: SHELL=/bin/zsh
+  06: TMPDIR=/var/folders/7f/9kzlj6h169359rtzggmmg31c0000gn/T/
+  07: Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.jnfnMxHiws/Render
+  08: TERM_PROGRAM_VERSION=388.1.1
+  09: TERM_SESSION_ID=DF380C55-02A0-41C3-8ECC-373CDB125BAA
+  10: LC_ALL=en_US.UTF-8
+  11: USER=hugohow-choong
+  12: RBENV_ROOT=/Users/hugohow-choong/.rbenv
+  13: SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.Pps5EY6hA2/Listeners
+  14: __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x1
+  15: PAGER=less
+  16: LSCOLORS=Gxfxcxdxbxegedabagacad
+  17: PATH=/usr/local/opt/ncurses/bin:./bin:/Users/hugohow-choong/.rbenv/shims:/Users/hugohow-choong/.rbenv/bin:/usr/local/bin:/usr/local/share:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/X11/bin:/usr/texbin:~/bin
+  18: PWD=/Users/hugohow-choong/42ShellTester/tmp/sub_directory
+  19: LANG=en_US.UTF-8
+  20: XPC_FLAGS=0x0
+  21: RBENV_SHELL=zsh
+  22: XPC_SERVICE_NAME=0
+  23: HOME=/Users/hugohow-choong
+  24: SHLVL=2
+  25: BUNDLER_EDITOR='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'export
+  26: LESS=-R
+  27: LOGNAME=hugohow-choong
+  28: LC_CTYPE=fr_FR.UTF-8
+  29: OLDPWD=/Users/hugohow-choong/42ShellTester
+  30: _=/Users/hugohow-choong/42/minishell/minishell
+  31: ------------------------------
+  32: TOTAL ENVIRONMENT VARIABLES: 28[0m
+
+  STDERR:
+[31m[38;5;34m  SUCCESS    expected_to be_empty[0m
+[38;5;239m  (no output)[0m
+
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/cd/008-symbolic-link-2[0m [31m[38;5;160m(FAILED)[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using a symbolic link as first argument with the builtin `cd` results in moving to the linked directory. In this test, the directory is linked with to chained symbolic links.[0m
+
+  Before test:
+[38;5;239m  01: rm -f "./symbolic_link1" "./symbolic_link2"
+  02: mkdir -p "./sub_directory"
+  03: ln -s "./sub_directory" "./symbolic_link1"
+  04: ln -s "./symbolic_link1" "./symbolic_link2"[0m
+
+  STDIN:
+[38;5;239m  01: cd symbolic_link2
+  02: /Users/hugohow-choong/42ShellTester/tmp/display_pwd
+  03: /Users/hugohow-choong/42ShellTester/tmp/display_env[0m
+
+  STDOUT:
+[31m[38;5;34m  SUCCESS    expected_to match_regex `PWD:/Users/hugohow-choong/42ShellTester/tmp/sub_directory:PWD$`[0m
+[31m[38;5;160m  FAILURE    expected_to match_regex `^PWD=/Users/hugohow-choong/42ShellTester/tmp/symbolic_link2$`[0m
+[38;5;239m  01: PWD:/Users/hugohow-choong/42ShellTester/tmp/sub_directory:PWD
+  02: ------------------------------
+  03: TERM_PROGRAM=Apple_Terminal
+  04: TERM=xterm-256color
+  05: SHELL=/bin/zsh
+  06: TMPDIR=/var/folders/7f/9kzlj6h169359rtzggmmg31c0000gn/T/
+  07: Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.jnfnMxHiws/Render
+  08: TERM_PROGRAM_VERSION=388.1.1
+  09: TERM_SESSION_ID=DF380C55-02A0-41C3-8ECC-373CDB125BAA
+  10: LC_ALL=en_US.UTF-8
+  11: USER=hugohow-choong
+  12: RBENV_ROOT=/Users/hugohow-choong/.rbenv
+  13: SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.Pps5EY6hA2/Listeners
+  14: __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x1
+  15: PAGER=less
+  16: LSCOLORS=Gxfxcxdxbxegedabagacad
+  17: PATH=/usr/local/opt/ncurses/bin:./bin:/Users/hugohow-choong/.rbenv/shims:/Users/hugohow-choong/.rbenv/bin:/usr/local/bin:/usr/local/share:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/X11/bin:/usr/texbin:~/bin
+  18: PWD=/Users/hugohow-choong/42ShellTester/tmp/sub_directory
+  19: LANG=en_US.UTF-8
+  20: XPC_FLAGS=0x0
+  21: RBENV_SHELL=zsh
+  22: XPC_SERVICE_NAME=0
+  23: HOME=/Users/hugohow-choong
+  24: SHLVL=2
+  25: BUNDLER_EDITOR='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'export
+  26: LESS=-R
+  27: LOGNAME=hugohow-choong
+  28: LC_CTYPE=fr_FR.UTF-8
+  29: OLDPWD=/Users/hugohow-choong/42ShellTester
+  30: _=/Users/hugohow-choong/42/minishell/minishell
+  31: ------------------------------
+  32: TOTAL ENVIRONMENT VARIABLES: 28[0m
+
+  STDERR:
+[31m[38;5;34m  SUCCESS    expected_to be_empty[0m
+[38;5;239m  (no output)[0m
+
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/cd/010-update-OLDPWD[0m [31m[38;5;160m(FAILED)[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using the builtin `cd` results in a modified environment variable `PWD`.[0m
+
+  Before test:
+[38;5;239m  01: rm -rf "TOKEN201902071541"
+  02: mkdir -p "./TOKEN201902071541/TOKEN201902071541"[0m
+
+  STDIN:
+[38;5;239m  01: cd TOKEN201902071541
+  02: cd TOKEN201902071541
+  03: ../../display_env[0m
+
+  STDOUT:
+[31m[38;5;34m  SUCCESS    expected_to match_regex `^PWD=/Users/hugohow-choong/42ShellTester/tmp/TOKEN201902071541/TOKEN201902071541$`[0m
+[31m[38;5;160m  FAILURE    expected_to match_regex `^OLDPWD=/Users/hugohow-choong/42ShellTester/tmp/TOKEN201902071541$`[0m
+[38;5;239m  01: ------------------------------
+  02: TERM_PROGRAM=Apple_Terminal
+  03: TERM=xterm-256color
+  04: SHELL=/bin/zsh
+  05: TMPDIR=/var/folders/7f/9kzlj6h169359rtzggmmg31c0000gn/T/
+  06: Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.jnfnMxHiws/Render
+  07: TERM_PROGRAM_VERSION=388.1.1
+  08: TERM_SESSION_ID=DF380C55-02A0-41C3-8ECC-373CDB125BAA
+  09: LC_ALL=en_US.UTF-8
+  10: USER=hugohow-choong
+  11: RBENV_ROOT=/Users/hugohow-choong/.rbenv
+  12: SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.Pps5EY6hA2/Listeners
+  13: __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x1
+  14: PAGER=less
+  15: LSCOLORS=Gxfxcxdxbxegedabagacad
+  16: PATH=/usr/local/opt/ncurses/bin:./bin:/Users/hugohow-choong/.rbenv/shims:/Users/hugohow-choong/.rbenv/bin:/usr/local/bin:/usr/local/share:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/X11/bin:/usr/texbin:~/bin
+  17: PWD=/Users/hugohow-choong/42ShellTester/tmp/TOKEN201902071541/TOKEN201902071541
+  18: LANG=en_US.UTF-8
+  19: XPC_FLAGS=0x0
+  20: RBENV_SHELL=zsh
+  21: XPC_SERVICE_NAME=0
+  22: HOME=/Users/hugohow-choong
+  23: SHLVL=2
+  24: BUNDLER_EDITOR='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'export
+  25: LESS=-R
+  26: LOGNAME=hugohow-choong
+  27: LC_CTYPE=fr_FR.UTF-8
+  28: OLDPWD=/Users/hugohow-choong/42ShellTester
+  29: _=/Users/hugohow-choong/42/minishell/minishell
+  30: ------------------------------
+  31: TOTAL ENVIRONMENT VARIABLES: 28[0m
+
+  STDERR:
+[31m[38;5;34m  SUCCESS    expected_to be_empty[0m
+[38;5;239m  (no output)[0m
+
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/cd/013-absolute-path[0m [31m[38;5;160m(FAILED)[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using an absolute path as first argument with the builtin `cd` results in moving to the correct directory.[0m
+
+  Before test:
+[38;5;239m  01: rm -rf "./my_sub_directory"
+  02: mkdir -p "./my_sub_directory/and_another_one/"[0m
+
+  STDIN:
+[38;5;239m  01: cd /Users/hugohow-choong/42ShellTester/tmp/my_sub_directory/and_another_one
+  02: /Users/hugohow-choong/42ShellTester/tmp/display_pwd
+  03: /Users/hugohow-choong/42ShellTester/tmp/display_env[0m
+
+  STDOUT:
+[31m[38;5;160m  FAILURE    expected_to match_regex `PWD:/Users/hugohow-choong/42ShellTester/tmp/my_sub_directory/and_another_one:PWD`[0m
+[31m[38;5;160m  FAILURE    expected_to match_regex `^PWD=/Users/hugohow-choong/42ShellTester/tmp/my_sub_directory/and_another_one$`[0m
+[38;5;239m  01: PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD
+  02: ------------------------------
+  03: TERM_PROGRAM=Apple_Terminal
+  04: TERM=xterm-256color
+  05: SHELL=/bin/zsh
+  06: TMPDIR=/var/folders/7f/9kzlj6h169359rtzggmmg31c0000gn/T/
+  07: Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.jnfnMxHiws/Render
+  08: TERM_PROGRAM_VERSION=388.1.1
+  09: TERM_SESSION_ID=DF380C55-02A0-41C3-8ECC-373CDB125BAA
+  10: LC_ALL=en_US.UTF-8
+  11: USER=hugohow-choong
+  12: RBENV_ROOT=/Users/hugohow-choong/.rbenv
+  13: SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.Pps5EY6hA2/Listeners
+  14: __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x1
+  15: PAGER=less
+  16: LSCOLORS=Gxfxcxdxbxegedabagacad
+  17: PATH=/usr/local/opt/ncurses/bin:./bin:/Users/hugohow-choong/.rbenv/shims:/Users/hugohow-choong/.rbenv/bin:/usr/local/bin:/usr/local/share:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/X11/bin:/usr/texbin:~/bin
+  18: PWD=/Users/hugohow-choong/42ShellTester/tmp
+  19: LANG=en_US.UTF-8
+  20: XPC_FLAGS=0x0
+  21: RBENV_SHELL=zsh
+  22: XPC_SERVICE_NAME=0
+  23: HOME=/Users/hugohow-choong
+  24: SHLVL=2
+  25: BUNDLER_EDITOR='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'export
+  26: LESS=-R
+  27: LOGNAME=hugohow-choong
+  28: LC_CTYPE=fr_FR.UTF-8
+  29: OLDPWD=/Users/hugohow-choong/42ShellTester
+  30: _=/Users/hugohow-choong/42/minishell/minishell
+  31: ------------------------------
+  32: TOTAL ENVIRONMENT VARIABLES: 28[0m
+
+  STDERR:
+[31m[38;5;160m  FAILURE    expected_to be_empty[0m
+[38;5;239m  01: cd: no such file or directory: /Users/hugohow-choong/42ShellTester/tmp/my_sub_directory/and_another_one[0m
+
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/cd/errors/001-not-a-directory[0m [31m[1;33m(WARNING)[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using a file name as first argument with the builtin `cd` results in error and not changing current directory.[0m
+
+  Before test:
+[38;5;239m  01: touch "./not_a_directory"[0m
+
+  STDIN:
+[38;5;239m  01: cd not_a_directory
+  02: /Users/hugohow-choong/42ShellTester/tmp/display_pwd[0m
+
+  STDOUT:
+[31m[38;5;34m  SUCCESS    expected_to match_regex `PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD`[0m
+[38;5;239m  01: PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD[0m
+
+  STDERR:
+[31m[38;5;34m  SUCCESS    expected_to_not be_empty[0m
+[31m[1;33m  WARNING    might match_regex `[Nn]ot a directory`[0m
+[38;5;239m  01: cd: no such file or directory: not_a_directory[0m
+
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/cd/errors/002-not-a-directory-2[0m [31m[38;5;160m(FAILED)[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using a file name as first argument with the builtin `cd` results in a Shell termination with a failure exit status.[0m
+
+  Before test:
+[38;5;239m  01: touch "./not_a_directory"[0m
+
+  STDIN:
+[38;5;239m  01: cd not_a_directory[0m
+
+  STDOUT:
+[38;5;239m  (no output)[0m
+
+  STDERR:
+[38;5;239m  01: cd: no such file or directory: not_a_directory[0m
+
+  MISC:
+[31m[38;5;160m  FAILURE    expected_to_not exit_with_status `0`[0m
+
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/cd/errors/003-permission-denied[0m [31m[1;33m(WARNING)[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using a directory without any permission as first argument with the builtin `cd` results in error and not changing current directory.[0m
+
+  Before test:
+[38;5;239m  01: if [ -d "./permission_denied" ]; then chmod 777 "./permission_denied"; fi
+  02: rm -rf "./permission_denied"
+  03: mkdir -m 0 "./permission_denied"[0m
+
+  STDIN:
+[38;5;239m  01: cd permission_denied
+  02: /Users/hugohow-choong/42ShellTester/tmp/display_pwd[0m
+
+  STDOUT:
+[31m[38;5;34m  SUCCESS    expected_to match_regex `PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD`[0m
+[38;5;239m  01: PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD[0m
+
+  STDERR:
+[31m[38;5;34m  SUCCESS    expected_to_not be_empty[0m
+[31m[1;33m  WARNING    might match_regex `[Pp]ermission denied`[0m
+[38;5;239m  01: cd: no such file or directory: permission_denied[0m
+
+  After test:
+[38;5;239m  01: if [ -d "./permission_denied" ]; then chmod 777 "./permission_denied"; fi
+  02: rm -rf "./permission_denied"[0m
+
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/cd/errors/004-permission-denied-2[0m [31m[38;5;160m(FAILED)[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using a directory without any permission as first argument with the builtin `cd` results in error and not changing current directory.[0m
+
+  Before test:
+[38;5;239m  01: if [ -d "./permission_denied" ]; then chmod 777 "./permission_denied"; fi
+  02: rm -rf "./permission_denied"
+  03: mkdir -m 0 "./permission_denied"[0m
+
+  STDIN:
+[38;5;239m  01: cd permission_denied[0m
+
+  STDOUT:
+[38;5;239m  (no output)[0m
+
+  STDERR:
+[38;5;239m  01: cd: no such file or directory: permission_denied[0m
+
+  MISC:
+[31m[38;5;160m  FAILURE    expected_to_not exit_with_status `0`[0m
+
+  After test:
+[38;5;239m  01: if [ -d "./permission_denied" ]; then chmod 777 "./permission_denied"; fi
+  02: rm -rf "./permission_denied"[0m
+
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/cd/errors/005-too-many-symbolic-links-encountered[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using a symbolic link resulting in ELOOP error as first argument with the builtin `cd` results in error and not changing current directory.[0m
+
+  Before test:
+[38;5;239m  01: rm -f "./symbolic_link1" "./symbolic_link2" "./symbolic_link3"
+  02: ln -s "./symbolic_link1" "./symbolic_link2"
+  03: ln -s "./symbolic_link2" "./symbolic_link3"
+  04: ln -s "./symbolic_link3" "./symbolic_link1"[0m
+
+  STDIN:
+[38;5;239m  01: ./display_env[0m
+
+  STDOUT:
+[31m[38;5;34m  SUCCESS    expected_to match_regex `PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD`[0m
+[38;5;239m  01: PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD[0m
+
+  STDERR:
+[38;5;239m  01: No such file or directory or Too many symbolic links[0m
+
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/cd/errors/007-no-such-file-or-directory[0m [31m[38;5;160m(FAILED)[0m
+
+  Description:
+[38;5;239m  The purpose of this test is to check that using a non-existing path as first argument with the builtin `cd` results in error and not changing current directory.[0m
+
+  Before test:
+[38;5;239m  01: rm -f "./no_such_file_or_directory"[0m
+
+  STDIN:
+[38;5;239m  01: cd no_such_file_or_directory
+  02: /Users/hugohow-choong/42ShellTester/tmp/display_pwd[0m
+
+  STDOUT:
+[31m[38;5;160m  FAILURE    expected_to match_regex `PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD`[0m
+[38;5;239m  (no output)[0m
+
+  STDERR:
+[31m[38;5;34m  SUCCESS    expected_to_not be_empty[0m
+[31m[38;5;34m  SUCCESS    might match_regex `[Nn]o such file or directory`[0m
+[38;5;239m  01: ./lib/main.sh: line 102: /Users/hugohow-choong/42/minishell/minishell: No such file or directory[0m
+
+----------------------------------------------------------------
+
+[37;1mminishell/builtins/cd/errors/009-no-such-file-or-directory-symlink[0m [31m[38;5;160m(FAILED)[0m
 
   Description:
 [38;5;239m  The purpose of this test is to check that using a symbolic link that targets to a non-existing directory with the builtin `cd`  results in error and not changing current directory.[0m
@@ -16,13 +442,13 @@
   02: /Users/hugohow-choong/42ShellTester/tmp/display_pwd[0m
 
   STDOUT:
-[31m[38;5;34m  SUCCESS    expected_to match_regex `PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD`[0m
-[38;5;239m  01: PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD[0m
+[31m[38;5;160m  FAILURE    expected_to match_regex `PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD`[0m
+[38;5;239m  (no output)[0m
 
   STDERR:
 [31m[38;5;34m  SUCCESS    expected_to_not be_empty[0m
-[31m[1;33m  WARNING    might match_regex `[Nn]o such file or directory`[0m
-[38;5;239m  01: Too many symbolic links[0m
+[31m[38;5;34m  SUCCESS    might match_regex `[Nn]o such file or directory`[0m
+[38;5;239m  01: ./lib/main.sh: line 102: /Users/hugohow-choong/42/minishell/minishell: No such file or directory[0m
 
 ----------------------------------------------------------------
 
@@ -44,45 +470,11 @@
 
   STDOUT:
 [31m[38;5;160m  FAILURE    expected_to match_regex `PWD=/Users/hugohow-choong/42ShellTester/tmp/sub_directory/sub_sub_directory`[0m
-[38;5;239m  01: ------------------------------
-  02: TERM_PROGRAM=Apple_Terminal
-  03: SHELL=/bin/zsh
-  04: TERM=xterm-256color
-  05: MAKEFLAGS=
-  06: TMPDIR=/var/folders/7f/9kzlj6h169359rtzggmmg31c0000gn/T/
-  07: Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.jnfnMxHiws/Render
-  08: TERM_PROGRAM_VERSION=388.1.1
-  09: TERM_SESSION_ID=DF380C55-02A0-41C3-8ECC-373CDB125BAA
-  10: LC_ALL=en_US.UTF-8
-  11: USER=hugohow-choong
-  12: RBENV_ROOT=/Users/hugohow-choong/.rbenv
-  13: SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.Pps5EY6hA2/Listeners
-  14: __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x1
-  15: MAKELEVEL=1
-  16: PAGER=less
-  17: MFLAGS=
-  18: LSCOLORS=Gxfxcxdxbxegedabagacad
-  19: PATH=/usr/local/opt/ncurses/bin:./bin:/Users/hugohow-choong/.rbenv/shims:/Users/hugohow-choong/.rbenv/bin:/usr/local/bin:/usr/local/share:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/X11/bin:/usr/texbin:~/bin
-  20: PWD=/Users/hugohow-choong/42ShellTester/tmp
-  21: LANG=en_US.UTF-8
-  22: XPC_FLAGS=0x0
-  23: RBENV_SHELL=zsh
-  24: XPC_SERVICE_NAME=0
-  25: HOME=/Users/hugohow-choong
-  26: SHLVL=3
-  27: BUNDLER_EDITOR='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'export
-  28: LOGNAME=hugohow-choong
-  29: LESS=-R
-  30: LC_CTYPE=fr_FR.UTF-8
-  31: OLDPWD=/Users/hugohow-choong/42ShellTester
-  32: _=/Users/hugohow-choong/42/minishell/minishell
-  33: ------------------------------
-  34: TOTAL ENVIRONMENT VARIABLES: 31[0m
+[38;5;239m  (no output)[0m
 
   STDERR:
 [31m[1;33m  WARNING    might be_empty[0m
-[38;5;239m  01: No such file or directory
-  02: No such file or directory[0m
+[38;5;239m  01: ./lib/main.sh: line 102: /Users/hugohow-choong/42/minishell/minishell: No such file or directory[0m
 
 ----------------------------------------------------------------
 
@@ -98,12 +490,12 @@
 
   STDOUT:
 [31m[38;5;160m  FAILURE    expected_to match_regex `PWD:/Users/hugohow-choong/42ShellTester/tmp:PWD`[0m
-[38;5;239m  01: PWD:/:PWD[0m
+[38;5;239m  (no output)[0m
 
   STDERR:
 [31m[38;5;160m  FAILURE    expected_to be_empty[0m
-[38;5;239m  01: No such file or directory[0m
+[38;5;239m  01: ./lib/main.sh: line 102: /Users/hugohow-choong/42/minishell/minishell: No such file or directory[0m
 
 Total tests: 24
-Total failed tests: 2
+Total failed tests: 11
 Total pending tests: 0
