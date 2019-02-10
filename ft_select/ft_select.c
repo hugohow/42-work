@@ -22,8 +22,6 @@ struct editorConfig {
   int cx;
   int cy;
   int index;
-  int origin_x;
-  int origin_y;
   int nb_row;
   int nb_col;
   t_arg **argv;

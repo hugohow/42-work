@@ -249,7 +249,11 @@ int execute_command(char *cmd, char **paths, char ***p_environ)
 int ask_command(int fd, char **command)
 {
     if (fd == 0 && isatty(0) == 1)
+    {
+        print_bold_green(1);
         ft_putstr("$> ");
+        print_normal(1);
+    }
     return (get_next_line(fd, command));
 }
 
@@ -343,10 +347,9 @@ int main(int argc, char **argv)
     char *command;
     char **copy_env;
     int fd;
-    int *success;
+    int success;
 
-    success = malloc(sizeof(int));
-    *success = 0;
+    success = 0;
     copy_env = copy_environ((char **)environ);
 
     if (argc > 1 || isatty(0) == 0)
@@ -354,7 +357,7 @@ int main(int argc, char **argv)
         fd = isatty(0) == 0 ? 0 : open(argv[1], O_RDONLY);
         while (ask_command(fd, &command) != 0)
         {
-            *success = prepare_command(command, &copy_env, *success);
+            success = prepare_command(command, &copy_env, success);
         }
     }
     else
@@ -362,8 +365,8 @@ int main(int argc, char **argv)
         while (42)
         {
             ask_command(0, &command);
-            *success = prepare_command(command, &copy_env, *success);
+            success = prepare_command(command, &copy_env, success);
         }
     }
-    return (*success);
+    return (success);
 }

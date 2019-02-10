@@ -25,4 +25,6 @@ void    ft_putstr(char const *str);
 void    ft_putstr_fd(char const *str, int fd);
 int     ft_atoi(const char *str);
 int     ft_isdigit(int c);
+void print_bold_green(int fd);
+void print_normal(int fd);
 extern char **environ;

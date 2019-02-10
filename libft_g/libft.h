@@ -67,3 +67,17 @@ void    ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list  *ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list *ft_lstnew(void const *content, size_t content_size);
 void    ft_lstadd(t_list **alst, t_list *new_el);
+
+void print_red(int fd);
+void print_bold_red(int fd);
+void print_green(int fd);
+void print_bold_green(int fd);
+void print_yellow(int fd);
+void print_bold_yellow(int fd);
+void print_blue(int fd);
+void print_bold_blue(int fd);
+void print_magenta(int fd);
+void print_bold_magenta(int fd);
+void print_cyan(int fd);
+void print_bold_cyan(int fd);
+void print_normal(int fd);
