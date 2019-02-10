@@ -81,3 +81,10 @@ void print_bold_magenta(int fd);
 void print_cyan(int fd);
 void print_bold_cyan(int fd);
 void print_normal(int fd);
+
+
+#include <termios.h>
+
+void    ft_exit_terminal(struct termios *orig_termios);
+int     ft_init_terminal(struct termios *orig_termios, struct termios *new_termios);
+int     ft_read_key();

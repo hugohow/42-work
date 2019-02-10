@@ -170,7 +170,7 @@ int has_i(t_token_env **token_ls)
     return (0);
 }
 
-int execute_ls(t_token_env **token_ls, char ***p_environ)
+int execute_ls(t_token_env **token_ls, char ***p_environ, struct termios *p_orig_termios)
 {
     int i;
     int j;
@@ -197,7 +197,7 @@ int execute_ls(t_token_env **token_ls, char ***p_environ)
         i++;
     }
     if (i > 0 && ft_strcmp(token_ls[i - 1]->type, "utility") == 0)
-        return (prepare_command(token_ls[i - 1]->string, &copy_env, 0));
+        return (prepare_command(token_ls[i - 1]->string, &copy_env, 0, p_orig_termios));
     else
         ft_print_env(copy_env);
     return (0);
@@ -215,7 +215,7 @@ void print_token_ls(t_token_env **token_ls)
     }
 }
 
-int ft_env(int argc, char **argv, char ***p_environ)
+int ft_env(int argc, char **argv, char ***p_environ, struct termios *p_orig_termios)
 {
     pid_t pid;
     int status;
@@ -235,7 +235,7 @@ int ft_env(int argc, char **argv, char ***p_environ)
         token_ls = tokenize_argv(argc, argv);
         // permet de vérfier si il y a des anomalies
         // print_token_ls(token_ls);
-        status = execute_ls(token_ls, p_environ);
+        status = execute_ls(token_ls, p_environ, p_orig_termios);
         exit(status);
     }
     else if (pid < 0)

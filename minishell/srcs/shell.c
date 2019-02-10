@@ -179,7 +179,7 @@ int is_path(char *cmd)
     return (0);
 }
 
-int execute_command(char *cmd, char **paths, char ***p_environ)
+int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *p_orig_termios)
 {
     int i;
     int result;
@@ -222,7 +222,7 @@ int execute_command(char *cmd, char **paths, char ***p_environ)
     }
     if (ft_strcmp(command, "env") == 0)
     {
-        return (ft_env(list_size(cmd_list), cmd_list, p_environ));
+        return (ft_env(list_size(cmd_list), cmd_list, p_environ, p_orig_termios));
     }
     while (paths[i])
     {
@@ -246,13 +246,39 @@ int execute_command(char *cmd, char **paths, char ***p_environ)
     return (1);
 }
 
-int ask_command(int fd, char **command)
+
+
+int ask_command(int fd, char **command, struct termios *p_orig_termios)
 {
+    int c;
+    char *cmd;
     if (fd == 0 && isatty(0) == 1)
     {
         print_bold_green(1);
         ft_putstr("$> ");
         print_normal(1);
+        cmd = malloc(sizeof(char) * 2);
+        cmd = "";
+        while (42)
+        {
+            c = ft_read_key();
+            if (c == ('c' & 0x1f))
+            {
+                ft_exit_terminal(p_orig_termios);
+            }
+            else if (c == 13)
+            {
+                *command = cmd;
+                ft_putstr("\r\n");
+                return (0);
+            }
+            char str[2];
+            str[0] = c;
+            str[1] = '\0';
+            cmd = ft_strjoin(cmd, str);
+            ft_putchar(c);
+
+        }
     }
     return (get_next_line(fd, command));
 }
@@ -290,7 +316,7 @@ char **get_paths(char **copy_env)
     return (paths);
 }
 
-void ft_exit(char *cmd, int success)
+void ft_exit(char *cmd, int success, struct termios *p_orig_termios)
 {
     char **cmd_list;
     int i;
@@ -311,17 +337,20 @@ void ft_exit(char *cmd, int success)
             if (ft_isdigit(cmd_list[1][i]) == 0)
             {
                 ft_putstr_fd("Numeric argument required", 2);
+                ft_exit_terminal(p_orig_termios);
                 exit(-1);
             }
             i++;
         }
+        ft_exit_terminal(p_orig_termios);
         exit(ft_atoi(cmd_list[1]));
     }   
+    ft_exit_terminal(p_orig_termios);
     exit(success);
 }
 
 
-int prepare_command(char *cmd, char ***copy_env, int prev_res)
+int prepare_command(char *cmd, char ***copy_env, int prev_res, struct termios *p_orig_termios)
 {
     t_token **list;
     int i;
@@ -333,9 +362,9 @@ int prepare_command(char *cmd, char ***copy_env, int prev_res)
     while (list[i])
     {
         if (ft_strcmp(list[i]->type, "exit") == 0)
-            ft_exit(list[i]->value, success);
+            ft_exit(list[i]->value, success, p_orig_termios);
         else if (ft_strcmp(list[i]->type, "separator") != 0)
-            success = execute_command(list[i]->value, get_paths(*copy_env), copy_env);
+            success = execute_command(list[i]->value, get_paths(*copy_env), copy_env, p_orig_termios);
         i++;
     }
     return (success);
@@ -349,23 +378,31 @@ int main(int argc, char **argv)
     int fd;
     int success;
 
+    struct termios orig_termios;
+    struct termios new_termios;
+
+    if ((ft_init_terminal(&orig_termios, &new_termios)) < 0)
+        return (-1);
+
     success = 0;
     copy_env = copy_environ((char **)environ);
 
     if (argc > 1 || isatty(0) == 0)
     {
         fd = isatty(0) == 0 ? 0 : open(argv[1], O_RDONLY);
-        while (ask_command(fd, &command) != 0)
+        while (ask_command(fd, &command, &orig_termios) != 0)
         {
-            success = prepare_command(command, &copy_env, success);
+            success = prepare_command(command, &copy_env, success, &orig_termios);
         }
     }
     else
     {
         while (42)
         {
-            ask_command(0, &command);
-            success = prepare_command(command, &copy_env, success);
+            ask_command(0, &command, &orig_termios);
+            ft_putstr("\r");
+            success = prepare_command(command, &copy_env, success, &orig_termios);
+            ft_putstr("\r");
         }
     }
     return (success);
