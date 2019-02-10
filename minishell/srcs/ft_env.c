@@ -218,23 +218,25 @@ void print_token_ls(t_token_env **token_ls)
 int ft_env(int argc, char **argv, char ***p_environ)
 {
     pid_t pid;
-    int *status;
+    int status;
     t_token_env **token_ls;
+    int waitstatus;
+    int i;
 
     if (argc == 1)
     {
         ft_print_env(*p_environ);
         return (0);
     }
-    status = malloc(sizeof(int));
+    status = 0;
     pid = fork();
     if (pid == 0)
     {
         token_ls = tokenize_argv(argc, argv);
         // permet de vérfier si il y a des anomalies
         // print_token_ls(token_ls);
-        *status = execute_ls(token_ls, p_environ);
-        exit(*status);
+        status = execute_ls(token_ls, p_environ);
+        exit(status);
     }
     else if (pid < 0)
     {
@@ -243,8 +245,8 @@ int ft_env(int argc, char **argv, char ***p_environ)
     }
     else
     {
-        //father
-        wait(status);
+        wait(&waitstatus);
+        i = WEXITSTATUS(waitstatus);
     }
-    return (*status);
+    return (i);
 }

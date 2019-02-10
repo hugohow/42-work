@@ -97,10 +97,8 @@ int execute_path(char *path, char **argv, char ***p_environ)
 {
     pid_t pid;
     struct stat fileStat;
-    int *result;
-
-    result = malloc(sizeof(int));
-    *result = 0;
+    int waitstatus;
+    int i;
     // le fichier existe mais impossible d'avoir stat -> loop symbolic links
     if (stat(path, &fileStat) < 0)
     {
@@ -125,10 +123,10 @@ int execute_path(char *path, char **argv, char ***p_environ)
     }
     else
     {
-        wait(result);
+        wait(&waitstatus);
+        i = WEXITSTATUS(waitstatus);
     }
-    printf("execute_path result: %d", *result);
-    return (*result);
+    return (i);
 }
 
 char *search_path_exe(char *cmd, char *path, char ***p_environ)
@@ -315,7 +313,6 @@ void ft_exit(char *cmd, int success)
         }
         exit(ft_atoi(cmd_list[1]));
     }   
-    printf("exit with : success %d", success);
     exit(success);
 }
 
@@ -331,7 +328,6 @@ int prepare_command(char *cmd, char ***copy_env, int prev_res)
     success = prev_res;
     while (list[i])
     {
-        ft_printf("success : %d", success);
         if (ft_strcmp(list[i]->type, "exit") == 0)
             ft_exit(list[i]->value, success);
         else if (ft_strcmp(list[i]->type, "separator") != 0)

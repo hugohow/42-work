@@ -3,14 +3,19 @@
 
 int ft_unsetenv(int argc, char **argv, char ***p_environ)
 {
+    int i;
+
     if (argc == 1)
     {
         ft_putstr("unsetenv: Too few arguments.\n");
         return (0);
     }
-    if (argc > 2)
-        return (0);
-    delete_line_env(argv[1], p_environ);
+    i = 1;
+    while (i < argc)
+    {
+        delete_line_env(argv[i], p_environ);
+        i++;
+    }    
 
     return (0);
 }
