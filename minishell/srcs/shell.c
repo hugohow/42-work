@@ -276,7 +276,10 @@ int ask_command(int fd, char **command, struct termios *p_orig_termios)
             str[0] = c;
             str[1] = '\0';
             cmd = ft_strjoin(cmd, str);
-            ft_putchar(c);
+            if (ft_isalnum(c))
+                ft_putchar((char)c);
+            else
+                ft_putnbr(c);
 
         }
     }

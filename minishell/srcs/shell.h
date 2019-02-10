@@ -31,7 +31,7 @@ void    print_normal(int fd);
 
 void    ft_putnbr(int nb);
 void    ft_putchar(char c);
-
+int     ft_isalnum(int c);
 
 void    ft_exit_terminal(struct termios *orig_termios);
 int     ft_init_terminal(struct termios *orig_termios, struct termios *new_termios);
