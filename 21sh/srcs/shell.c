@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "shell.h"
 
 typedef struct s_token
 {
@@ -238,7 +238,7 @@ int execute_command(char *cmd, char **paths, char ***p_environ)
     }
     if (paths[i] == 0)
     {
-        ft_putstr_fd("minishell: command not found: ", 2);
+        ft_putstr_fd("shell: command not found: ", 2);
         ft_putstr_fd(cmd, 2);
         ft_putstr_fd("\n", 2);
         return (1);
