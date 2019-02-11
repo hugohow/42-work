@@ -8,7 +8,7 @@
 #include <sys/ioctl.h>
 #include <signal.h>
 
-int 	getWindowSize(int *rows, int *cols);
+int 	get_window_size(int *rows, int *cols);
 int 	iscntrl(int c);
 
 
@@ -88,7 +88,7 @@ void initEditor(int argc, char **argv) {
 	E.argv = list_t_arg;
 	E.argc = argc;
 	E.line = 0;
-	if (getWindowSize(&E.screenrows, &E.screencols) == -1)
+	if (get_window_size(&E.screenrows, &E.screencols) == -1)
 	{
 		return ;
 	}
@@ -274,23 +274,10 @@ void sig_handler(int signo)
 {
     if (signo == SIGWINCH)
 	{
-		if (getWindowSize(&E.screenrows, &E.screencols) == -1)
+		if (get_window_size(&E.screenrows, &E.screencols) == -1)
 			return ;
 		editorRefreshScreen(E.argc, E.argv);
 	}
-}
-
-
-int getWindowSize(int *rows, int *cols) {
-  struct winsize ws;
-  if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == -1 || ws.ws_col == 0) 
-	return -1;
-  else 
-  {
-    *cols = ws.ws_col;
-    *rows = ws.ws_row;
-    return 0;
-  }
 }
 
 

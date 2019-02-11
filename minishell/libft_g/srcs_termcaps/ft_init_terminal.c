@@ -27,6 +27,8 @@ int ft_init_terminal(struct termios *orig_termios, struct termios *new_termios)
 	// new_termios->c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
 	
     new_termios->c_lflag &= ~(ICANON | ECHO);
+    // ICANON -> // Met le terminal en mode canonique.
+    // ECHO -> les touches tapées ne s'inscriront plus dans le terminal
 	new_termios->c_lflag |= ISIG;
     
     new_termios->c_cc[VMIN] = 1;

@@ -138,10 +138,10 @@
 
   STDIN:
 [38;5;239m  01: exit abc
-  02: ./write_on_stdout TOKEN201902101829[0m
+  02: ./write_on_stdout TOKEN201902111109[0m
 
   STDOUT:
-[31m[38;5;34m  SUCCESS    expected_to_not match_regex `TOKEN201902101829`[0m
+[31m[38;5;34m  SUCCESS    expected_to_not match_regex `TOKEN201902111109`[0m
 [38;5;239m  (no output)[0m
 
   STDERR:

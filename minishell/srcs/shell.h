@@ -36,5 +36,8 @@ int     ft_isalnum(int c);
 void    ft_exit_terminal(struct termios *orig_termios);
 int     ft_init_terminal(struct termios *orig_termios, struct termios *new_termios);
 int     ft_read_key();
+void print_cmd(char *cmd);
+void add_to_stdout(char **p_cmd, int c, int *index, int original_row);
+int     get_pos(int *y, int *x);
 
 extern char **environ;

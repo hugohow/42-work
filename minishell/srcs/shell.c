@@ -247,41 +247,31 @@ int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *
 }
 
 
-
 int ask_command(int fd, char **command, struct termios *p_orig_termios)
 {
-    int c;
+    int key;
     char *cmd;
+    int index;
+    int original_row;
+
     if (fd == 0 && isatty(0) == 1)
     {
-        print_bold_green(1);
-        ft_putstr("$> ");
-        print_normal(1);
         cmd = malloc(sizeof(char) * 2);
         cmd = "";
-        while (42)
+        
+        print_cmd(cmd);
+        if (get_pos(&index, &original_row) < 0)
+            return (0);
+        index = 0;
+        while ((key = ft_read_key()) != 10)
         {
-            c = ft_read_key();
-            if (c == ('c' & 0x1f))
-            {
+            if (key == ('c' & 0x1f))
                 ft_exit_terminal(p_orig_termios);
-            }
-            else if (c == 10)
-            {
-                *command = cmd;
-                ft_putstr("\n");
-                return (0);
-            }
-            char str[2];
-            str[0] = c;
-            str[1] = '\0';
-            cmd = ft_strjoin(cmd, str);
-            if (ft_isalnum(c))
-                ft_putchar((char)c);
-            else
-                ft_putnbr(c);
-
+            add_to_stdout(&cmd, key, &index, original_row);
         }
+        *command = cmd;
+        ft_putstr("\r\n");
+        return (0);
     }
     return (get_next_line(fd, command));
 }
