@@ -266,10 +266,10 @@ int ask_command(int fd, char **command, struct termios *p_orig_termios)
             {
                 ft_exit_terminal(p_orig_termios);
             }
-            else if (c == 13)
+            else if (c == 10)
             {
                 *command = cmd;
-                ft_putstr("\r\n");
+                ft_putstr("\n");
                 return (0);
             }
             char str[2];
@@ -403,9 +403,7 @@ int main(int argc, char **argv)
         while (42)
         {
             ask_command(0, &command, &orig_termios);
-            ft_putstr("\r");
             success = prepare_command(command, &copy_env, success, &orig_termios);
-            ft_putstr("\r");
         }
     }
     return (success);

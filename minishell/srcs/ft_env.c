@@ -16,7 +16,7 @@ void ft_print_env(char **str)
     while (str[i])
     {
         ft_putstr(str[i]);
-        ft_putchar('\n');
+        ft_putstr("\n");
         i++;
     }
 }

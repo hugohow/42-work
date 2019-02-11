@@ -236,7 +236,7 @@ void editorProcessKeypress() {
   int c = ft_read_key();
   switch (c) {
 	case 27:
-	case 13:
+	case 10:
     case CTRL_KEY('z'):
       exit_select();
       break;
