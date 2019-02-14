@@ -62,33 +62,43 @@ void print_cmd(char *cmd)
     ft_putstr(cmd);
 }
 
-void refresh(char *cmd, int *curr_index, int nb_line)
+int count_nb_line(char *cmd)
 {
-    if (nb_line == 0)
+    int nb_line;
+    nb_line = 0;
+    while (*cmd)
     {
-        tputs(tgetstr("dl", NULL), 1, my_outc);
-        ft_putstr("\r");
-        print_cmd(cmd);
-        go_to_col(get_col(cmd, *curr_index));
+        if (*cmd == '\n')
+            nb_line++;
+        cmd++;
     }
-    else
+    return (nb_line);
+}
+
+void delete_n_lines(int n)
+{
+    int i;
+
+    i = 0;
+    while (i < n)
     {
-        int i = 0;
-        while (i < nb_line)
-        {
-            tputs(tgetstr("up", NULL), 1, my_outc); 
-            tputs(tgetstr("dl", NULL), 1, my_outc);
-            i++;
-        }
+        tputs(tgetstr("up", NULL), 1, my_outc); 
         tputs(tgetstr("dl", NULL), 1, my_outc);
-        ft_putstr("\r");
-        print_cmd(cmd);
-        go_to_col(get_col(cmd, *curr_index));
+        i++;
     }
+    tputs(tgetstr("dl", NULL), 1, my_outc);
+    ft_putstr("\r");
+}
+
+void refresh(char *cmd, int *curr_index)
+{
+    delete_n_lines(count_nb_line(cmd));
+    print_cmd(cmd);
+    go_to_col(get_col(cmd, *curr_index));
 }
 
 
-void add_to_stdout(char **p_cmd, int c, int *curr_index, int nb_line)
+void add_to_stdout(char **p_cmd, int c, int *curr_index)
 {
     char str[2];
 
@@ -100,23 +110,11 @@ void add_to_stdout(char **p_cmd, int c, int *curr_index, int nb_line)
         *p_cmd = ft_strjoin(
             ft_strjoin(ft_strsub(*p_cmd, 0, *curr_index), "\n"), 
             *p_cmd + *curr_index);
-        // important sinon il y aura un décallage bizarre
+
         *curr_index = *curr_index + 1;
-        // char *sf;
-        // sf = tgetstr("sf", NULL);
-        tputs(tgetstr("dl", NULL), 1, my_outc);
-        // tputs(tgetstr("sf", NULL), 1, my_outc); 
-        int i = 1;
-        while ( i < nb_line)
-        {
-            tputs(tgetstr("up", NULL), 1, my_outc); 
-            tputs(tgetstr("dl", NULL), 1, my_outc);
-            i++;
-        }
-        ft_putstr("\r");
+        delete_n_lines(count_nb_line(*p_cmd) - 1);
         print_cmd(*p_cmd);
         go_to_col(get_col(*p_cmd, *curr_index));
-        return ;
     }
     else if (c == ARROW_RIGHT)
     {
@@ -124,24 +122,32 @@ void add_to_stdout(char **p_cmd, int c, int *curr_index, int nb_line)
             return ;
         *curr_index = *curr_index + 1;
         go_to_col(get_col(*p_cmd, *curr_index));
-        
     }
     else if (c == ARROW_LEFT)
     {
-        if (*curr_index != 0)
-            *curr_index = *curr_index - 1;
+        if (*curr_index == 0)
+            return ;
+        if (get_col(*p_cmd, *curr_index) == 0)
+            return ;
+        *curr_index = *curr_index - 1;
         go_to_col(get_col(*p_cmd, *curr_index));
+    }
+    else if (c == ARROW_DOWN || c == ARROW_UP)
+    {
+        if (count_nb_line(*p_cmd) > 0)
+            print_cmd(*p_cmd);
+        refresh(*p_cmd, curr_index);
     }
     else if (c == 127)
     {
-        refresh(*p_cmd, curr_index, nb_line);
+        refresh(*p_cmd, curr_index);
         if (*curr_index > 0)
         {
         *p_cmd = ft_strjoin(ft_strsub(*p_cmd, 0, *curr_index - 1), 
             *p_cmd + *curr_index);
 
             *curr_index = *curr_index - 1;
-            refresh(*p_cmd, curr_index, nb_line);
+            refresh(*p_cmd, curr_index);
         }
     }
     else if (ft_isprint(c))
@@ -150,11 +156,8 @@ void add_to_stdout(char **p_cmd, int c, int *curr_index, int nb_line)
         *p_cmd = ft_strjoin(
             ft_strjoin(ft_strsub(*p_cmd, 0, *curr_index), str), 
             *p_cmd + *curr_index);
-
-
-
         *curr_index = *curr_index + 1;
-        refresh(*p_cmd, curr_index, nb_line);
+        refresh(*p_cmd, curr_index);
     }
     return ;
 }

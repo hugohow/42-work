@@ -1,6 +1,16 @@
 
 #include "shell.h"
 
+
+enum editorKey 
+{
+  ARROW_LEFT = 1000,
+  ARROW_RIGHT,
+  ARROW_UP,
+  ARROW_DOWN
+};
+
+
 typedef struct s_token
 {
     char* type;
@@ -266,24 +276,39 @@ int is_quote_closed(char *cmd)
     return (count_opened % 2 != 0);
 }
 
+char **list_historic;
+int *k;
+
+
 int ask_command(int fd, char **command, struct termios *p_orig_termios)
 {
     int key;
     char *cmd;
     int index;
+    int historic_index;
     int original_row;
+    int multiple_lines;
     char *command_tmp;
     char *command_tmp1;
 
+    if (list_historic == NULL)
+        list_historic = malloc(999*sizeof(char *));
+    if (k == NULL)
+    {
+        k = malloc(sizeof(int));
+        *k = 0;
+    }
     if (fd == 0 && isatty(0) == 1)
     {
         cmd = malloc(sizeof(char) * 2);
         cmd = "";
+        ft_putstr("----------🍄---------------\n");
         print_cmd(cmd);
         if (get_pos(&index, &original_row) < 0)
             return (0);
         index = 0;
-        int nb_line = 0;
+        historic_index = *k;
+        multiple_lines = 0;
         // not enough !! for the simple ou double quote
         while (42)
         {
@@ -292,14 +317,43 @@ int ask_command(int fd, char **command, struct termios *p_orig_termios)
             {
                 // check if it's closed
                 if (is_quote_closed(cmd) == 0)
+                {
+                    historic_index = *k + 1;
                     break;
-                nb_line++;
+                }
+                multiple_lines = 1;
             }
             if (key == ('c' & 0x1f))
                 ft_exit_terminal(p_orig_termios);
-            add_to_stdout(&cmd, key, &index, nb_line);
+            if (key == ARROW_UP && historic_index - 1 >= 0)
+            {
+                // to clean
+                if (list_historic[historic_index])
+                    delete_n_lines(count_nb_line(list_historic[historic_index]));
+                cmd = list_historic[--historic_index];
+                multiple_lines = count_nb_line(cmd) > 0 ? 1 : 0;
+                index = ft_strlen(cmd);
+            }
+            else if (key == ARROW_DOWN && historic_index < *k)
+            {
+                // to clean
+                if (list_historic[historic_index])
+                    delete_n_lines(count_nb_line(list_historic[historic_index]));
+                cmd = list_historic[++historic_index];
+                multiple_lines = count_nb_line(cmd) > 0 ? 1 : 0;
+                index = ft_strlen(cmd);
+            }
+            if ((key == ARROW_DOWN || key == ARROW_UP) && multiple_lines == 1)
+            {
+                add_to_stdout(&cmd, key, &index);
+            }
+            else
+                add_to_stdout(&cmd, key, &index);
         }
         *command = cmd;
+        list_historic[*k] = cmd;
+        *k = *k + 1;
+        list_historic[*k] = "";
         ft_putstr("\r\n");
         return (0);
     }

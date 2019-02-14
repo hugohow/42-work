@@ -41,29 +41,6 @@ enum editorKey {
 };
 
 
-void print_example()
-{
-	char buf[1024];
-	char buf2[30];
-	char *ap = buf2;
-	char *clearstr, *gotostr, *standstr, *stendstr;
-
-	tgetent(buf, getenv("TERM"));
-
-	clearstr = tgetstr("cl", &ap);
-	gotostr = tgetstr("cm", &ap);
-	standstr = tgetstr("so", &ap);
-	stendstr = tgetstr("se", &ap);
-
-	fputs(clearstr, stdout);
-	fputs(tgoto(gotostr, 20, 10), stdout);
-	printf("Hello, ");
-	fputs(standstr, stdout);
-	printf("world");
-	fputs(stendstr, stdout);
-	putchar('!');
-}
-
 void initEditor(int argc, char **argv) {
 	t_arg **list_t_arg;
 	t_arg *arg;
@@ -254,18 +231,6 @@ void editorProcessKeypress() {
     case 32:
 		select_element_list();
 		break;
-	// default:
-	// {
-	// 	if (iscntrl(c)) {
-	// 		standstr = tgetstr("so", &ap);
-	// 		fputs(standstr, stdout);
-	// 		printf("%d\r\n", c);
-	// 	} else {
-	// 		standstr = tgetstr("se", &ap);
-	// 		fputs(standstr, stdout);
-	// 		printf("%d ('%c')\r\n", c, c);
-	// 	}
-	// 	}
 	}
 }
 
@@ -283,9 +248,7 @@ void sig_handler(int signo)
 
 int main(int argc, char **argv)
 {
-	int i;
-	char buf[1];
-	
+	int i;	
 	struct termios orig_termios;
 	struct termios new_termios;
 
