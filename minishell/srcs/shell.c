@@ -10,6 +10,10 @@ enum editorKey
   ARROW_DOWN
 };
 
+#define CTRL_J 10
+#define CTRL_L ('l' & 0x1f)
+#define CTRL_I 9
+#define CTRL_K ('k' & 0x1f)
 
 typedef struct s_token
 {
@@ -287,7 +291,6 @@ int ask_command(int fd, char **command, struct termios *p_orig_termios)
     int index;
     int historic_index;
     int original_row;
-    int multiple_lines;
     char *command_tmp;
     char *command_tmp1;
 
@@ -308,11 +311,11 @@ int ask_command(int fd, char **command, struct termios *p_orig_termios)
             return (0);
         index = 0;
         historic_index = *k;
-        multiple_lines = 0;
         // not enough !! for the simple ou double quote
         while (42)
         {
             key = ft_read_key();
+            // printf("key : %d", key);
             if (key == 10)
             {
                 // check if it's closed
@@ -321,34 +324,26 @@ int ask_command(int fd, char **command, struct termios *p_orig_termios)
                     historic_index = *k + 1;
                     break;
                 }
-                multiple_lines = 1;
             }
-            if (key == ('c' & 0x1f))
+            if (key == ('i' & 0x1f))
                 ft_exit_terminal(p_orig_termios);
             if (key == ARROW_UP && historic_index - 1 >= 0)
             {
                 // to clean
-                if (list_historic[historic_index])
-                    delete_n_lines(count_nb_line(list_historic[historic_index]));
+                if (cmd)
+                    delete_n_lines(count_nb_line(cmd));
                 cmd = list_historic[--historic_index];
-                multiple_lines = count_nb_line(cmd) > 0 ? 1 : 0;
                 index = ft_strlen(cmd);
             }
             else if (key == ARROW_DOWN && historic_index < *k)
             {
                 // to clean
-                if (list_historic[historic_index])
-                    delete_n_lines(count_nb_line(list_historic[historic_index]));
+                if (cmd)
+                    delete_n_lines(count_nb_line(cmd));
                 cmd = list_historic[++historic_index];
-                multiple_lines = count_nb_line(cmd) > 0 ? 1 : 0;
                 index = ft_strlen(cmd);
             }
-            if ((key == ARROW_DOWN || key == ARROW_UP) && multiple_lines == 1)
-            {
-                add_to_stdout(&cmd, key, &index);
-            }
-            else
-                add_to_stdout(&cmd, key, &index);
+            add_to_stdout(&cmd, key, &index);
         }
         *command = cmd;
         list_historic[*k] = cmd;
@@ -470,7 +465,7 @@ int main(int argc, char **argv)
 
     if ((ft_init_terminal(&orig_termios, &new_termios)) < 0)
         return (-1);
-
+        
     success = 0;
     copy_env = copy_environ((char **)environ);
 

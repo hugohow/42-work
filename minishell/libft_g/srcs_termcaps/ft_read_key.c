@@ -24,7 +24,7 @@ int ft_read_key()
         case 'D': return ARROW_LEFT;
       }
     }
-    return ('\x1b');
+    return (0);
   }
   else 
   {
