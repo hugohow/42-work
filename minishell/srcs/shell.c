@@ -201,11 +201,11 @@ int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *
         result = execute_path(command, cmd_list, p_environ);
         return (result);
     }
-    if (ft_strcmp(command, "echo") == 0)
-    {
-        ft_echo(list_size(cmd_list), cmd_list);
-        return 0;
-    }
+    // if (ft_strcmp(command, "echo") == 0)
+    // {
+    //     ft_echo(list_size(cmd_list), cmd_list);
+    //     return 0;
+    // }
     if (ft_strcmp(command, "cd") == 0)
     {
         return (ft_cd(list_size(cmd_list), cmd_list, p_environ));
@@ -246,6 +246,25 @@ int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *
     return (1);
 }
 
+int is_quote_closed(char *cmd)
+{
+    int i;
+    int count_opened;
+    int count_closed;
+
+    count_opened = 0;
+    count_closed = 0;
+    i = 0;
+    while (cmd[i])
+    {
+        if (cmd[i] == '"')
+        {
+            count_opened++;
+        }
+        i++;
+    }
+    return (count_opened % 2 != 0);
+}
 
 int ask_command(int fd, char **command, struct termios *p_orig_termios)
 {
@@ -253,6 +272,8 @@ int ask_command(int fd, char **command, struct termios *p_orig_termios)
     char *cmd;
     int index;
     int original_row;
+    char *command_tmp;
+    char *command_tmp1;
 
     if (fd == 0 && isatty(0) == 1)
     {
@@ -263,17 +284,37 @@ int ask_command(int fd, char **command, struct termios *p_orig_termios)
         if (get_pos(&index, &original_row) < 0)
             return (0);
         index = 0;
-        while ((key = ft_read_key()) != 10)
+        int nb_line = 0;
+        // not enough !! for the simple ou double quote
+        while (42)
         {
+            key = ft_read_key();
+            if (key == 10)
+            {
+                // check if it's closed
+                if (is_quote_closed(cmd) == 0)
+                    break;
+                nb_line++;
+            }
             if (key == ('c' & 0x1f))
                 ft_exit_terminal(p_orig_termios);
-            add_to_stdout(&cmd, key, &index, original_row);
+            add_to_stdout(&cmd, key, &index, original_row, nb_line);
         }
         *command = cmd;
         ft_putstr("\r\n");
         return (0);
     }
-    return (get_next_line(fd, command));
+    int ret;
+    command_tmp = malloc(9999*sizeof(char));
+    ret = get_next_line(fd, &command_tmp);
+    while (is_quote_closed(command_tmp) != 0 && ret >= 0)
+    {
+        ret = get_next_line(fd, &command_tmp1);
+        command_tmp = ft_strjoin(command_tmp, "\n");
+        command_tmp = ft_strjoin(command_tmp, command_tmp1);
+    }
+    *command = command_tmp;
+    return (ret);
 }
 
 char **copy_environ(char **str)
