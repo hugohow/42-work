@@ -298,7 +298,7 @@ int ask_command(int fd, char **command, struct termios *p_orig_termios)
             }
             if (key == ('c' & 0x1f))
                 ft_exit_terminal(p_orig_termios);
-            add_to_stdout(&cmd, key, &index, original_row, nb_line);
+            add_to_stdout(&cmd, key, &index, nb_line);
         }
         *command = cmd;
         ft_putstr("\r\n");
