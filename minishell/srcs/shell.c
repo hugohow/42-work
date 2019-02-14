@@ -279,7 +279,6 @@ int ask_command(int fd, char **command, struct termios *p_orig_termios)
     {
         cmd = malloc(sizeof(char) * 2);
         cmd = "";
-        
         print_cmd(cmd);
         if (get_pos(&index, &original_row) < 0)
             return (0);

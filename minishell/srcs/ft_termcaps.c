@@ -15,7 +15,7 @@ int     my_outc(int c)
     return (0);
 }
 
-int go_to_col(int index)
+int go_to_col(int col)
 {
     char *gotocol; 
     int rows;
@@ -24,10 +24,26 @@ int go_to_col(int index)
     get_window_size(&rows, &cols);
 
     gotocol = tgetstr("ch", NULL);
-    tputs(tgoto(gotocol, 1, index + 3), 1, my_outc);
+    tputs(tgoto(gotocol, 1, col), 1, my_outc);
     return (0);
 }
 
+int get_col(char *cmd, int index)
+{
+    int col;
+    int i;
+
+    i = 0;
+    col = 3;
+    while (cmd[i] && i != index)
+    {
+        col++;
+        if (cmd[i] == '\n')
+            col = 0;
+        i++;
+    }
+    return (col);
+}
 
 int clear_character(void)
 {
@@ -40,7 +56,6 @@ int clear_character(void)
 
 void print_cmd(char *cmd)
 {
-    // ft_putstr("----------🍄---------------\n");
     print_bold_green(1);
     ft_putstr("$> ");
     print_normal(1);
@@ -54,21 +69,21 @@ void refresh(char *cmd, int *curr_index, int nb_line)
         tputs(tgetstr("dl", NULL), 1, my_outc);
         ft_putstr("\r");
         print_cmd(cmd);
-        go_to_col(*curr_index);
+        go_to_col(get_col(cmd, *curr_index));
     }
     else
     {
         int i = 0;
-
         while (i < nb_line)
         {
             tputs(tgetstr("up", NULL), 1, my_outc); 
             tputs(tgetstr("dl", NULL), 1, my_outc);
             i++;
         }
+        tputs(tgetstr("dl", NULL), 1, my_outc);
         ft_putstr("\r");
         print_cmd(cmd);
-        go_to_col(0);
+        go_to_col(get_col(cmd, *curr_index));
     }
 }
 
@@ -100,6 +115,7 @@ void add_to_stdout(char **p_cmd, int c, int *curr_index, int nb_line)
         }
         ft_putstr("\r");
         print_cmd(*p_cmd);
+        go_to_col(get_col(*p_cmd, *curr_index));
         return ;
     }
     else if (c == ARROW_RIGHT)
@@ -107,14 +123,14 @@ void add_to_stdout(char **p_cmd, int c, int *curr_index, int nb_line)
         if (*curr_index + 1 > (int)ft_strlen(*p_cmd))
             return ;
         *curr_index = *curr_index + 1;
-        go_to_col(*curr_index);
+        go_to_col(get_col(*p_cmd, *curr_index));
         
     }
     else if (c == ARROW_LEFT)
     {
         if (*curr_index != 0)
             *curr_index = *curr_index - 1;
-        go_to_col(*curr_index);
+        go_to_col(get_col(*p_cmd, *curr_index));
     }
     else if (c == 127)
     {
