@@ -141,11 +141,11 @@ int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *
         result = execute_path(command, cmd_list, p_environ);
         return (result);
     }
-    // if (ft_strcmp(command, "echo") == 0)
-    // {
-    //     ft_echo(list_size(cmd_list), cmd_list);
-    //     return 0;
-    // }
+    if (ft_strcmp(command, "echo") == 0)
+    {
+        ft_echo(list_size(cmd_list), cmd_list);
+        return 0;
+    }
     if (ft_strcmp(command, "cd") == 0)
     {
         return (ft_cd(list_size(cmd_list), cmd_list, p_environ));
