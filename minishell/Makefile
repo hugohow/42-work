@@ -1,7 +1,7 @@
-NAME=minishell
+NAME=21sh
 
 all:
-	gcc  -lncurses -Wall -Wextra -Werror libft_g/*/*.c srcs/*.c -o $(NAME)
+	gcc  -lncurses -Wall -Wextra -Werror libft_g/*/*.c srcs/*.c srcs/$(NAME)/*.c -o $(NAME)
 
 clean:
 	rm -rf srcs/*.o

@@ -41,4 +41,5 @@ void add_to_stdout(char **p_cmd, int c, int *index);
 int     get_pos(int *y, int *x);
 void delete_n_lines(int n);
 int count_nb_line(char *cmd);
+int prepare_command(char *cmd, char ***copy_env, int prev_res, struct termios *p_orig_termios);
 extern char **environ;
