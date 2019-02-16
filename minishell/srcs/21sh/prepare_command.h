@@ -17,3 +17,8 @@ int is_exit(char *cmd);
 int     ft_strcmp(const char *s1, const char *s2);
 void ft_exit(char *cmd, int success, struct termios *p_orig_termios);
 char    **ft_strsplit(char const *str, char c);
+char    *ft_strsub(char const *s, unsigned int start, size_t len);
+char    **ft_strsplit(char const *str, char c);
+char    *ft_strjoin(char const *str1, char const *str2);
+char    *ft_itoa(int nb);
+int is_digit(char c);
