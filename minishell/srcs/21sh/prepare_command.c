@@ -91,7 +91,7 @@ t_node *create_node(char *type, char *cmd)
     node->cmd = cmd;
     // if type pipe;
     // only 2 child
-    if (ft_strcmp(type, "cmd") == 0 || type[0] == 'r')
+    if (ft_strcmp(node->type, "cmd") == 0 || ft_strcmp(node->type, "redirection >") == 0)
     {
         node->child = NULL;
         return (node);
@@ -285,7 +285,7 @@ int is_redirection_op(char *cmd, int *fd, int *len)
     }
     if (cmd[i] && cmd[i] == '<')
     {
-        if (cmd[i + 1] && cmd[i + 1] == '<')
+        if (cmd[i + 1] && cmd[i + 1] == '>')
         {
             if (len)
                 *len = *len + 2;
@@ -361,9 +361,8 @@ t_node **get_child(char *cmd)
 void    print_tree(t_node *node)
 {
     if (node->type[0] == 'r')
-        ft_printf("Type : %s, cmd : %s, fd :%d\n", node->type, node->cmd, node->fd);  
-    else 
-        ft_printf("Type : %s, cmd : %s\n", node->type, node->cmd);
+        ft_printf("Type : %s, cmd : %s, fd :%d\n", node->type, node->cmd, node->fd);    
+    ft_printf("Type : %s, cmd : %s\n", node->type, node->cmd);
     if (node->child)
     {
         int k;
