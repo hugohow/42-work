@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <termios.h>
-
+#include <unistd.h>
+ #include <string.h>
+ 
 typedef struct s_token
 {
     char* type;

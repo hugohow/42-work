@@ -5,7 +5,9 @@ typedef struct s_node
     char *type;
     char *cmd;
     // pour la redirection
-    int fd;
+    int nb_pipe;
+    int fd_origin;
+    char *file_name;
     struct s_node **child;
 }              t_node;
 
@@ -165,30 +167,50 @@ t_node **get_parentheses_child(char *cmd)
 {
     // cherche les paranthèses
     int i;
+    int j;
     int k;
     t_node **child;
+    char *tmp;
+    char **list;
 
-    child = malloc(999*sizeof(t_node *));
+    list = malloc(999*sizeof(char *));
+    tmp = malloc(999*sizeof(char));
     k = 0;
     i = 0;
     while (cmd[i])
     {
-        if (cmd[i] == '(')
+        while (cmd[i] && cmd[i] != '(')
+        {
+            j = 0;
+            tmp = malloc(999*sizeof(char));
+            tmp[j] = cmd[i];
+            tmp[j] = '\0';
+            list[k] = tmp;
+            k++;
+            j++;
+            i++;
+        }
+        if (cmd[i] && cmd[i] == '(')
         {
             size_t len;
 
             len = find_len_par(cmd + i);
-            child[k] = create_node("par", ft_strsub(cmd, i + 1, len - 1));
+            list[k] = ft_strsub(cmd, i + 1, len - 1);
             k++;
             i += len - 1;
         }
-        i++;
+    }
+    list[k] = 0;
+    if (k == 1)
+        return (NULL);
+    child = malloc((k + 1) * sizeof(t_node *));
+    k = 0;
+    while (list[k])
+    {
+        child[k] = create_node("base", list[k]);
+        k++;
     }
     child[k] = 0;
-    if (k == 0)
-        return (NULL);
-
-    
     return (child);
 }
 
@@ -224,6 +246,8 @@ t_node **get_semi_colon_child(char *cmd)
         }
         child[k] = 0;
     }
+    if (k == 0)
+        return (NULL);
     return (child);
 }
 
@@ -231,24 +255,35 @@ t_node **get_pipe_child(char *cmd)
 {
     char **list;
     int k;
+    int nb_pipe;
     t_node **child;
 
     list = ft_strsplit(cmd, '|');
-
-    // on peut voir ici si c'est valide
+ 
+    child = malloc(999*sizeof(t_node *));
     k = 0;
-    child = NULL;
+    nb_pipe = 0;
     if (list[0] && list[1])
     {
-        child = malloc(999*sizeof(t_node *));
+        while (list[k])
+        {
+            nb_pipe++;
+            k++;
+        }
+    }
+    k = 0;
+    if (list[0] && list[1])
+    {
         while (list[k])
         {
             child[k] = create_node("pipe", list[k]);
+            child[k]->nb_pipe = nb_pipe;
             k++;
         }
-        child[k] = 0;
     }
-    
+    child[k] = 0;
+    if (k == 0)
+        return (NULL);
     return (child);
 }
 
@@ -258,7 +293,6 @@ int is_redirection_op(char *cmd, int *fd, int *len)
 
     if (fd != NULL && len != NULL)
     {
-        *fd = 1;
         *len = 0;
     }
     i = 0;
@@ -306,38 +340,39 @@ t_node **get_redirection_child(char *cmd)
     int j;
     int ret;
     t_node **child;
-    int fd;
     int len;
+    int fd_origin;
+
     child = NULL;
     ret = 0;
     k = 0;
     i = 0;
     child = malloc(10 *sizeof(t_node *));
-    fd = 1;
     len = 0;
+    fd_origin = -1;
+    char *command;
     while (cmd[i])
     {
-        if ((ret = is_redirection_op(cmd + i, &fd, &len)) > 0)
+        if ((ret = is_redirection_op(cmd + i, &fd_origin, &len)) > 0)
         {
-            if (k == 0)
-            {
-                child[0] = create_node("cmd", ft_strsub(cmd, 0, i));
-                k++;
-            }
+            command = ft_strsub(cmd, 0, i);
             i += len;
             j = i;
             while (cmd[j] && is_redirection_op(cmd + j, NULL, NULL) == 0)
             {
                 j++;
             }
-            child[k] = create_node(ft_strjoin("redirection ", ft_itoa(ret)), ft_strsub(cmd, i, j - i));
-            child[k]->fd = fd;
+            child[k] = create_node(ft_strjoin("redirection ", ft_itoa(ret)), command);
+            child[k]->file_name = ft_strsub(cmd, i, j - i);
+            child[k]->fd_origin = fd_origin;
             k++;
             i = j - 1;
         }
         i++;
     }
     child[k] = 0;
+    if (k == 0)
+        return (NULL);
     return (child);
 }
 
@@ -345,25 +380,60 @@ t_node **get_child(char *cmd)
 {
     t_node **child;
 
+    // la recherche de paranthses doit se faire à chaque étape
+
+    // on décompose en fonction de la semi colon
     child = get_semi_colon_child(cmd);
     if (child == NULL)
     {
+        // alors on décompose en fonction du pipe
         child = get_pipe_child(cmd);
-    }    
+    } 
     if (child == NULL)
     {
+        // on décompose en fonction de la redirection
         child = get_redirection_child(cmd);
-    }   
+    }
 
     return (child);
 }
 
-void    print_tree(t_node *node)
+int pipe_test(void)
 {
+    int pfd[2];
+    // char buf[3];
+    int pid;
+
+    if (pipe(pfd) < 0) 
+        return (1);
+
+    if ((pid = fork()) == 0) 
+    {
+        // child
+        exit (0);
+    } 
+    else
+    {
+        // père -> va écrire dans le 1 
+        close (pfd[1]);
+        wait(NULL);
+    }
+    return (0); 
+}
+
+
+void    execute_tree(t_node *node, int fd0, int fd1)
+{
+    if (ft_strcmp(node->type, "cmd") == 0)
+        ft_printf("cmd : %s dans fd0 : %d et fd1 : %d\n", node->cmd, fd0, fd1);
     if (node->type[0] == 'r')
-        ft_printf("Type : %s, cmd : %s, fd :%d\n", node->type, node->cmd, node->fd);  
-    else 
-        ft_printf("Type : %s, cmd : %s\n", node->type, node->cmd);
+    {
+        if (node->fd_origin == -1)
+            ft_printf("Redirection de cmd : %s du fd_origin : %d dans le fichier : %s et output dans %d\n", node->cmd, fd0, node->file_name, fd1);
+        else
+            ft_printf("Redirection de cmd : %s du fd_origin : %d dans le fichier : %s et output dans %d\n", node->cmd, node->fd_origin, node->file_name, fd1);
+        // execute_tree(node, fd0, 9999);
+    }
     if (node->child)
     {
         int k;
@@ -371,7 +441,50 @@ void    print_tree(t_node *node)
         k = 0;
         while (node->child[k])
         {
-            print_tree(node->child[k]);
+            t_node *node_child;
+
+            node_child = node->child[k];
+            if (node_child->type[0] == 's' && k != 0)
+                ft_printf(";\n");
+            if (node_child->type[0] == 'p')
+            {
+                int *ls_pfd;
+
+
+                // il faut déterminer le nombre de pipe à faire
+
+                ls_pfd = malloc(((node_child->nb_pipe) * 2 + 1) * sizeof(int));
+                int j;
+
+                j = 0;
+                while (j < node_child->nb_pipe)
+                {
+                    ls_pfd[j] = j + 2;
+                    j++;
+                    // int pfd[2];
+
+                    // pipe(pfd);   
+                    // ls_pfd[j] = pfd[0];
+                    // j++;
+                    // ls_pfd[j] = pfd[1];
+                    // j++;
+                }
+                ls_pfd[j] = 0;
+                while (node->child[k])
+                {
+                    if (k == 0)
+                        execute_tree(node->child[k], fd0, ls_pfd[k + 1]);
+                    else if (node->child[k + 1])
+                        execute_tree(node->child[k], ls_pfd[k], ls_pfd[k + 1]);
+                    else
+                        execute_tree(node->child[k], ls_pfd[k], fd1);
+                    k++;
+                }
+            }
+            else
+            {
+                execute_tree(node_child, fd0, fd1);
+            }
             k++;
         }
     }
@@ -385,8 +498,9 @@ int prepare_command(char *cmd, char ***copy_env, int prev_res, struct termios *p
 
 
     *root = create_node("base", cmd);
-    print_tree(*root);
+    execute_tree(*root, 0, 1);
 
+    pipe_test();
     t_token **list;
     int i;
     int success;
