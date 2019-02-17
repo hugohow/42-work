@@ -428,10 +428,8 @@ void    execute_tree(t_node *node, int fd0, int fd1)
         ft_printf("cmd : %s dans fd0 : %d et fd1 : %d\n", node->cmd, fd0, fd1);
     if (node->type[0] == 'r')
     {
-        if (node->fd_origin == -1)
-            ft_printf("Redirection de cmd : %s du fd_origin : %d dans le fichier : %s et output dans %d\n", node->cmd, fd0, node->file_name, fd1);
-        else
-            ft_printf("Redirection de cmd : %s du fd_origin : %d dans le fichier : %s et output dans %d\n", node->cmd, node->fd_origin, node->file_name, fd1);
+        node->fd_origin = node->fd_origin == -1 ? fd0 : node->fd_origin;
+        ft_printf("Redirection de cmd : %s du fd_origin : %d dans le fichier : %s et output dans %d\n", node->cmd, node->fd_origin, node->file_name, fd1);
         // execute_tree(node, fd0, 9999);
     }
     if (node->child)
@@ -459,15 +457,14 @@ void    execute_tree(t_node *node, int fd0, int fd1)
                 j = 0;
                 while (j < node_child->nb_pipe)
                 {
-                    ls_pfd[j] = j + 2;
+                    // ls_pfd[j] = j + 2;
+                    // j++;
+                    int pfd[2];
+                    pipe(pfd);   
+                    ls_pfd[j] = pfd[0];
                     j++;
-                    // int pfd[2];
-
-                    // pipe(pfd);   
-                    // ls_pfd[j] = pfd[0];
-                    // j++;
-                    // ls_pfd[j] = pfd[1];
-                    // j++;
+                    ls_pfd[j] = pfd[1];
+                    j++;
                 }
                 ls_pfd[j] = 0;
                 while (node->child[k])
