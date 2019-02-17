@@ -8,7 +8,7 @@ typedef struct s_token
 }              t_token;
 
 char **get_paths(char **copy_env);
-int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *p_orig_termios);
+int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *p_orig_termios,  int fd0, int fd1, int fd2);
 size_t  ft_strlen(const char *str);
 char    *ft_strsub(char const *s, unsigned int start, size_t len);
 int     ft_printf(const char* format, ...);

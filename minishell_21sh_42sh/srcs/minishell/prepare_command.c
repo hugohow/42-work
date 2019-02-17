@@ -85,7 +85,7 @@ int prepare_command(char *cmd, char ***copy_env, int prev_res, struct termios *p
         if (ft_strcmp(list[i]->type, "exit") == 0)
             ft_exit(list[i]->value, success, p_orig_termios);
         else if (ft_strcmp(list[i]->type, "separator") != 0)
-            success = execute_command(list[i]->value, get_paths(*copy_env), copy_env, p_orig_termios);
+            success = execute_command(list[i]->value, get_paths(*copy_env), copy_env, p_orig_termios, 0, 1, 2);
         i++;
     }
     return (success);

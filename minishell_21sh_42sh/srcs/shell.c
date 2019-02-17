@@ -33,7 +33,7 @@ int is_exit(char *cmd)
 }
 
 
-int execute_path(char *path, char **argv, char ***p_environ)
+int execute_path(char *path, char **argv, char ***p_environ, int fd0, int fd1, int fd2)
 {
     pid_t pid;
     struct stat fileStat;
@@ -42,21 +42,24 @@ int execute_path(char *path, char **argv, char ***p_environ)
     // le fichier existe mais impossible d'avoir stat -> loop symbolic links
     if (stat(path, &fileStat) < 0)
     {
-        ft_putstr_fd("Command not found\n", 2);
+        ft_putstr_fd("Command not found\n", fd2);
         return (-1);
     }
     if (access(path, X_OK) == -1)
     {
-        ft_putstr_fd("Permission denied\n", 2);
+        ft_putstr_fd("Permission denied\n", fd2);
         return (-1);
     }
     pid = fork();
     if (pid < 0) {
-        ft_putstr_fd("Failed to fork process 1\n", 2);
+        ft_putstr_fd("Failed to fork process 1\n", fd2);
         exit(1);
     }
     if (pid == 0)
     {
+        dup2(fd1, STDOUT_FILENO);
+        dup2(fd2, STDERR_FILENO);
+        dup2(fd0, STDIN_FILENO);
        execve(path, argv, *p_environ);
         //  en cas d'erreur
        exit(1);
@@ -119,7 +122,7 @@ int is_path(char *cmd)
     return (0);
 }
 
-int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *p_orig_termios)
+int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *p_orig_termios, int fd0, int fd1, int fd2)
 {
     int i;
     int result;
@@ -138,7 +141,7 @@ int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *
     if (is_path(command) == 1)
     {
         cmd_list[0] = "name";
-        result = execute_path(command, cmd_list, p_environ);
+        result = execute_path(command, cmd_list, p_environ, fd0, fd1, fd2);
         return (result);
     }
     if (ft_strcmp(command, "echo") == 0)
@@ -171,16 +174,16 @@ int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *
             new_path = ft_strjoin(paths[i], "/");
             new_path = ft_strjoin(new_path, d_name);
             cmd_list[0] = d_name;
-            result = execute_path(new_path, cmd_list, p_environ);
+            result = execute_path(new_path, cmd_list, p_environ, fd0, fd1, fd2);
             return (result);
         }
         i++;
     }
     if (paths[i] == 0)
     {
-        ft_putstr_fd("shell: command not found: ", 2);
-        ft_putstr_fd(cmd, 2);
-        ft_putstr_fd("\n", 2);
+        ft_putstr_fd("shell: command not found: ", fd2);
+        ft_putstr_fd(cmd, fd2);
+        ft_putstr_fd("\n", fd2);
         return (1);
     }
     return (1);
