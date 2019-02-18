@@ -39,6 +39,7 @@ int execute_path(char *path, char **argv, char ***p_environ, int fd0, int fd1, i
     struct stat fileStat;
     int waitstatus;
     int i;
+    i = 0;
     // le fichier existe mais impossible d'avoir stat -> loop symbolic links
     if (stat(path, &fileStat) < 0)
     {
@@ -57,12 +58,28 @@ int execute_path(char *path, char **argv, char ***p_environ, int fd0, int fd1, i
     }
     if (pid == 0)
     {
-        dup2(fd1, STDOUT_FILENO);
-        dup2(fd2, STDERR_FILENO);
-        dup2(fd0, STDIN_FILENO);
-       execve(path, argv, *p_environ);
-        //  en cas d'erreur
-       exit(1);
+        if (fd0 != 0)
+        {
+            dup2(fd0, STDIN_FILENO);    
+            close(fd0);
+        }
+        if (fd1 != 1)
+        {
+            dup2(fd1, STDOUT_FILENO);
+            close(fd1);
+        }
+        if (fd2 != 2)
+        {
+            dup2(fd2, STDERR_FILENO);
+            close(fd2);
+        }
+        // dup2(fd0, STDIN_FILENO);
+        // dup2(fd1, STDOUT_FILENO);
+        // dup2(fd2, STDERR_FILENO);
+        // close(fd0);
+        // close(fd1);
+        // close(fd2);
+        execve(path, argv, *p_environ);
     }
     else
     {

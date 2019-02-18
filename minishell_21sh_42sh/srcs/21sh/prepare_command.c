@@ -452,7 +452,7 @@ void    execute_tree(t_node *node, char **paths, char ***p_environ, struct termi
     {
         int fd_file;
 
-        node->fd_origin = node->fd_origin == -1 ? fd0 : node->fd_origin;
+        node->fd_origin = node->fd_origin == -1 ? fd1 : node->fd_origin;
         fd_file = get_fd(node->file_name);
         execute_command(node->cmd, paths, p_environ, p_orig_termios, node->fd_origin, fd_file, fd_file);
         ft_printf("Redirection de cmd : %s du fd_origin : %d dans le fichier : %s (du coup vers le fd : %d) et output dans %d\n", node->cmd, node->fd_origin, node->file_name, fd_file, fd1);
@@ -476,15 +476,15 @@ void    execute_tree(t_node *node, char **paths, char ***p_environ, struct termi
                 int *ls_pfd;
 
 
-                // il faut déterminer le nombre de pipe à faire
+                // // il faut déterminer le nombre de pipe à faire
 
                 ls_pfd = malloc(((node_child->nb_pipe) * 2 + 1) * sizeof(int));
                 int j;
 
                 j = 0;
-                while (j < node_child->nb_pipe)
+                while (j < (node_child->nb_pipe + 1) * 2)
                 {
-                    // ls_pfd[j] = j + 2;
+                    // ls_pfd[j] = j + 3;
                     // j++;
                     int pfd[2];
                     pipe(pfd);   
@@ -494,14 +494,23 @@ void    execute_tree(t_node *node, char **paths, char ***p_environ, struct termi
                     j++;
                 }
                 ls_pfd[j] = 0;
+
+                // stdin -> 3 | ls_pfd[0] et stdout -> 4 | ls_pfd[1]
+                // stdin -> 5 | ls_pfd[2] et stdout -> 6 | ls_pfd[3]
+                // stdin -> 7 | ls_pfd[4] et stdout -> 8 | ls_pfd[5]
+                // stdin -> 9 | ls_pfd[6] et stdout -> 10 | ls_pfd[7]
+                // stdin -> 11 | ls_pfd[8] et stdout -> 12 | ls_pfd[9]
+                // stdin -> k et stdout -> k+1
                 while (node->child[k])
                 {
+                    // écrire dans le 5
                     if (k == 0)
-                        execute_tree(node->child[k], paths, p_environ, p_orig_termios, fd0, ls_pfd[k + 1], ls_pfd[k + 1]);
+                        execute_tree(node->child[k], paths, p_environ, p_orig_termios, fd0, ls_pfd[1], ls_pfd[1]);
+                    // écrire dans le 
                     else if (node->child[k + 1])
-                        execute_tree(node->child[k], paths, p_environ, p_orig_termios, ls_pfd[k], ls_pfd[k + 1], ls_pfd[k + 1]);
+                        execute_tree(node->child[k], paths, p_environ, p_orig_termios, ls_pfd[(k-1) * 2], ls_pfd[(k) * 2 + 1], ls_pfd[(k) * 2 + 1]);
                     else
-                        execute_tree(node->child[k], paths, p_environ, p_orig_termios, ls_pfd[k], fd1, fd2);
+                        execute_tree(node->child[k], paths, p_environ, p_orig_termios, ls_pfd[(k-1) * 2], fd1, fd2);
                     k++;
                 }
             }
