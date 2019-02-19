@@ -43,35 +43,42 @@ int execute_path(char *path, char **argv, char ***p_environ, int fd0, int fd1, i
     // le fichier existe mais impossible d'avoir stat -> loop symbolic links
     if (stat(path, &fileStat) < 0)
     {
-        ft_putstr_fd("Command not found\n", fd2);
+        ft_putstr_fd("Command not found\n", 2);
         return (-1);
     }
     if (access(path, X_OK) == -1)
     {
-        ft_putstr_fd("Permission denied\n", fd2);
+        ft_putstr_fd("Permission denied\n", 2);
         return (-1);
     }
     pid = fork();
     if (pid < 0) {
-        ft_putstr_fd("Failed to fork process 1\n", fd2);
+        ft_putstr_fd("Failed to fork process 1\n", 2);
         exit(1);
     }
     if (pid == 0)
     {
         if (fd0 != 0)
         {
+            // close(fd0 + 1);
             dup2(fd0, STDIN_FILENO);    
-            close(fd0);
+            // close(fd0);
         }
         if (fd1 != 1)
         {
+            // printf("fd1 : %d\n", fd1);
+            // close(fd1 - 1);
             dup2(fd1, STDOUT_FILENO);
-            close(fd1);
+            // close(fd1);
+            // close(fd1);
         }
-        if (fd2 != 2)
+        // else
+        // {
+            // dup2(fd1, STDOUT_FILENO);
+        // }
+        if (fd2)
         {
-            dup2(fd2, STDERR_FILENO);
-            close(fd2);
+
         }
         // dup2(fd0, STDIN_FILENO);
         // dup2(fd1, STDOUT_FILENO);
@@ -80,12 +87,15 @@ int execute_path(char *path, char **argv, char ***p_environ, int fd0, int fd1, i
         // close(fd1);
         // close(fd2);
         execve(path, argv, *p_environ);
+        ft_putstr_fd("erreure\n", 2);
+        exit(0);
     }
-    else
-    {
-        wait(&waitstatus);
-        i = WEXITSTATUS(waitstatus);
-    }
+    // parent
+    wait(&waitstatus);
+    ft_putstr_fd("wait fin exec\n", 2);
+    // printf("finish with :%s\n", path);
+    i = WEXITSTATUS(waitstatus);
+
     return (i);
 }
 
@@ -161,29 +171,33 @@ int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *
         result = execute_path(command, cmd_list, p_environ, fd0, fd1, fd2);
         return (result);
     }
-    if (ft_strcmp(command, "echo") == 0)
+    if (p_orig_termios)
     {
-        ft_echo(list_size(cmd_list), cmd_list);
-        return 0;
+
     }
-    if (ft_strcmp(command, "cd") == 0)
-    {
-        return (ft_cd(list_size(cmd_list), cmd_list, p_environ));
-    }
-    if (ft_strcmp(command, "setenv") == 0)
-    {
-        ft_setenv(list_size(cmd_list), cmd_list, p_environ);
-        return 0;
-    }
-    if (ft_strcmp(command, "unsetenv") == 0)
-    {
-        ft_unsetenv(list_size(cmd_list), cmd_list, p_environ);
-        return 0;
-    }
-    if (ft_strcmp(command, "env") == 0)
-    {
-        return (ft_env(list_size(cmd_list), cmd_list, p_environ, p_orig_termios));
-    }
+    // if (ft_strcmp(command, "echo") == 0)
+    // {
+    //     ft_echo(list_size(cmd_list), cmd_list);
+    //     return 0;
+    // }
+    // if (ft_strcmp(command, "cd") == 0)
+    // {
+    //     return (ft_cd(list_size(cmd_list), cmd_list, p_environ));
+    // }
+    // if (ft_strcmp(command, "setenv") == 0)
+    // {
+    //     ft_setenv(list_size(cmd_list), cmd_list, p_environ);
+    //     return 0;
+    // }
+    // if (ft_strcmp(command, "unsetenv") == 0)
+    // {
+    //     ft_unsetenv(list_size(cmd_list), cmd_list, p_environ);
+    //     return 0;
+    // }
+    // if (ft_strcmp(command, "env") == 0)
+    // {
+    //     return (ft_env(list_size(cmd_list), cmd_list, p_environ, p_orig_termios));
+    // }
     while (paths[i])
     {
         if ((d_name = search_path_exe(command, paths[i], p_environ)) != NULL)

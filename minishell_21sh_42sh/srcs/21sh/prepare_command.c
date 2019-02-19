@@ -441,12 +441,17 @@ int get_fd(char *file_name)
     return (fd);
 }
 
-void    execute_tree(t_node *node, char **paths, char ***p_environ, struct termios *p_orig_termios, int fd0, int fd1, int fd2)
+void    execute_tree(t_node *node, char **paths, char ***p_environ, struct termios *p_orig_termios, int fd0, int fd1, int fd2, int *p_success)
 {
     if (ft_strcmp(node->type, "cmd") == 0)
     {
-        ft_printf("cmd : %s dans fd0 : %d et fd1 : %d\n", node->cmd, fd0, fd1);
-        execute_command(node->cmd, paths, p_environ, p_orig_termios, fd0, fd1, fd2);
+        if (is_exit(node->cmd) == 1)
+            ft_exit(node->cmd, *p_success, p_orig_termios);
+        else
+        {
+            // ft_printf("cmd : %s dans fd0 : %d et fd1 : %d\n", node->cmd, fd0, fd1);
+            *p_success = execute_command(node->cmd, paths, p_environ, p_orig_termios, fd0, fd1, fd2);
+        }
     }
     if (node->type[0] == 'r')
     {
@@ -454,8 +459,8 @@ void    execute_tree(t_node *node, char **paths, char ***p_environ, struct termi
 
         node->fd_origin = node->fd_origin == -1 ? fd1 : node->fd_origin;
         fd_file = get_fd(node->file_name);
-        execute_command(node->cmd, paths, p_environ, p_orig_termios, node->fd_origin, fd_file, fd_file);
-        ft_printf("Redirection de cmd : %s du fd_origin : %d dans le fichier : %s (du coup vers le fd : %d) et output dans %d\n", node->cmd, node->fd_origin, node->file_name, fd_file, fd1);
+        *p_success = execute_command(node->cmd, paths, p_environ, p_orig_termios, node->fd_origin, fd_file, fd_file);
+        // ft_printf("Redirection de cmd : %s du fd_origin : %d dans le fichier : %s (du coup vers le fd : %d) et output dans %d\n", node->cmd, node->fd_origin, node->file_name, fd_file, fd1);
         close(fd_file);
         // execute_tree(node, fd0, 9999);
     }
@@ -505,18 +510,18 @@ void    execute_tree(t_node *node, char **paths, char ***p_environ, struct termi
                 {
                     // écrire dans le 5
                     if (k == 0)
-                        execute_tree(node->child[k], paths, p_environ, p_orig_termios, fd0, ls_pfd[1], ls_pfd[1]);
+                        execute_tree(node->child[k], paths, p_environ, p_orig_termios, fd0, ls_pfd[1], ls_pfd[1], p_success);
                     // écrire dans le 
                     else if (node->child[k + 1])
-                        execute_tree(node->child[k], paths, p_environ, p_orig_termios, ls_pfd[(k-1) * 2], ls_pfd[(k) * 2 + 1], ls_pfd[(k) * 2 + 1]);
+                        execute_tree(node->child[k], paths, p_environ, p_orig_termios, ls_pfd[(k-1) * 2], ls_pfd[(k) * 2 + 1], ls_pfd[(k) * 2 + 1], p_success);
                     else
-                        execute_tree(node->child[k], paths, p_environ, p_orig_termios, ls_pfd[(k-1) * 2], fd1, fd2);
+                        execute_tree(node->child[k], paths, p_environ, p_orig_termios, ls_pfd[(k-1) * 2], fd1, fd2, p_success);
                     k++;
                 }
             }
             else
             {
-                execute_tree(node_child, paths, p_environ, p_orig_termios, fd0, fd1, fd2);
+                execute_tree(node_child, paths, p_environ, p_orig_termios, fd0, fd1, fd2, p_success);
             }
             k++;
         }
@@ -527,31 +532,16 @@ int prepare_command(char *cmd, char ***copy_env, int prev_res, struct termios *p
 {
     t_node **root;
 
+    int success;
     root = malloc(sizeof(t_node *));
 
 
     *root = create_node("base", cmd);
-    execute_tree(*root, get_paths(*copy_env), copy_env, p_orig_termios,  0, 1, 2);
 
-    return (1);
-    t_token **list;
-    int i;
-    int success;
-
-    list = tokenize_command(cmd);
-    i = 0;
     success = prev_res;
-    while (list[i])
-    {
-        if (ft_strcmp(list[i]->type, "exit") == 0)
-            ft_exit(list[i]->value, success, p_orig_termios);
-        else if (ft_strcmp(list[i]->type, "cmd") == 0)
-        {
-            // check if a redirection is involved -> check if the file exists -> if not create it
 
-            success = execute_command(list[i]->value, get_paths(*copy_env), copy_env, p_orig_termios, 0, 1, 2);
-        }
-        i++;
-    }
+
+    execute_tree(*root, get_paths(*copy_env), copy_env, p_orig_termios,  0, 1, 2, &success);
+
     return (success);
 }

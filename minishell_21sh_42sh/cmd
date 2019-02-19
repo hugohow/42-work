@@ -1,5 +1,1 @@
-echo "a 
-
-b
- c
- "
+ls | grep cmd
