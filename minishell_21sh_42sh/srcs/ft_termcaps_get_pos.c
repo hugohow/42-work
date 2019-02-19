@@ -1,7 +1,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-int get_pos(int *col, int *row)
+int ft_get_pos(int *col, int *row)
 {
     int ret;
     int i;

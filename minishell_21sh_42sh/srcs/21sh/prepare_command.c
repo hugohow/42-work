@@ -21,68 +21,6 @@ int is_redirection(char *str);
 int is_pipe(char *str);
 void print_tokens(t_token **list);
 
-int has_separator(char *str)
-{
-    int i;
-
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == ';')
-            return (1);
-        i++;
-    }
-    return (0);
-}
-
-
-t_token **tokenize_command(char *cmd)
-{
-    t_token **list;
-    t_token *token;
-    int i;
-    int k;
-    int len;
-    char *value;
-
-    list = (t_token **)malloc(1000*sizeof(t_token *));
-    i = 0;
-    k = 0;
-    while (cmd[i])
-    {
-        token = malloc(sizeof(t_token));
-        if (is_separator(cmd + i) == 0)
-        {
-            value = malloc(((ft_strlen(cmd) + 1) * sizeof(char)));
-            len = 0;
-            while (cmd[i] && is_separator(cmd + i) == 0)
-            {
-                value[len] = cmd[i];
-                len++;
-                i++;
-            }
-            value[len] = '\0';
-            token->value = value;
-            if (is_exit(value) == 1)
-                token->type = "exit";
-            else
-                token->type = "cmd";
-            list[k] = token;
-            k++;
-        }
-        else if (is_separator(cmd + i))
-        {
-            token->type = "separator";
-            token->value = ft_strsub(cmd, i, 1);
-            list[k] = token;
-            k++;
-            i++;
-        }
-    }
-    list[k] = 0;
-    // print_tokens(list);
-    return (list);
-}
 
 t_node *create_node(char *type, char *cmd)
 {
@@ -131,37 +69,6 @@ int find_len_par(char *cmd)
     return (-1);
 }
 
-int has_parenthese(char *cmd)
-{
-    int i;
-
-    i = 0;
-    while (cmd[i])
-    {
-        if (cmd[i] == '(')
-        {
-            return (1);
-        }
-        i++;
-    }
-    return (0);
-}
-
-int has_semi_colon(char *cmd)
-{
-    int i;
-
-    i = 0;
-    while (cmd[i])
-    {
-        if (cmd[i] == ';')
-        {
-            return (1);
-        }
-        i++;
-    }
-    return (0);
-}
 
 t_node **get_parentheses_child(char *cmd)
 {
@@ -174,7 +81,6 @@ t_node **get_parentheses_child(char *cmd)
     char **list;
 
     list = malloc(999*sizeof(char *));
-    tmp = malloc(999*sizeof(char));
     k = 0;
     i = 0;
     while (cmd[i])
@@ -214,18 +120,6 @@ t_node **get_parentheses_child(char *cmd)
     return (child);
 }
 
-size_t find_index_next(char *str, char c)
-{
-    int i;
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == c)
-            return (i);
-        i++;
-    }
-    return (-1);
-}
 
 t_node **get_semi_colon_child(char *cmd)
 {
@@ -451,13 +345,12 @@ void    execute_tree(t_node *node, char **paths, char ***p_environ, struct termi
 
             node_child = node->child[k];
             if (node_child->type[0] == 's' && k != 0)
-                ft_printf(";\n");
+            {
+
+            }
             if (node_child->type[0] == 'p')
             {
                 int *ls_pfd;
-
-
-                // // il faut déterminer le nombre de pipe à faire
 
                 ls_pfd = malloc(((node_child->nb_pipe) * 2 + 1) * sizeof(int));
                 int j;
@@ -475,19 +368,10 @@ void    execute_tree(t_node *node, char **paths, char ***p_environ, struct termi
                     j++;
                 }
                 ls_pfd[j] = 0;
-
-                // stdin -> 3 | ls_pfd[0] et stdout -> 4 | ls_pfd[1]
-                // stdin -> 5 | ls_pfd[2] et stdout -> 6 | ls_pfd[3]
-                // stdin -> 7 | ls_pfd[4] et stdout -> 8 | ls_pfd[5]
-                // stdin -> 9 | ls_pfd[6] et stdout -> 10 | ls_pfd[7]
-                // stdin -> 11 | ls_pfd[8] et stdout -> 12 | ls_pfd[9]
-                // stdin -> k et stdout -> k+1
                 while (node->child[k])
                 {
-                    // écrire dans le 5
                     if (k == 0)
                         execute_tree(node->child[k], paths, p_environ, p_orig_termios, fd0, ls_pfd[1], ls_pfd[1], p_success);
-                    // écrire dans le 
                     else if (node->child[k + 1])
                         execute_tree(node->child[k], paths, p_environ, p_orig_termios, ls_pfd[(k-1) * 2], ls_pfd[(k) * 2 + 1], ls_pfd[(k) * 2 + 1], p_success);
                     else
@@ -507,15 +391,12 @@ void    execute_tree(t_node *node, char **paths, char ***p_environ, struct termi
 int prepare_command(char *cmd, char ***copy_env, int prev_res, struct termios *p_orig_termios)
 {
     t_node **root;
-
     int success;
+
     root = malloc(sizeof(t_node *));
-
-
     *root = create_node("base", cmd);
 
     success = prev_res;
-
 
     execute_tree(*root, get_paths(*copy_env), copy_env, p_orig_termios,  0, 1, 2, &success);
 

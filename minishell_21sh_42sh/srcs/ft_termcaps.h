@@ -11,7 +11,7 @@ char    *ft_strjoin(char const *str1, char const *str2);
 int     ft_isascii(int c);
 int     ft_isprint(int c);
 size_t  ft_strlen(const char *str);
-int     get_pos(int *y, int *x);
+int     ft_get_pos(int *y, int *x);
 int     get_window_size(int *rows, int *cols);
 char    *ft_strsub(char const *s, unsigned int start, size_t len);
 
