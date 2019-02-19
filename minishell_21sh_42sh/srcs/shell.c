@@ -40,7 +40,6 @@ int execute_path(char *path, char **argv, char ***p_environ, int fd0, int fd1, i
     int waitstatus;
     int i;
     i = 0;
-    // le fichier existe mais impossible d'avoir stat -> loop symbolic links
     if (stat(path, &fileStat) < 0)
     {
         ft_putstr_fd("Command not found\n", 2);
@@ -60,40 +59,49 @@ int execute_path(char *path, char **argv, char ***p_environ, int fd0, int fd1, i
     {
         if (fd0 != 0)
         {
-            // close(fd0 + 1);
             dup2(fd0, STDIN_FILENO);    
-            // close(fd0);
+            close(fd0);
         }
         if (fd1 != 1)
         {
-            // printf("fd1 : %d\n", fd1);
-            // close(fd1 - 1);
             dup2(fd1, STDOUT_FILENO);
-            // close(fd1);
-            // close(fd1);
+            close(fd1);
         }
-        // else
-        // {
-            // dup2(fd1, STDOUT_FILENO);
-        // }
         if (fd2)
         {
 
         }
-        // dup2(fd0, STDIN_FILENO);
-        // dup2(fd1, STDOUT_FILENO);
-        // dup2(fd2, STDERR_FILENO);
-        // close(fd0);
-        // close(fd1);
-        // close(fd2);
-        execve(path, argv, *p_environ);
-        ft_putstr_fd("erreure\n", 2);
+        if (execve(path, argv, *p_environ) < 0)
+            ft_putstr_fd("erreure\n", 2);
         exit(0);
     }
+        if (fd0 != 0)
+        {  
+            close(fd0);
+        }
+        if (fd1 != 1)
+        {
+            close(fd1);
+        }
+        do {
+            int w;
+            w = waitpid(pid, &waitstatus, WUNTRACED | WCONTINUED);
+            if (w == -1) {
+                perror("waitpid");
+                exit(EXIT_FAILURE);
+            }
+
+            if (WIFEXITED(waitstatus)) {
+                // printf("terminé, code=%d\n", WEXITSTATUS(waitstatus));
+            } else if (WIFSIGNALED(waitstatus)) {
+                printf("tué par le signal %d\n", WTERMSIG(waitstatus));
+            } else if (WIFSTOPPED(waitstatus)) {
+                printf("arrêté par le signal %d\n", WSTOPSIG(waitstatus));
+            } else if (WIFCONTINUED(waitstatus)) {
+                printf("relancé\n");
+            }
+        } while (!WIFEXITED(waitstatus) && !WIFSIGNALED(waitstatus));
     // parent
-    wait(&waitstatus);
-    ft_putstr_fd("wait fin exec\n", 2);
-    // printf("finish with :%s\n", path);
     i = WEXITSTATUS(waitstatus);
 
     return (i);
@@ -392,7 +400,10 @@ void ft_exit(char *cmd, int success, struct termios *p_orig_termios)
 }
 
 
-
+// void signal_callback_handler(int signum)
+// {
+//     printf("Caught signal SIGPIPE %d\n",signum);
+// }
 
 int main(int argc, char **argv)
 {
@@ -404,9 +415,14 @@ int main(int argc, char **argv)
     struct termios orig_termios;
     struct termios new_termios;
 
+
+    
     if ((ft_init_terminal(&orig_termios, &new_termios)) < 0)
         return (-1);
-        
+    // if (signal(SIGPIPE, signal_callback_handler) == SIG_ERR)
+    //     printf("\ncan't catch SIGWINCH\n");
+
+
     success = 0;
     copy_env = copy_environ((char **)environ);
 

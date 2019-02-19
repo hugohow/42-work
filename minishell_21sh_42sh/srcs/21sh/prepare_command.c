@@ -457,11 +457,10 @@ void    execute_tree(t_node *node, char **paths, char ***p_environ, struct termi
     {
         int fd_file;
 
-        node->fd_origin = node->fd_origin == -1 ? fd1 : node->fd_origin;
+        node->fd_origin = node->fd_origin == -1 ? fd0 : node->fd_origin;
         fd_file = get_fd(node->file_name);
-        *p_success = execute_command(node->cmd, paths, p_environ, p_orig_termios, node->fd_origin, fd_file, fd_file);
         // ft_printf("Redirection de cmd : %s du fd_origin : %d dans le fichier : %s (du coup vers le fd : %d) et output dans %d\n", node->cmd, node->fd_origin, node->file_name, fd_file, fd1);
-        close(fd_file);
+        *p_success = execute_command(node->cmd, paths, p_environ, p_orig_termios, node->fd_origin, fd_file, fd_file);
         // execute_tree(node, fd0, 9999);
     }
     if (node->child)
