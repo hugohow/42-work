@@ -401,29 +401,6 @@ t_node **get_child(char *cmd)
     return (child);
 }
 
-int pipe_test(int fd0, int fd1)
-{
-    int pid;
-
-    if ((pid = fork()) == 0) 
-    {
-        // child
-        char **argv = {NULL};
-        extern char **environ;
-        dup2(fd1, STDOUT_FILENO);
-        dup2(fd1, STDERR_FILENO);
-        dup2(fd0, STDIN_FILENO);
-
-        execve("/usr/local/bin/npm", argv, environ);
-    } 
-    else
-    {
-        // père -> va écrire dans le 1 
-        
-        wait(NULL);
-    }
-    return (0); 
-}
 
 int get_fd(char *file_name)
 {

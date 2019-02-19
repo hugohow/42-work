@@ -179,33 +179,29 @@ int execute_command(char *cmd, char **paths, char ***p_environ, struct termios *
         result = execute_path(command, cmd_list, p_environ, fd0, fd1, fd2);
         return (result);
     }
-    if (p_orig_termios)
+    if (ft_strcmp(command, "echo") == 0)
     {
-
+        ft_echo(list_size(cmd_list), cmd_list);
+        return 0;
     }
-    // if (ft_strcmp(command, "echo") == 0)
-    // {
-    //     ft_echo(list_size(cmd_list), cmd_list);
-    //     return 0;
-    // }
-    // if (ft_strcmp(command, "cd") == 0)
-    // {
-    //     return (ft_cd(list_size(cmd_list), cmd_list, p_environ));
-    // }
-    // if (ft_strcmp(command, "setenv") == 0)
-    // {
-    //     ft_setenv(list_size(cmd_list), cmd_list, p_environ);
-    //     return 0;
-    // }
-    // if (ft_strcmp(command, "unsetenv") == 0)
-    // {
-    //     ft_unsetenv(list_size(cmd_list), cmd_list, p_environ);
-    //     return 0;
-    // }
-    // if (ft_strcmp(command, "env") == 0)
-    // {
-    //     return (ft_env(list_size(cmd_list), cmd_list, p_environ, p_orig_termios));
-    // }
+    if (ft_strcmp(command, "cd") == 0)
+    {
+        return (ft_cd(list_size(cmd_list), cmd_list, p_environ));
+    }
+    if (ft_strcmp(command, "setenv") == 0)
+    {
+        ft_setenv(list_size(cmd_list), cmd_list, p_environ);
+        return 0;
+    }
+    if (ft_strcmp(command, "unsetenv") == 0)
+    {
+        ft_unsetenv(list_size(cmd_list), cmd_list, p_environ);
+        return 0;
+    }
+    if (ft_strcmp(command, "env") == 0)
+    {
+        return (ft_env(list_size(cmd_list), cmd_list, p_environ, p_orig_termios));
+    }
     while (paths[i])
     {
         if ((d_name = search_path_exe(command, paths[i], p_environ)) != NULL)
