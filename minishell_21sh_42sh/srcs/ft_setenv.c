@@ -15,9 +15,9 @@ void ft_setenv_args(char *prefix, char *line, char ***p_environ)
         env_line = ft_strjoin(env_line, line);
     if (change_line_env(prefix, env_line, p_environ) == 0)
     {
-        new_environ = (char **)malloc((list_size(*p_environ) + 2) * sizeof(char *));
+        new_environ = (char **)malloc((ft_list_size(*p_environ) + 2) * sizeof(char *));
         i = 0;
-        while (i < list_size(*p_environ))
+        while (i < ft_list_size(*p_environ))
         {
             new_environ[i] = (*p_environ)[i];
             i++;
