@@ -18,7 +18,8 @@ int ft_execute_path(char *path, char **argv, char ***p_environ, int fd0, int fd1
         return (-1);
     }
     pid = fork();
-    if (pid < 0) {
+    if (pid < 0) 
+    {
         ft_putstr_fd("Failed to fork process 1\n", fd2);
         exit(1);
     }

@@ -1,0 +1,8 @@
+total 288
+-rw-r--r--   1 hugohow-choong  staff      0 19 fév 22:31 2
+-rwxr-xr-x   1 hugohow-choong  staff  68748 19 fév 19:41 21sh
+-rw-r--r--   1 hugohow-choong  staff    371 19 fév 17:37 Makefile
+-rw-r--r--   1 hugohow-choong  staff     20 19 fév 13:47 cmd
+drwxr-xr-x  11 hugohow-choong  staff    374 10 fév 16:41 libft_g
+-rwxr-xr-x   1 hugohow-choong  staff  68140 19 fév 16:08 minishell
+drwxr-xr-x  34 hugohow-choong  staff   1156 19 fév 19:34 srcs
