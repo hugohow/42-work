@@ -14,7 +14,7 @@
     // "outFile": "./",                       /* Concatenate and emit output to single file. */
     "outDir": "./build",                        /* Redirect output structure to the directory. */
     "skipLibCheck": true,
-    // "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     // "composite": true,                     /* Enable project compilation */
     // "removeComments": true,                /* Do not emit comments to output. */
     // "noEmit": true,                        /* Do not emit outputs. */
@@ -61,6 +61,7 @@
   }, 
   "exclude" : [ 
       "./build", 
-      "./node_modules" 
+      "./node_modules" ,
+      "./tests" 
   ] 
 }
