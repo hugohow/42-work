@@ -4,25 +4,19 @@
   "description": "taskmaster typescript",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build && jest",
-    "build": "tsc",
-    "start": "npm run build && node build/src/",
-    "clean": "rm -rf build && rm -rf node_modules && npm install"
+    "test": "jest",
+    "start": "node src/",
+    "clean": "rm -rf node_modules && npm install"
   },
   "author": "hugohow",
   "license": "ISC",
   "dependencies": {
-    "@types/js-yaml": "^3.12.0",
     "fs": "0.0.1-security",
     "http": "0.0.0",
     "js-yaml": "^3.12.1",
     "os": "^0.1.1"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.6",
-    "@types/node": "^11.9.4",
-    "jest": "^24.1.0",
-    "ts-jest": "^24.0.0",
-    "typescript": "^3.3.3333"
+    "jest": "^24.1.0"
   }
 }

@@ -1,6 +1,6 @@
 ---
 nginx:
-  cmd: "/usr/local/bin/nginx -c /etc/nginx/test.conf"
+  cmd: "ls"
   numprocs: 1
   umask: '022'
   workingdir: "/tmp"
@@ -19,7 +19,7 @@ nginx:
     STARTED_BY: taskmaster
     ANSWER: 42
 vogsphere:
-  cmd: "/usr/local/bin/vogsphere-worker --no-prefork"
+  cmd: "ls"
   numprocs: 8
   umask: '077'
   workingdir: "/tmp"
