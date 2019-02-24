@@ -1,0 +1,296 @@
+Message from parent:[object Object]Message from parent:[object Object]Message from parent:[object Object]Message from parent:[object Object]Message from parent:[object Object]Message from parent:[object Object]Message from parent:[object Object]Message from parent:[object Object]
+Message from parent:[object Object]
+Message from parent:{"message":"az"}
+Message from parent:{"message":"z"}
+Message from parent:{"message":"z"}
+Message from parent:{"message":"z"}
+The daemon process is pid 34504
+The parent process is pid 34503
+Message from parent:{"message":"ls"}
+The daemon process is pid 34519
+The parent process is pid 34518
+Message from parent:{"message":"dz"}
+The daemon process is pid 35120
+The parent process is pid 35119
+Message from parent:{"message":"ls"}
+The daemon process is pid 35146
+The parent process is pid 1
+The daemon process is pid 35542
+The parent process is pid 35541
+Message from parent:{"message":"s"}
+The daemon process is pid 35558
+The parent process is pid 35557
+Message from parent:{"message":"d"}
+The daemon process is pid 35574
+The parent process is pid 35573
+Message from parent:{"message":"s"}
+The daemon process is pid 35602
+The parent process is pid 35601
+Connected
+Received: Echo server
+
+Connection closed
+The daemon process is pid 35660
+The parent process is pid 35659
+Connected
+Received: Echo server
+
+Connection closed
+Message from parent:{"message":"d"}
+The daemon process is pid 35725
+The parent process is pid 35724
+Connected
+Received: Echo server
+
+Received: Hello, server! Love, Client.
+The daemon process is pid 35804
+The parent process is pid 35803
+Connected
+Received: Echo server
+
+Connection closed
+The daemon process is pid 35824
+The parent process is pid 35823
+Connected
+Received: Echo server
+
+Connection closed
+The daemon process is pid 35842
+The parent process is pid 35841
+Connected
+Received: Echo server
+
+Connection closed
+The daemon process is pid 35947
+The parent process is pid 35946
+Connected
+Received: Echo server
+
+Connection closed
+The daemon process is pid 36119
+The parent process is pid 36118
+Connected
+Received: Echo server
+
+Connection closed
+The daemon process is pid 36138
+The parent process is pid 36137
+Connected
+Received: Echo server
+
+The daemon process is pid 36171
+The parent process is pid 36170
+Connected
+Received: Echo server
+
+The daemon process is pid 36236
+The parent process is pid 36235
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: connect ECONNREFUSED 127.0.0.1:1337
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+Emitted 'error' event at:
+    at emitErrorNT (internal/streams/destroy.js:82:8)
+    at emitErrorAndCloseNT (internal/streams/destroy.js:50:3)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+The daemon process is pid 36303
+The parent process is pid 36302
+Connected
+Received: Echo server
+
+The daemon process is pid 36414
+The parent process is pid 36413
+Connected
+The daemon process is pid 36473
+The parent process is pid 36472
+Connected
+Connection closed
+The daemon process is pid 36495
+The parent process is pid 36494
+The daemon process is pid 36546
+The parent process is pid 36545
+/Users/hugohow-choong/42/taskmaster/src/daemon.js:7
+    console.log('TCP Server is running on port ' + port +'.');
+                                                   ^
+
+ReferenceError: port is not defined
+    at Server.server.listen (/Users/hugohow-choong/42/taskmaster/src/daemon.js:7:52)
+    at Object.onceWrapper (events.js:277:13)
+    at Server.emit (events.js:189:13)
+    at emitListeningNT (net.js:1311:10)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:745:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+The daemon process is pid 36566
+The parent process is pid 36565
+TCP Server is running on port 1337.
+The daemon process is pid 36605
+The parent process is pid 1
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 127.0.0.1:1337
+    at Server.setupListenHandle [as _listen2] (net.js:1277:14)
+    at listenInCluster (net.js:1325:12)
+    at doListen (net.js:1458:7)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:745:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+Emitted 'error' event at:
+    at emitErrorNT (net.js:1304:8)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    [... lines matching original stack trace ...]
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+The daemon process is pid 36630
+The parent process is pid 1
+TCP Server is running on port 1337.
+The daemon process is pid 36644
+The parent process is pid 36643
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 127.0.0.1:1337
+    at Server.setupListenHandle [as _listen2] (net.js:1277:14)
+    at listenInCluster (net.js:1325:12)
+    at doListen (net.js:1458:7)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:745:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+Emitted 'error' event at:
+    at emitErrorNT (net.js:1304:8)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    [... lines matching original stack trace ...]
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+The daemon process is pid 36664
+The parent process is pid 36663
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 127.0.0.1:1337
+    at Server.setupListenHandle [as _listen2] (net.js:1277:14)
+    at listenInCluster (net.js:1325:12)
+    at doListen (net.js:1458:7)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:745:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+Emitted 'error' event at:
+    at emitErrorNT (net.js:1304:8)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    [... lines matching original stack trace ...]
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+The daemon process is pid 36809
+The parent process is pid 36808
+TCP Server is running on port 1337.
+The daemon process is pid 36833
+The parent process is pid 1
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 127.0.0.1:1337
+    at Server.setupListenHandle [as _listen2] (net.js:1277:14)
+    at listenInCluster (net.js:1325:12)
+    at doListen (net.js:1458:7)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:745:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+Emitted 'error' event at:
+    at emitErrorNT (net.js:1304:8)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    [... lines matching original stack trace ...]
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+CONNECTED: 127.0.0.1:51965
+DATA 127.0.0.1: Hello From Client 127.0.0.1
+The daemon process is pid 36937
+The parent process is pid 36936
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 127.0.0.1:1337
+    at Server.setupListenHandle [as _listen2] (net.js:1277:14)
+    at listenInCluster (net.js:1325:12)
+    at doListen (net.js:1458:7)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:745:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+Emitted 'error' event at:
+    at emitErrorNT (net.js:1304:8)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    [... lines matching original stack trace ...]
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+CONNECTED: 127.0.0.1:51967
+DATA 127.0.0.1: Hello From Client 127.0.0.1
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: This socket has been ended by the other party
+    at Socket.writeAfterFIN [as write] (net.js:396:12)
+    at /Users/hugohow-choong/42/taskmaster/src/daemon.js:19:18
+    at Array.forEach (<anonymous>)
+    at Socket.<anonymous> (/Users/hugohow-choong/42/taskmaster/src/daemon.js:18:17)
+    at Socket.emit (events.js:189:13)
+    at addChunk (_stream_readable.js:284:12)
+    at readableAddChunk (_stream_readable.js:265:11)
+    at Socket.Readable.push (_stream_readable.js:220:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+Emitted 'error' event at:
+    at Socket.writeAfterFIN [as write] (net.js:399:8)
+    at /Users/hugohow-choong/42/taskmaster/src/daemon.js:19:18
+    [... lines matching original stack trace ...]
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+The daemon process is pid 36955
+The parent process is pid 36954
+TCP Server is running on port 1337.
+CONNECTED: 127.0.0.1:51970
+The daemon process is pid 36972
+The parent process is pid 36971
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 127.0.0.1:1337
+    at Server.setupListenHandle [as _listen2] (net.js:1277:14)
+    at listenInCluster (net.js:1325:12)
+    at doListen (net.js:1458:7)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:745:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+Emitted 'error' event at:
+    at emitErrorNT (net.js:1304:8)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    [... lines matching original stack trace ...]
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+CONNECTED: 127.0.0.1:51972
+The daemon process is pid 36986
+The parent process is pid 36985
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 127.0.0.1:1337
+    at Server.setupListenHandle [as _listen2] (net.js:1277:14)
+    at listenInCluster (net.js:1325:12)
+    at doListen (net.js:1458:7)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:745:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+Emitted 'error' event at:
+    at emitErrorNT (net.js:1304:8)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    [... lines matching original stack trace ...]
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
