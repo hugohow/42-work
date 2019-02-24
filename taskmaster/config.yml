@@ -3,7 +3,7 @@ nginx:
   cmd: "ls"
   numprocs: 1
   umask: '022'
-  workingdir: "/tmp"
+  workingdir: "/Users/hugohow-choong/42/taskmaster"
   autostart: true
   autorestart: unexpected
   exitcodes:
@@ -13,8 +13,8 @@ nginx:
   starttime: 5
   stopsignal: TERM
   stoptime: 10
-  stdout: "/tmp/nginx.stdout"
-  stderr: "/tmp/nginx.stderr"
+  stdout: "/Users/hugohow-choong/42/taskmaster/nginx.stdout"
+  stderr: "/Users/hugohow-choong/42/taskmaster/nginx.stderr"
   env:
     STARTED_BY: taskmaster
     ANSWER: 42
@@ -22,7 +22,7 @@ vogsphere:
   cmd: "ls"
   numprocs: 8
   umask: '077'
-  workingdir: "/tmp"
+  workingdir: "/Users/hugohow-choong/42/taskmaster"
   autostart: true
   autorestart: unexpected
   exitcodes: 0
@@ -30,5 +30,5 @@ vogsphere:
   starttime: 5
   stopsignal: USR1
   stoptime: 10
-  stdout: "/tmp/vgsworker.stdout"
-  stderr: "/tmp/vgsworker.stderr"
+  stdout: "/Users/hugohow-choong/42/taskmaster/vgsworker.stdout"
+  stderr: "/Users/hugohow-choong/42/taskmaster/vgsworker.stderr"
