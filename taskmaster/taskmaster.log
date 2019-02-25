@@ -512,3 +512,32 @@ data : voila
 
 serverconnected with ::ffff:127.0.0.1:61154
 data : 44��
+error : Error: listen EADDRINUSE: address already in use :::8000
+error : Error: listen EADDRINUSE: address already in use :::8000
+serverconnected with ::ffff:127.0.0.1:61225
+data : ls
+
+data : zdzd
+
+data : tres bien
+
+serverconnected with ::ffff:127.0.0.1:61233
+data : ls
+
+data : ls
+
+serverconnected with ::ffff:127.0.0.1:61238
+data : ls
+
+data : l
+
+data : lz
+
+error : Error: listen EADDRINUSE: address already in use :::8000
+serverconnected with ::ffff:127.0.0.1:61239
+data : ls
+
+data : 
+
+data : zd
+

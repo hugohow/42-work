@@ -22,4 +22,12 @@ server.on('connection', function(socket) {
     })
 });
 
+server.on('error', function(error) {
+    fs.writeSync(fd_out, `error : ${error}\n`);
+});
+
+server.on('exit', function() {
+    fs.writeSync(fd_out, `exit\n`);
+});
+
 server.listen(8000);
