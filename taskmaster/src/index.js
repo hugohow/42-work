@@ -21,41 +21,65 @@ const { spawn, fork } = require('child_process');
 try {
     const config = yaml.safeLoad(fs.readFileSync('./config.yml', 'utf8'));
     let configs = [];
-    const client = new net.Socket()
-    client.connect(1337, '127.0.0.1', function() {
-        client.write("Hello From Client " + client.address().address);
-    });
 
         const rl = readline.createInterface({
             input: process.stdin,
             output: process.stdout
         });
-        out = fs.openSync('./taskmaster.log', 'a');
-        err = fs.openSync('./taskmaster.log', 'a');
-        const daemon = fork('./src/daemon.js', [], {
-            detached: true,
-            stdio: ['ignore', out, err, 'ipc']
-        });
-        daemon.unref();
-        daemon.on('exit', (code) => {
-            console.log(`Daemon exited with code ${code}`);
-        });
+        // out = fs.openSync('./taskmaster.log', 'a');
+        // err = fs.openSync('./taskmaster.log', 'a');
+        // const daemon = fork('./src/daemon.js', [], {
+        //     detached: true,
+        //     // stdio: ['ignore', 1, 2, 'ipc']
+        //     stdio: ['ignore', out, err, 'ipc']
+        // });
+        // daemon.unref();
+        // daemon.on('exit', (code) => {
+        //     console.log(`Daemon exited with code ${code}`);
+        // });
+        // daemon.on('message', function(msg) {
+        //     console.log("message from daemon " + JSON.stringify(msg));
+        //     if (msg.status === "ok")
+        //     {
+                var client = new net.Socket()
 
-        rl.setPrompt('$> ');
-        rl.prompt();
+                var config_host = {
+                    host: 'localhost',
+                    port: 8000
+                };
+                client.connect({
+                    host: config_host.host,
+                    port: config_host.port
+                }, function() {
+                //     // client.write("Hello From Client " + client.address().address);
 
-        rl.on('line', function(line) {
-            switch(line.trim()) {
-                case 'exit':
-                    console.log('exit');
-                    process.exit(0);
-                default:
-                    // socket.write('message :' + line + '\r\n');
-                    process.stdout.write(line.trim() + "\n");
-                break;
-            }
-            rl.prompt();
+
+                    rl.setPrompt('$> ');
+                    rl.prompt();
+            
+                    rl.on('line', function(line) {
+                        switch(line.trim()) {
+                            case 'exit':
+                                console.log('exit');
+                                process.exit(0);
+                            default:
+                                client.write(line.trim() + "\n");
+                                process.stdout.write(line.trim() + "\n");
+                            break;
+                        }
+                        rl.prompt();
+                    })
+
+                // client.on('error', function (err) {
+                //     console.log('Error : ', err);
+                // });
+                
+                // client.on('close', function () {
+                //     console.log('socket closed');
+                // });
         })
+
+
         
 
         // var access = fs.createWriteStream('taskmaster.log', {

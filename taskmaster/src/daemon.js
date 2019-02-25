@@ -1,28 +1,25 @@
-var net = require('net');
+var net = require("net");
+const fs = require('fs');
+var clients = [];
 
-console.log(`The daemon process is pid ${process.pid}`);
-console.log(`The parent process is pid ${process.ppid}`);
-var server = net.createServer();
-server.listen(1337,  '127.0.0.1', () => {
-    console.log('TCP Server is running on port ' + 1337 +'.');
+var server = net.createServer()
+
+fd_out = fs.openSync('./taskmaster.log', 'a');
+fd_err = fs.openSync('./taskmaster.log', 'a');
+
+
+server.on('connection', function(socket) {
+    let remoteAddress = socket.remoteAddress + ':' + socket.remotePort;
+    // console.log(`serverconnected with ${remoteAddress}\n`);
+    fs.writeSync(fd_out, `serverconnected with ${remoteAddress}\n`);
+    clients.push(socket);
+
+    socket.on('data', function(receivedData){
+      fs.writeSync(fd_out, `data : ${receivedData}\n`);
+      //server's response back to the TCP-CLIENT
+    //   console.log('Server msg: ' + receivedData + ' received');
+      socket.write('Server msg: ' + receivedData + ' received');
+    })
 });
-let sockets = [];
 
-server.on('connection', function(sock) {
-    console.log('CONNECTED: ' + sock.remoteAddress + ':' + sock.remotePort);
-    // sockets.push(sock);
-
-    // sock.on('data', function(data) {
-    //     console.log('DATA ' + sock.remoteAddress + ': ' + data);
-    //     // Write the data back to all the connected, the client will receive it as data from the server
-    //     sockets.forEach(function(sock, index, array) {
-    //         sock.write(sock.remoteAddress + ':' + sock.remotePort + " said " + data + '\n');
-    //     });
-    // });
-});
-// process.on('message', (msg) => {
-//     console.log('Message from parent:' + JSON.stringify(msg));
-// });
-// setTimeout(() => {  
-//     process.exit(0);
-// }, 100000);
+server.listen(8000);

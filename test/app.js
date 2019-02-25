@@ -1,12 +1,20 @@
-var http = require('http');
+var net = require("net");
+var clients = [];
 
-var server = http.createServer(function (request, response) {
-  if (request.url === '/') {
-    response.setHeader('Content-Type', 'text/html');
-    response.end('<strong>obligatory bear!</strong>');
-  }
+var server = net.createServer()
+
+server.on('connection', function(socket) {
+    let remoteAddress = socket.remoteAddress + ':' + socket.remotePort;
+    console.log("serverconnected with " + remoteAddress);
+    clients.push(socket);
+
+    socket.on('data', function(receivedData){
+      console.log('data from ' + remoteAddress);
+      console.log('data ' + receivedData);
+
+      //server's response back to the TCP-CLIENT
+      socket.write('Server msg: ' + receivedData + ' received');
+    })
 });
 
-server.listen(8080, function () {
-  console.log('Im listening on port 8080');
-});
+server.listen(8000);

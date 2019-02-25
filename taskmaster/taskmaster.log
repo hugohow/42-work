@@ -294,3 +294,221 @@ Emitted 'error' event at:
     at process._tickCallback (internal/process/next_tick.js:63:19)
     [... lines matching original stack trace ...]
     at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+The daemon process is pid 42996
+The parent process is pid 42995
+The daemon process is pid 43011
+The parent process is pid 43010
+The daemon process is pid 44759
+The parent process is pid 44758
+server bound
+server created
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: read ECONNRESET
+    at TCP.onStreamRead (internal/stream_base_commons.js:111:27)
+Emitted 'error' event at:
+    at Socket.onerror (_stream_readable.js:691:12)
+    at Socket.emit (events.js:189:13)
+    at emitErrorNT (internal/streams/destroy.js:82:8)
+    at emitErrorAndCloseNT (internal/streams/destroy.js:50:3)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+The daemon process is pid 44905
+The parent process is pid 44904
+server bound
+server created
+server disconnected
+server created
+server disconnected
+server created
+server disconnected
+server created
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: read ECONNRESET
+    at TCP.onStreamRead (internal/stream_base_commons.js:111:27)
+Emitted 'error' event at:
+    at Socket.onerror (_stream_readable.js:691:12)
+    at Socket.emit (events.js:189:13)
+    at emitErrorNT (internal/streams/destroy.js:82:8)
+    at emitErrorAndCloseNT (internal/streams/destroy.js:50:3)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+The daemon process is pid 52410
+The parent process is pid 52409
+The daemon process is pid 52459
+The parent process is pid 52458
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::8000
+    at Server.setupListenHandle [as _listen2] (net.js:1277:14)
+    at listenInCluster (net.js:1325:12)
+    at Server.listen (net.js:1412:7)
+    at Object.<anonymous> (/Users/hugohow-choong/42/taskmaster/src/daemon.js:8:8)
+    at Module._compile (internal/modules/cjs/loader.js:689:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:700:10)
+    at Module.load (internal/modules/cjs/loader.js:599:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:538:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:530:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:742:12)
+Emitted 'error' event at:
+    at emitErrorNT (net.js:1304:8)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:745:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+The daemon process is pid 52483
+The parent process is pid 52482
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::8000
+    at Server.setupListenHandle [as _listen2] (net.js:1277:14)
+    at listenInCluster (net.js:1325:12)
+    at Server.listen (net.js:1412:7)
+    at Object.<anonymous> (/Users/hugohow-choong/42/taskmaster/src/daemon.js:8:8)
+    at Module._compile (internal/modules/cjs/loader.js:689:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:700:10)
+    at Module.load (internal/modules/cjs/loader.js:599:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:538:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:530:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:742:12)
+Emitted 'error' event at:
+    at emitErrorNT (net.js:1304:8)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:745:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+The daemon process is pid 52498
+The parent process is pid 52497
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::8000
+    at Server.setupListenHandle [as _listen2] (net.js:1277:14)
+    at listenInCluster (net.js:1325:12)
+    at Server.listen (net.js:1412:7)
+    at Object.<anonymous> (/Users/hugohow-choong/42/taskmaster/src/daemon.js:8:8)
+    at Module._compile (internal/modules/cjs/loader.js:689:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:700:10)
+    at Module.load (internal/modules/cjs/loader.js:599:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:538:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:530:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:742:12)
+Emitted 'error' event at:
+    at emitErrorNT (net.js:1304:8)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:745:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:743:3)
+The daemon process is pid 52566
+The parent process is pid 52565
+The daemon process is pid 52606
+The parent process is pid 52605
+The daemon process is pid 52625
+The parent process is pid 52624
+The daemon process is pid 52847
+The parent process is pid 52846
+The daemon process is pid 52861
+The parent process is pid 52860
+The daemon process is pid 52883
+The parent process is pid 52882
+The daemon process is pid 52934
+The parent process is pid 52933
+The daemon process is pid 53110
+The parent process is pid 53109
+The daemon process is pid 53142
+The parent process is pid 53141
+The daemon process is pid 53170
+The parent process is pid 53169
+The daemon process is pid 53269
+The parent process is pid 53268
+The daemon process is pid 53283
+The parent process is pid 53282
+The daemon process is pid 53312
+The parent process is pid 53311
+The daemon process is pid 53324
+The parent process is pid 53323
+The daemon process is pid 53352
+The parent process is pid 53351
+The daemon process is pid 53434
+The parent process is pid 53433
+The daemon process is pid 53515
+The parent process is pid 53514
+The daemon process is pid 53603
+The parent process is pid 53602
+The daemon process is pid 53670
+The parent process is pid 53669
+The daemon process is pid 53931
+The parent process is pid 53930
+The daemon process is pid 53956
+The parent process is pid 53955
+The daemon process is pid 54147
+The parent process is pid 54146
+The daemon process is pid 54264
+The parent process is pid 54263
+The daemon process is pid 54295
+The parent process is pid 54294
+The daemon process is pid 55303
+The parent process is pid 1
+server listen to port 8000
+The daemon process is pid 55341
+The parent process is pid 1
+server listen to port 8000
+The daemon process is pid 55386
+The parent process is pid 55385
+server listen to port 8000
+The daemon process is pid 55409
+The parent process is pid 55408
+server listen to port 8000
+The daemon process is pid 55429
+The parent process is pid 55428
+server listen to port 8000
+The daemon process is pid 55604
+The parent process is pid 55603
+server listen to port 8000
+The daemon process is pid 55619
+The parent process is pid 55618
+server listen to port 8000
+The daemon process is pid 55656
+The parent process is pid 55655
+server listen to port 8000
+The daemon process is pid 55701
+The parent process is pid 55700
+server listen to port 8000
+serverconnectedserverconnectedserverconnected with ::ffff:127.0.0.1:61124
+data : 44��
+serverconnected with ::ffff:127.0.0.1:61127
+data : lqs
+
+serverconnected with ::ffff:127.0.0.1:61131
+data : ls
+
+serverconnected with ::ffff:127.0.0.1:61138
+data : ls
+
+data : l
+
+data : ls
+
+data : zz
+
+serverconnected with ::ffff:127.0.0.1:61144
+data : ls
+
+serverconnected with ::ffff:127.0.0.1:61146
+serverconnected with ::ffff:127.0.0.1:61152
+data : ls
+
+data : debut
+
+data : voila
+
+serverconnected with ::ffff:127.0.0.1:61154
+data : 44��

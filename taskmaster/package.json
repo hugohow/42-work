@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "node src/",
-    "clean": "rm -rf node_modules && npm install"
+    "server": "node src/daemon.js &",
+    "app": "node src/index.js",
+    "start": "npm run server && npm run app",
+    "clean": "rm -rf node_modules && npm install",
+    "kill": "killall -9 node"
   },
   "author": "hugohow",
   "license": "ISC",
