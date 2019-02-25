@@ -541,3 +541,27 @@ data :
 
 data : zd
 
+error : Error: listen EADDRINUSE: address already in use :::8000
+serverconnected with ::ffff:127.0.0.1:61745
+data : ls
+
+data : test
+
+lunch key : nginx
+lunch key : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/hugohow-choong/42/taskmaster","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+lunch key : vogsphere
+lunch key : {"cmd":"ls","numprocs":8,"umask":"077","workingdir":"/Users/hugohow-choong/42/taskmaster","autostart":true,"autorestart":"unexpected","exitcodes":0,"startretries":3,"starttime":5,"stopsignal":"USR1","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/vgsworker.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/vgsworker.stderr"}
+error : Error: listen EADDRINUSE: address already in use :::8000
+error : Error: listen EADDRINUSE: address already in use :::8000
+error : Error: listen EADDRINUSE: address already in use :::8000
+lunch key : nginx
+lunch key : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/hugohow-choong/42/taskmaster","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+lunch key : vogsphere
+lunch key : {"cmd":"ls","numprocs":8,"umask":"077","workingdir":"/Users/hugohow-choong/42/taskmaster","autostart":true,"autorestart":"unexpected","exitcodes":0,"startretries":3,"starttime":5,"stopsignal":"USR1","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/vgsworker.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/vgsworker.stderr"}
+serverconnected with ::ffff:127.0.0.1:61769
+data : ls
+
+error : Error: listen EADDRINUSE: address already in use :::8000
+serverconnected with ::ffff:127.0.0.1:61770
+data : voila
+
