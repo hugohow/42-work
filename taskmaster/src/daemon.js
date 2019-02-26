@@ -5,7 +5,7 @@ const PORT = 8000;
 const HOST = "localhost";
 var Process = require('./process.js')
 let processes = [];
-var printProcesses = require("./utils/printProcesses");
+var printft = require("./utils/printft");
 
 try {
     let config = yaml.safeLoad(fs.readFileSync('./config.yml', 'utf8'));
@@ -30,9 +30,30 @@ try {
     
         socket.on('data', function(receivedData){
           fs.writeSync(fd_out, `cmd : ${receivedData}\n`);
-        //server's response back to the TCP-CLIENT
-        //   console.log('Server msg: ' + receivedData + ' received');
-          socket.write('Server msg: ' + receivedData + ' received');
+          if (receivedData.toString('utf8'))
+          {
+            let data = receivedData.toString('utf8').replace("\n", "").split(" ");
+            if (data[0] === "add")
+                socket.write(Buffer.from("add"));
+            else if (data[0] === "remove")
+                socket.write(Buffer.from("remove"));
+            else if (data[0] === "update")
+                socket.write(Buffer.from("update"));
+            else if (data[0] === "clear")
+                socket.write(Buffer.from("clear"));
+            else if (data[0] === "reload")
+                socket.write(Buffer.from("reload"));
+            else if (data[0] === "restart")
+                socket.write(Buffer.from("restart"));
+            else if (data[0] === "start")
+                socket.write(Buffer.from("start"));
+            else if (data[0] === "status")
+                socket.write(Buffer.from(JSON.stringify(printft.reduceTable(processes))));
+            else if (data[0] === "stop")
+                socket.write(Buffer.from("start"));
+            else
+                socket.write(Buffer.from("unknown"));
+          }
         })
     });
     
@@ -66,14 +87,9 @@ try {
                 let name = config[key]["numprocs"] > 1 ? `${key}s_${index}` : key;
                 let proc = new Process(name, config[key]);
                 processes.push(proc);
-                if (proc.autostart === true)
-                {
-                    proc.start();
-                }
                 index++;
             }
         });
-        // printProcesses(processes);
     });
 
 } catch (e) {

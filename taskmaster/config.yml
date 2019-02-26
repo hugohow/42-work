@@ -19,15 +19,15 @@ nginx:
     STARTED_BY: taskmaster
     ANSWER: 42
 vogsphere:
-  cmd: "sleep 3"
-  numprocs: 8
+  cmd: "sleep 20"
+  numprocs: 3
   umask: '077'
   workingdir: "/Users/hugohow-choong/42/taskmaster"
   autostart: true
   autorestart: unexpected
   exitcodes: 0
-  startretries: 3
-  starttime: 1
+  startretries: 20
+  starttime: 10
   stopsignal: USR1
   stoptime: 10
   stdout: "/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stdout"

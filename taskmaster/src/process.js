@@ -1,7 +1,9 @@
 const fs = require('fs');
 var startProcess = require("./utils/startProcess");
 var getStateInt = require("./utils/getStateInt");
+var getComm = require("./utils/getComm");
 var isExitCodesValid = require("./utils/isExitCodesValid");
+
 
 module.exports = class Process {
     constructor(name, config) {
@@ -18,6 +20,8 @@ module.exports = class Process {
       this.cwd = config["workingdir"] ? config["workingdir"] : null;
       this.killSignal = config["stopsignal"] ? config["stopsignal"] : 'SIGTERM';
       this.env = config["env"] ? config["env"] : null;
+     
+      this.umask = config["umask"] ? config["umask"] : "022"
 
       this.startRetries = config["startretries"] ? config["startretries"] : 3;
       this.tries = 0;
@@ -30,6 +34,10 @@ module.exports = class Process {
 
       this.state = "STOPPED";
       this.stateInt = getStateInt("STOPPED");
+      this.comment = getComm(this);
+
+      if (this.autostart)
+          this.start();
     }
 
     start()
@@ -39,7 +47,6 @@ module.exports = class Process {
         startProcess(this, function(res) {
             if (res.state === "RUNNING")
             {
-                
                 this.updateState("RUNNING");
                 this.pid = res.payload.pid;
                 this.ppid = res.payload.ppid;
@@ -69,28 +76,13 @@ module.exports = class Process {
         if (this.state === "EXITED")
         {
             switch (this.autorestart) {
-                case true:
-                  console.log('Restart ' + this.name);
-                  return true;
-                case false:
-                    console.log(`exit name : ${this.name} wide code : ${code}`);
-                    return false;
                 case "unexpected":
                     if (isExitCodesValid(this.exitcodes, code) === false)
-                    {
-                        console.log(`Not OK :  ${code} is not part of ` + this.exitcodes + ' -> reboot');
                         return true;
-                    }
                     else
-                    {
-                        console.log(`exit name : ${this.name} wide code : ${code}`);
                         return false;
-                    }
                 default:
-                {
-                    console.log(`exit name : ${this.name} wide code : ${code}`);
-                    return false;   
-                }
+                    return this.autorestart === true;   
               }
         }
     }
@@ -100,5 +92,6 @@ module.exports = class Process {
         console.log(`${this.name} changed state from ${this.state} to ${state}`);
         this.state = state;
         this.stateInt = getStateInt(state);
+        this.comment = getComm(this);
     }
 }

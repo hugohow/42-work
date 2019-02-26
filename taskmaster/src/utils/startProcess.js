@@ -10,7 +10,8 @@ module.exports = function startProcess(proc, callback) {
         env: proc.env,
         cwd: proc.cwd,
         killSignal: proc.killSignal,
-        shell: true
+        shell: true,
+        unmask: proc.unmask
       });
       child.on('exit', function (code, signal) {
         clearTimeout(timer);
