@@ -1,16 +1,21 @@
 const { spawn } = require('child_process');
 
 module.exports = function startProcess(proc, callback) {
-    let child = spawn("ls", [], {
+    let state;
+    let timer;
+    state = "STARTING";
+    let child = spawn("sleep 2", [], {
         detached: true,
         stdio: ['ignore', proc.out, proc.err],
         env: proc.env,
         cwd: proc.cwd,
-        killSignal: proc.killSignal
+        killSignal: proc.killSignal,
+        shell: true
       });
       child.on('exit', function (code, signal) {
+        clearTimeout(timer);
         callback({
-            status: "EXITED", 
+            state: state === "STARTING" ? "BACKOFF" : "EXITED", 
             payload: {
                   pid: child.pid,
                   ppid: process.ppid,
@@ -20,11 +25,14 @@ module.exports = function startProcess(proc, callback) {
           });
       });
       child.unref();
-      callback({
-          status: "RUNNING", 
-          payload: {
-                pid: child.pid,
-                ppid: process.ppid
-            }
-        });
+      timer = setTimeout(function(){
+            state = "RUNNING";
+            callback({
+                state: "RUNNING", 
+                payload: {
+                    pid: child.pid,
+                    ppid: process.ppid
+                }
+            });
+      }, proc.startTime);
 }

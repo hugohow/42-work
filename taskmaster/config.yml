@@ -1,6 +1,6 @@
 ---
 nginx:
-  cmd: "ls"
+  cmd: "sleep 3"
   numprocs: 1
   umask: '022'
   workingdir: "/Users/"
@@ -10,7 +10,7 @@ nginx:
   - 0
   - 2
   startretries: 3
-  starttime: 5
+  starttime: 1
   stopsignal: TERM
   stoptime: 10
   stdout: "/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout"
@@ -19,7 +19,7 @@ nginx:
     STARTED_BY: taskmaster
     ANSWER: 42
 vogsphere:
-  cmd: "ls"
+  cmd: "sleep 3"
   numprocs: 8
   umask: '077'
   workingdir: "/Users/hugohow-choong/42/taskmaster"
@@ -27,7 +27,7 @@ vogsphere:
   autorestart: unexpected
   exitcodes: 0
   startretries: 3
-  starttime: 5
+  starttime: 1
   stopsignal: USR1
   stoptime: 10
   stdout: "/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stdout"
