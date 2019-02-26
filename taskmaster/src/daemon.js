@@ -3,9 +3,9 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const PORT = 8000;
 const HOST = "localhost";
-const { spawn } = require('child_process');
 var Process = require('./process.js')
 let processes = [];
+var printProcesses = require("./utils/printProcesses");
 
 try {
     let config = yaml.safeLoad(fs.readFileSync('./config.yml', 'utf8'));
@@ -60,55 +60,20 @@ try {
             console.log(`Launch : ${key}`);
             console.log(`Launch config : ${JSON.stringify(config[key])}`);
 
-            // let out = fs.openSync(config[key]["stdout"], 'a');
-            // let err = fs.openSync(config[key]["stderr"], 'a');
             let index = 1;
             while (index <= config[key]["numprocs"])
             {
                 let name = config[key]["numprocs"] > 1 ? `${key}s_${index}` : key;
-                let proc = new Process(name, config[key], "STARTING");
+                let proc = new Process(name, config[key]);
                 processes.push(proc);
                 if (proc.autostart === true)
                 {
-                    let child = spawn("ls", [], {
-                        detached: true,
-                        stdio: ['ignore', proc.out, proc.err],
-                        env: proc.env,
-                        cwd: proc.cwd,
-                        killSignal: proc.killSignal
-                      });
-                      child.on('exit', function (code, signal) {
-
-                        switch (proc.autorestart) {
-                            case true:
-                              console.log('Restart ' + name);
-                              break;
-                            case false:
-                                break;
-                            case "unexpected":
-                                if (Array.isArray(proc.exitcodes) && proc.exitcodes.includes(code))
-                                {
-
-                                } 
-                                else if (proc.exitcodes == code)
-                                {
-
-                                }
-                                else     
-                                    console.log(`Not OK :  ${code} is not part of ` + proc.exitcodes + ' -> reboot');
-                              // expected output: "Mangoes and papayas are $2.79 a pound."
-                              break;
-                            default:
-                                console.log(`exit name : ${name} wide code : ${code}`);
-                                fs.writeSync(fd_out, `exit name : ${name} wide code : ${code}\n`);   
-                          }
-                      });
-                      child.unref();
+                    proc.start();
                 }
                 index++;
             }
         });
-        // console.log(processes);
+        // printProcesses(processes);
     });
 
 } catch (e) {

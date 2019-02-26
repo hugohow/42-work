@@ -5,7 +5,7 @@ nginx:
   umask: '022'
   workingdir: "/Users/"
   autostart: true
-  autorestart: unexpected
+  autorestart: true
   exitcodes:
   - 0
   - 2
