@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "server": "node src/daemon.js &",
+    "server": "node src/daemon.js",
     "app": "node src/index.js",
     "start": "npm run server && npm run app",
     "clean": "rm -rf node_modules && npm install",

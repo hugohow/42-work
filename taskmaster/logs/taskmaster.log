@@ -1,0 +1,81 @@
+Process PID : 67563
+Process PPID : 67562
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+lunch key : vogsphere
+lunch data : {"cmd":"ls","numprocs":8,"umask":"077","workingdir":"/Users/hugohow-choong/42/taskmaster","autostart":true,"autorestart":"unexpected","exitcodes":0,"startretries":3,"starttime":5,"stopsignal":"USR1","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stderr"}
+Process PID : 67630
+Process PPID : 67629
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+lunch key : vogsphere
+lunch data : {"cmd":"ls","numprocs":8,"umask":"077","workingdir":"/Users/hugohow-choong/42/taskmaster","autostart":true,"autorestart":"unexpected","exitcodes":0,"startretries":3,"starttime":5,"stopsignal":"USR1","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stderr"}
+Process PID : 67833
+Process PPID : 67832
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+lunch key : vogsphere
+lunch data : {"cmd":"ls","numprocs":8,"umask":"077","workingdir":"/Users/hugohow-choong/42/taskmaster","autostart":true,"autorestart":"unexpected","exitcodes":0,"startretries":3,"starttime":5,"stopsignal":"USR1","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stderr"}
+Process PID : 67879
+Process PPID : 67878
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+lunch key : vogsphere
+lunch data : {"cmd":"ls","numprocs":8,"umask":"077","workingdir":"/Users/hugohow-choong/42/taskmaster","autostart":true,"autorestart":"unexpected","exitcodes":0,"startretries":3,"starttime":5,"stopsignal":"USR1","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stderr"}
+Process PID : 67921
+Process PPID : 67920
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+lunch key : vogsphere
+lunch data : {"cmd":"ls","numprocs":8,"umask":"077","workingdir":"/Users/hugohow-choong/42/taskmaster","autostart":true,"autorestart":"unexpected","exitcodes":0,"startretries":3,"starttime":5,"stopsignal":"USR1","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stderr"}
+Process PID : 68091
+Process PPID : 68090
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+Process PID : 68594
+Process PPID : 68593
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+Process PID : 68620
+Process PPID : 68619
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+Process PID : 68667
+Process PPID : 68666
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+Process PID : 68692
+Process PPID : 68691
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+Process PID : 68740
+Process PPID : 68739
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+lunch key : vogsphere
+lunch data : {"cmd":"ls","numprocs":8,"umask":"077","workingdir":"/Users/hugohow-choong/42/taskmaster","autostart":true,"autorestart":"unexpected","exitcodes":0,"startretries":3,"starttime":5,"stopsignal":"USR1","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stderr"}
+Process PID : 68782
+Process PPID : 68779
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+lunch key : vogsphere
+lunch data : {"cmd":"ls","numprocs":8,"umask":"077","workingdir":"/Users/hugohow-choong/42/taskmaster","autostart":true,"autorestart":"unexpected","exitcodes":0,"startretries":3,"starttime":5,"stopsignal":"USR1","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stderr"}
+Process PID : 68831
+Process PPID : 68830
+
+lunch key : nginx
+lunch data : {"cmd":"ls","numprocs":1,"umask":"022","workingdir":"/Users/","autostart":true,"autorestart":"unexpected","exitcodes":[0,2],"startretries":3,"starttime":5,"stopsignal":"TERM","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr","env":{"STARTED_BY":"taskmaster","ANSWER":42}}
+lunch key : vogsphere
+lunch data : {"cmd":"ls","numprocs":8,"umask":"077","workingdir":"/Users/hugohow-choong/42/taskmaster","autostart":true,"autorestart":"unexpected","exitcodes":0,"startretries":3,"starttime":5,"stopsignal":"USR1","stoptime":10,"stdout":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stdout","stderr":"/Users/hugohow-choong/42/taskmaster/logs/vgsworker.stderr"}
