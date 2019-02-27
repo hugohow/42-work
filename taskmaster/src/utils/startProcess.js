@@ -15,15 +15,33 @@ module.exports = function startProcess(proc, callback) {
       });
       child.on('exit', function (code, signal) {
         clearTimeout(timer);
-        callback({
-            state: state === "STARTING" ? "BACKOFF" : "EXITED", 
-            payload: {
-                  pid: child.pid,
-                  ppid: process.ppid,
-                  code: code,
-                  signal: signal
-              }
-          });
+        console.log("signal "+ signal)
+        if (signal)
+        {
+            callback({
+                state: "STOPPED", 
+                payload: {
+                      pid: child.pid,
+                      ppid: process.ppid,
+                      code: code,
+                      signal: signal,
+                      spawn: child
+                  }
+              });
+        }
+        else
+        {
+            callback({
+                state: state === "STARTING" ? "BACKOFF" : "EXITED", 
+                payload: {
+                      pid: child.pid,
+                      ppid: process.ppid,
+                      code: code,
+                      signal: signal,
+                      spawn: child
+                  }
+              });
+        }
       });
       child.unref();
       timer = setTimeout(function(){
@@ -32,7 +50,8 @@ module.exports = function startProcess(proc, callback) {
                 state: "RUNNING", 
                 payload: {
                     pid: child.pid,
-                    ppid: process.ppid
+                    ppid: process.ppid,
+                    spawn: child
                 }
             });
       }, proc.startTime);

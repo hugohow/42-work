@@ -6,6 +6,7 @@ const HOST = "localhost";
 var Process = require('./process.js')
 let processes = [];
 var printft = require("./utils/printft");
+var stopProcesses = require("./utils/stopProcesses")
 
 try {
     let config = yaml.safeLoad(fs.readFileSync('./config.yml', 'utf8'));
@@ -22,6 +23,10 @@ try {
         fs.writeSync(fd_out, `SIGHUP received. Stop and reboot\n`);
     });
 
+    process.on('SIGCHLD', () => {
+        // console.log('a child is stopped')
+    })
+
     server.on('connection', function(socket) {
         let remoteAddress = socket.remoteAddress + ':' + socket.remotePort;
         // console.log(`serverconnected with ${remoteAddress}\n`);
@@ -33,26 +38,71 @@ try {
           if (receivedData.toString('utf8'))
           {
             let data = receivedData.toString('utf8').replace("\n", "").split(" ");
-            if (data[0] === "add")
-                socket.write(Buffer.from("add"));
-            else if (data[0] === "remove")
-                socket.write(Buffer.from("remove"));
-            else if (data[0] === "update")
-                socket.write(Buffer.from("update"));
-            else if (data[0] === "clear")
-                socket.write(Buffer.from("clear"));
+
+            if (data[0] === "update")
+            {
+                socket.write(Buffer.from(JSON.stringify({
+                    type: "update",
+                    receivedData: data,
+                    status: 1,
+                    payload: {}
+                })));
+            }
             else if (data[0] === "reload")
-                socket.write(Buffer.from("reload"));
+            {
+                socket.write(Buffer.from(JSON.stringify({
+                    type: "reload",
+                    receivedData: data,
+                    status: 1,
+                    payload: {}
+                })));
+            }
             else if (data[0] === "restart")
-                socket.write(Buffer.from("restart"));
+            {
+                socket.write(Buffer.from(JSON.stringify({
+                    type: "restart",
+                    receivedData: data,
+                    status: 1,
+                    payload: {}
+                })));
+            }
             else if (data[0] === "start")
-                socket.write(Buffer.from("start"));
+            {
+                socket.write(Buffer.from(JSON.stringify({
+                    type: "start",
+                    receivedData: data,
+                    status: 1,
+                    payload: {}
+                })));
+            }
             else if (data[0] === "status")
-                socket.write(Buffer.from(JSON.stringify(printft.reduceTable(processes))));
+            {
+                socket.write(Buffer.from(JSON.stringify({
+                    type: "status",
+                    receivedData: data,
+                    status: 1,
+                    payload: printft.reduceTable(processes)
+                })));
+            }
             else if (data[0] === "stop")
-                socket.write(Buffer.from("start"));
+            {
+                stopProcesses(processes, data);
+                socket.write(Buffer.from(JSON.stringify({
+                    type: "stop",
+                    receivedData: data,
+                    status: 1,
+                    payload: {}
+                })));
+            }
             else
-                socket.write(Buffer.from("unknown"));
+            {
+                socket.write(Buffer.from(JSON.stringify({
+                    type: "unknown",
+                    receivedData: data,
+                    status: 1,
+                    payload: {}
+                })));
+            }
           }
         })
     });

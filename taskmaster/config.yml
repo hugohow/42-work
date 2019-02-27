@@ -11,7 +11,7 @@ nginx:
   - 2
   startretries: 3
   starttime: 1
-  stopsignal: TERM
+  stopsignal: SIGTERM
   stoptime: 10
   stdout: "/Users/hugohow-choong/42/taskmaster/logs/nginx.stdout"
   stderr: "/Users/hugohow-choong/42/taskmaster/logs/nginx.stderr"
@@ -26,7 +26,7 @@ vogsphere:
   autostart: true
   autorestart: unexpected
   exitcodes: 0
-  startretries: 20
+  startretries: 5
   starttime: 10
   stopsignal: USR1
   stoptime: 10

@@ -3,7 +3,7 @@ var startProcess = require("./utils/startProcess");
 var getStateInt = require("./utils/getStateInt");
 var getComm = require("./utils/getComm");
 var isExitCodesValid = require("./utils/isExitCodesValid");
-
+var getKillSignal = require("./utils/getKillSignal");
 
 module.exports = class Process {
     constructor(name, config) {
@@ -12,13 +12,15 @@ module.exports = class Process {
 
       this.pid = null;
       this.ppid = null;
+      this.spawn = null;
       this.numprocs = config["numprocs"] ? parseInt(config["numprocs"]) : 1;
         
       this.exitcodes = config["exitcodes"] ? config["exitcodes"] : [0, 2];
       this.autorestart = config["autorestart"] ? config["autorestart"] : "unexpected";
       this.autostart = config["autostart"] ? config["autostart"] : true;
       this.cwd = config["workingdir"] ? config["workingdir"] : null;
-      this.killSignal = config["stopsignal"] ? config["stopsignal"] : 'SIGTERM';
+      this.killSignal = getKillSignal(config["stopsignal"]);
+    //   console.log(getKillSignal(config["stopsignal"]));
       this.env = config["env"] ? config["env"] : null;
      
       this.umask = config["umask"] ? config["umask"] : "022"
@@ -26,6 +28,8 @@ module.exports = class Process {
       this.startRetries = config["startretries"] ? config["startretries"] : 3;
       this.tries = 0;
       this.startTime = config["starttime"] ? config["starttime"] * 1000 : 1 * 1000;
+
+      this.stopTime = config["stoptime"] ? config["stoptime"] * 1000 : 10 * 1000;
       this.out = 1;
       this.err = 2;
 
@@ -40,6 +44,29 @@ module.exports = class Process {
           this.start();
     }
 
+    stop()
+    {
+        if (this.spawn)
+        {
+            this.updateState("STOPPING");
+            this.spawn.kill(this.killSignal);
+            var that;
+            that = this;
+            setTimeout(function(){
+                if (that.state !== "STOPPED")
+                {
+                    that.spawn.kill();
+                    that.updateState("STOPPED");
+                }
+                return ;
+            }, this.stopTime);
+        }
+        else
+        {
+            console.log(`FAILED: attempted to kill process with sig ${this.killSignal} but it wasn't running`)
+        }
+    }
+
     start()
     {
         this.tries++;
@@ -50,12 +77,17 @@ module.exports = class Process {
                 this.updateState("RUNNING");
                 this.pid = res.payload.pid;
                 this.ppid = res.payload.ppid;
-            } 
+                this.spawn = res.payload.spawn;
+            }
             else if (res.state === "EXITED" || res.state === "BACKOFF")
             {
                 this.updateState(res.state);
                 if (this.isReloadable(res.payload) === true)
                     this.start();
+            }
+            else if (res.state === "STOPPED")
+            {
+                this.updateState(res.state);
             }
         }.bind(this));
     }
@@ -63,7 +95,8 @@ module.exports = class Process {
     isReloadable(payload)
     {
         let code = payload.code;
-        
+        if (this.state === "STOPPING" || this.state === "STOPPED")
+            return false;
         if (this.state === "BACKOFF")
         {
             if (this.tries === this.startRetries)

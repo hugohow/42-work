@@ -31,12 +31,18 @@ client.connect({
     })
 })
 
-client.on('data', function (data)
- {
-     if (typeof (data.toString('utf8')) === "string")
-        console.log(data.toString('utf8'));
+client.on('data', function (dataReceived)
+{
+    let data = JSON.parse(dataReceived.toString('utf8'))
+    if (data.type === "status")
+    {
+        console.table(data.payload);
+    }
     else
-        printft.printProcesses(JSON.parse(data.toString()));
+    {
+        console.log(data);
+    }
+
 });
 
 client.on('error', function (err) {
