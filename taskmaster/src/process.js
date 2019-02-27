@@ -9,7 +9,7 @@ module.exports = class Process {
     constructor(name, config) {
       this.name = name;
       this.config = config;
-
+      this.cmd = config["cmd"] ? config["cmd"] : " ";
       this.pid = null;
       this.ppid = null;
       this.spawn = null;
@@ -46,24 +46,27 @@ module.exports = class Process {
 
     stop()
     {
+        if (this.state === "EXITED" || this.state === "FATAL")
+            return ;
+        if (this.state === "BACKOFF")
+            this.updateState("STOPPED");
         if (this.spawn)
         {
+
             this.updateState("STOPPING");
             this.spawn.kill(this.killSignal);
-            var that;
-            that = this;
+            var that = this;
             setTimeout(function(){
                 if (that.state !== "STOPPED")
                 {
-                    that.spawn.kill();
+                    that.spawn.kill("SIGKILL");
                     that.updateState("STOPPED");
                 }
-                return ;
             }, this.stopTime);
         }
         else
         {
-            console.log(`FAILED: attempted to kill process with sig ${this.killSignal} but it wasn't running`)
+            console.log(`FAILED: attempted to kill process with sig ${this.killSignal} but it wasn't running`);
         }
     }
 
@@ -74,10 +77,10 @@ module.exports = class Process {
         startProcess(this, function(res) {
             if (res.state === "RUNNING")
             {
-                this.updateState("RUNNING");
                 this.pid = res.payload.pid;
                 this.ppid = res.payload.ppid;
                 this.spawn = res.payload.spawn;
+                this.updateState("RUNNING");
             }
             else if (res.state === "EXITED" || res.state === "BACKOFF")
             {

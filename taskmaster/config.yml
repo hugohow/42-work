@@ -1,6 +1,6 @@
 ---
 nginx:
-  cmd: "sleep 3"
+  cmd: "node /Users/hugohow-choong/42/taskmaster/timer.js"
   numprocs: 1
   umask: '022'
   workingdir: "/Users/"
@@ -19,14 +19,14 @@ nginx:
     STARTED_BY: taskmaster
     ANSWER: 42
 vogsphere:
-  cmd: "sleep 20"
+  cmd: "sleep 10"
   numprocs: 3
   umask: '077'
   workingdir: "/Users/hugohow-choong/42/taskmaster"
   autostart: true
   autorestart: unexpected
   exitcodes: 0
-  startretries: 5
+  startretries: 10
   starttime: 10
   stopsignal: USR1
   stoptime: 10

@@ -4,18 +4,18 @@ module.exports = function startProcess(proc, callback) {
     let state;
     let timer;
     state = "STARTING";
-    let child = spawn("sleep 2", [], {
+    let old_mask = process.umask(proc.umask);
+    let child = spawn(proc.cmd, [], {
         detached: true,
         stdio: ['ignore', proc.out, proc.err],
         env: proc.env,
         cwd: proc.cwd,
         killSignal: proc.killSignal,
-        shell: true,
-        unmask: proc.unmask
+        shell: true
       });
+      process.umask(old_mask);
       child.on('exit', function (code, signal) {
         clearTimeout(timer);
-        console.log("signal "+ signal)
         if (signal)
         {
             callback({

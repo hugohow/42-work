@@ -46,10 +46,9 @@ client.on('data', function (dataReceived)
 });
 
 client.on('error', function (err) {
-    console.log('Error : ', err);
+    console.log('\x1b[41mError: Another program is already listening on a port that one of our HTTP servers is configured to use.  Shut this program down first before starting supervisord.\x1b[0m');
     rl.close();
 });
 
 client.on('close', function () {
-    console.log('socket closed');
 });

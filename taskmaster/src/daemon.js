@@ -8,6 +8,36 @@ let processes = [];
 var printft = require("./utils/printft");
 var stopProcesses = require("./utils/stopProcesses")
 
+
+
+
+fd_out = fs.openSync('./logs/taskmaster.log', 'a');
+fd_err = fs.openSync('./logs/taskmaster.log', 'a');
+
+
+function startAllProcesses(config)
+{
+    let list = [];
+
+    Object.keys(config).forEach((key) => {
+        fs.writeSync(fd_out, `lunch key : ${key}\n`);
+        fs.writeSync(fd_out, `lunch data : ${JSON.stringify(config[key])}\n`);
+
+        console.log(`Launch : ${key}`);
+        console.log(`Launch config : ${JSON.stringify(config[key])}`);
+
+        let index = 1;
+        while (index <= config[key]["numprocs"])
+        {
+            let name = config[key]["numprocs"] > 1 ? `${key}s_${index}` : key;
+            let proc = new Process(name, config[key]);
+            list.push(proc);
+            index++;
+        }
+    });
+    return (list);
+}
+
 try {
     let config = yaml.safeLoad(fs.readFileSync('./config.yml', 'utf8'));
 
@@ -15,9 +45,6 @@ try {
 
     // server
     var server = net.createServer()
-    
-    fd_out = fs.openSync('./logs/taskmaster.log', 'a');
-    fd_err = fs.openSync('./logs/taskmaster.log', 'a');
     
     process.on('SIGHUP', () => {
         fs.writeSync(fd_out, `SIGHUP received. Stop and reboot\n`);
@@ -47,6 +74,17 @@ try {
                     status: 1,
                     payload: {}
                 })));
+            }
+            else if (data[0] === "shutdown")
+            {
+                stopProcesses(processes, ["shutdown", "all"]);
+                socket.write(Buffer.from(JSON.stringify({
+                    type: "shutdown",
+                    receivedData: data,
+                    status: 1,
+                    payload: {}
+                })));
+                process.exit(0);
             }
             else if (data[0] === "reload")
             {
@@ -121,25 +159,11 @@ try {
             process.exit(0);
             return ;
         }
-        // config
-        fs.writeSync(fd_out, `Process PID : ${process.pid}\n`);
-        fs.writeSync(fd_out, `Process PPID : ${process.ppid}\n\n`);
-        Object.keys(config).forEach((key) => {
-            fs.writeSync(fd_out, `lunch key : ${key}\n`);
-            fs.writeSync(fd_out, `lunch data : ${JSON.stringify(config[key])}\n`);
 
-            console.log(`Launch : ${key}`);
-            console.log(`Launch config : ${JSON.stringify(config[key])}`);
+        fs.writeFileSync("deamon.pid", `${process.pid}`);
 
-            let index = 1;
-            while (index <= config[key]["numprocs"])
-            {
-                let name = config[key]["numprocs"] > 1 ? `${key}s_${index}` : key;
-                let proc = new Process(name, config[key]);
-                processes.push(proc);
-                index++;
-            }
-        });
+        processes = startAllProcesses(config);
+
     });
 
 } catch (e) {
