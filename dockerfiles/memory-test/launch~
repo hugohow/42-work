@@ -1,0 +1,1 @@
+docker container run --volume /Users/hugohow-choong/42/dockerfiles/memory-test/src:/42 -it   memory-test

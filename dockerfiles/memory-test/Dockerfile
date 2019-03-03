@@ -1,0 +1,9 @@
+FROM alpine:latest
+
+RUN apk update
+RUN apk add --update \
+    valgrind gcc make libc-dev ca-certificates emacs-x11
+ENV TERM=xterm-256color
+
+RUN mkdir -p /42
+WORKDIR /42
