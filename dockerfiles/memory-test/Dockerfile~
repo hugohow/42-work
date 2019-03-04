@@ -1,9 +1,8 @@
-FROM alpine:latest
+FROM ubuntu:latest
 
-RUN apk update
-RUN apk add --update \
-    valgrind gcc make libc-dev ca-certificates emacs-x11
+RUN apt-get update
+RUN apt-get install -y \
+    valgrind gcc make libc-dev ca-certificates emacs strace sudo
 ENV TERM=xterm-256color
-
-RUN mkdir -p /src
-WORKDIR /src
+RUN mkdir -p /42
+WORKDIR /42
