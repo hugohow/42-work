@@ -13,6 +13,7 @@ int main(int ac, char **av, char **env)
   void *p;
   int i;
 
+  a = 999;
   printf("Address of a: %p\n", (void *)&a);
   p = malloc(98);
   if (p == NULL)

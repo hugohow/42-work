@@ -9,5 +9,6 @@ RUN apt-get update \
   && cd /usr/local/bin \
   && ln -s /usr/bin/python3 python \
   && pip3 install --upgrade pip
+RUN apt-get install -y nasm
 RUN mkdir -p /42
 WORKDIR /42
