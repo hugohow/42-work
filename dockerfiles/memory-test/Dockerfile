@@ -10,5 +10,6 @@ RUN apt-get update \
   && ln -s /usr/bin/python3 python \
   && pip3 install --upgrade pip
 RUN apt-get install -y nasm
+RUN apt-get install -y gcc-multilib
 RUN mkdir -p /42
 WORKDIR /42
