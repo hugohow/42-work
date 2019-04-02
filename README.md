@@ -15,7 +15,7 @@ I also use my [Dockerfile](/docker_config/Dockerfile) to have a Linux environmen
 | Projects | description | Difficulty | language | state |
 |--|--|--|--|--|
 | [bc](/projects/calculator-bc-42-master) | Recode the bc command in C | T1 | C | :100: |
-| [libft](/projects/libft) | C standard library and data structures (linked list, hash table, binary tree, ...) | T1 |C |:100: |
+| [libft](/projects/libft) | C standard library | T1 |C |:100: |
 | [fillit](/projects/fillit) | Puzzle | T1 | C |:100: |
 | [get_next_line](/projects/get_next_line) | read line by line any file descriptor | T1 | C |:100: |
 | [push_swap](/projects/push_swap) | Sorting algorithms | T1 | C |:100: |
