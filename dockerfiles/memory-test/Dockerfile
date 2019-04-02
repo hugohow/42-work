@@ -11,5 +11,7 @@ RUN apt-get install -y curl
 RUN apt-get install -y bsdmainutils
 RUN apt-get install -y iproute2
 RUN apt-get install -y iptables
+RUN apt-get install -y pciutils
+RUN apt-get install -y wireless-tools
 RUN mkdir -p /42
 WORKDIR /42
