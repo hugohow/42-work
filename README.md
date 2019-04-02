@@ -2,12 +2,22 @@
 # Welcome to 42
 
 Hi! Here is all my work at [42 Sillicon Valley](https://www.42.us.org/) and [42 Paris](https://www.42.fr/). Most of the projects are in C.
+# Configuration
+I always use my static library [libft_g](/libft_g) which contains : 
+- C standard library
+ -  data structures :
+ - [ ] Linked list
+ - [ ] Hash table
+ - [ ] Binary tree
+ - Algorithms : 
+ - [ ] selection sort
+ - [ ] bubble sort
+
 
 # Projects
 
 | Projects | description | Difficulty | language | state |
 |--|--|--|--|--|
-| [bc](/projects/calculator-bc-42-master) | Recode the bc command in C | T1 | C | :100: |
 | [libft](/projects/libft) | C standard library and data structures (linked list, hash table, binary tree, ...) | T1 |C |:100: |
 | [fillit](/projects/fillit) | Puzzle | T1 | C |:100: |
 | [get_next_line](/projects/get_next_line) | read line by line any file descriptor | T1 | C |:100: |
@@ -29,3 +39,5 @@ Hi! Here is all my work at [42 Sillicon Valley](https://www.42.us.org/) and [42 
 - Peer to peer evaluations
 - Moulinette
 - valgrind for memory leaks
+
+
