@@ -1,1 +1,0 @@
-sha1-sse2.lo: sha1-sse2.S
