@@ -12,8 +12,6 @@
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	if (s1 == 0 || s2 == 0)
-		return (0);
 	while (*s1 && *s2 && *s1 == *s2)
 	{
 		s1++;
@@ -21,5 +19,5 @@ int	ft_strcmp(char *s1, char *s2)
 	}
 	if (*s1 == 0 && *s2 == 0)
 		return (0);
-	return ((int)(*s1 - *s2));
+	return ((int)((unsigned char)*s1 - (unsigned char)*s2));
 }

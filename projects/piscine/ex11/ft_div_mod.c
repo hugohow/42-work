@@ -12,10 +12,6 @@
 
 void	ft_div_mod(int a, int b, int *div, int *mod)
 {
-	if (b == 0)
-		return ;
-	if (div == 0 || mod == 0)
-		return ;
 	*mod = a % b;
 	*div = a / b;
 }

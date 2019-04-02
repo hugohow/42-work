@@ -14,8 +14,6 @@ void	ft_swap(int *a, int *b)
 {
 	int tmp;
 
-	if (a == 0 || b == 0)
-		return ;
 	tmp = *a;
 	*a = *b;
 	*b = tmp;

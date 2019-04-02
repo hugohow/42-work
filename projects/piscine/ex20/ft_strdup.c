@@ -14,8 +14,8 @@
 
 char *ft_strdup(char *src)
 {
-	int len;
-	char *output;
+	int	len;
+	char	*output;
 
 	while (str[len])
 		len++;
@@ -28,6 +28,6 @@ char *ft_strdup(char *src)
 		output[len] = src[len];
 		len++;
 	}
-	output[len] = 0;
+	output[len] = '\0';
 	return (output);
 }
