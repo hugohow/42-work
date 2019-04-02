@@ -21,8 +21,12 @@ typedef struct s_tetri
 }               t_tetri;
 
 t_tetri    **ft_list_tetri(char const *str);
-char    *solve(t_tetri **list, size_t list_len);
+char    *solve(t_tetri **list);
 void    print_table(char *empty, int size);
 size_t  ft_strlen(const char *str);
+void    trim_horizontal(char *tetri);
+void    trim_vertical(char *tetri);
+void exclude_tetri(char *table, t_tetri *tetri);
+void include_tetri(char *table, t_tetri *tetri, int position, int size);
 
 #endif

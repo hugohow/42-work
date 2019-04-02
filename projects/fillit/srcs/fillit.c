@@ -1,17 +1,6 @@
 #include "fillit.h"
 
-
-size_t ft_strlist(t_tetri **list_tetri)
-{
-    size_t list_len;
-
-    list_len = 0;
-    while (list_tetri[list_len] != 0)
-    {
-        list_len++;
-    }
-    return (list_len);
-}
+#define LIMIT_TETRIS 26
 
 int main(int argc, char **argv)
 {
@@ -29,23 +18,19 @@ int main(int argc, char **argv)
     fd = open(argv[1], O_RDONLY);
     if (fd != -1)
     {
-        buf = malloc((25 * 28) * sizeof(char));
+        buf = malloc((LIMIT_TETRIS * 28) * sizeof(char));
         if (buf == NULL)
             return (0);
-        read(fd, buf, 25 * 28);
-
-        // if (is_valid(buf) == 1)
-        // {
-            list_tetri = ft_list_tetri(buf);
-            if (list_tetri == NULL)
-            {
-                printf("error\n");
-                return (0);
-            }
-            
-            result = solve(list_tetri, ft_strlist(list_tetri));
-        //     //continue
-        // }
+        read(fd, buf, LIMIT_TETRIS * 28);
+		list_tetri = ft_list_tetri(buf);
+		if (list_tetri == NULL)
+		{
+			printf("error\n");
+			return (0);
+		}
+		
+		result = solve(list_tetri);
+		free(buf);
         close(fd);
     }
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-MYPATH="$1"
+MYPATH="."
 command -v $MYPATH/fillit >/dev/null 2>&1 || { echo "Don't find fillit!\nNOTE: \033[0;31m0 / 46\033[0m"; exit 1; }
 echo "fillit_checker by agadhgad"
 LOCALPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"

@@ -1,46 +1,11 @@
 #include "fillit.h"
 
-void print_table(char *table, int size);
-
-void write_in_table(char *table, char letter, int col, int row, int size)
-{
-    table[row * size + col] = letter;
-}
 
 int is_point_ok(char *table, int col, int row, int size)
 {
     if (table[row * size + col] != '.')
         return (0);
     return (1);
-}
-
-void include_tetri(char *table, t_tetri *tetri, int position, int size)
-{
-    int i;
-    int row;
-    int col;
-
-    i = 0;
-    while (i != 4)
-    {
-        col = position % size + (tetri->points[i]).col;
-        row = position / size + (tetri->points[i]).row;
-        write_in_table(table, tetri->letter, col, row, size);
-        i++;
-    }
-}
-
-void exclude_tetri(char *table, t_tetri *tetri)
-{
-    int i;
-
-    i = 0;
-    while (table[i])
-    {
-        if (table[i] == tetri->letter)
-            table[i] = '.';
-        i++;
-    }
 }
 
 int ft_find(char *table, char c)
@@ -119,7 +84,7 @@ int place_tetri(char *table, t_tetri **list, int position, int size)
     return (place_tetri(table, list, position + 1, size));
 }
 
-int find_res(char *table, t_tetri **list, int size)
+int find_solution(char *table, t_tetri **list, int size)
 {
     int i;
     i = 0;
@@ -131,17 +96,29 @@ int find_res(char *table, t_tetri **list, int size)
     return place_tetri(table, list, 0, size);
 }
 
-char *solve(t_tetri **list, size_t list_len)
+size_t ft_strlist(t_tetri **list_tetri)
+{
+    size_t list_len;
+
+    list_len = 0;
+    while (list_tetri[list_len] != 0)
+    {
+        list_len++;
+    }
+    return (list_len);
+}
+
+char *solve(t_tetri **list)
 {
     char *table;
     int size;
 
-    size = list_len >= 4 ? 4 : 2;
+    size = ft_strlist(list) >= 4 ? 4 : 2;
     // printf("list_len : %zu", list_len);
     table = (char *)malloc((17 * 28) * sizeof(char));
     if (table == NULL)
         return (NULL);
-    while (find_res(table, list, size) == 0 && size < 25)
+    while (find_solution(table, list, size) == 0 && size < 25)
     {
         // printf("Test with %d\n", size);
         // printf("-------------------------------------------------\n");

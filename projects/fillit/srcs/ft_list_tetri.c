@@ -3,79 +3,6 @@
 size_t  ft_strlen(const char *str);
 
 
-size_t   count_tetri(char const *str)
-{
-    size_t i;
-    size_t count;
-
-    i = 0;
-    count = 1;
-    while (str[i])
-    {
-        if (str[i + 1] && str[i] == '\n' && str[i + 1] == '\n')
-            count++;
-        i++;
-    }
-    return (count);
-}
-
-void    offset_vertical(char *tetri)
-{
-    int i;
-    int j;
-
-    i = 0;
-    while (i < 4)
-    {
-        if (tetri[i] != '.')
-            break;
-        i++;
-    }
-    if (i == 4)
-    {
-        j = 4;
-        while (j != 4*4)
-        {
-            tetri[j - 4] = tetri[j];
-            j++;
-        }
-        j = 4*4 - 4;
-        while (j < 4*4)
-            tetri[j++] = '.';
-        offset_vertical(tetri);
-    }
-    return ;
-}
-
-
-void    offset_horizontal(char *tetri)
-{
-    int i;
-    int j;
-
-    i = 0;
-    while (i < 4*4)
-    {
-        if (i % 4 == 0 && tetri[i] != '.')
-            break;
-        i++;
-    }
-    if (i == 4*4)
-    {
-        j = 0;
-        while (j != 4*4)
-        {
-            tetri[j] = tetri[j + 1];
-            tetri[j+1] = tetri[j + 2];
-            tetri[j+2] = tetri[j + 3];
-            tetri[j+3] = '.';
-            j += 4;
-        }
-        offset_horizontal(tetri);
-    }
-    return ;
-}
-
 t_tetri *create_tetri(char *str)
 {
     t_tetri *tetri;
@@ -123,49 +50,71 @@ int char_is_valid(char c)
     return (0);
 }
 
-t_tetri    **ft_list_tetri(char const *str)
+int get_next_tetri(const char *list, char *buf, char c)
+{
+	int ret;
+	size_t j;
+	size_t i;
+
+	ret = 0;
+
+	j = 0;
+	i = 0;
+	// on vérifie si les 16 premiers elements (en enlevant les \n) sont ok
+	while (list[i] && j != 16)
+	{
+		if (char_is_valid(list[i]) == 0)
+			break;
+		if (list[i] == '\n')
+		{
+			if (list[i + 1] == '\0')
+				break;
+			if (list[i + 1] == '\n')
+				break;
+			i++;
+		}
+		buf[j] = list[i] == '#' ? c : list[i];
+		j++;
+		i++;
+	}
+	if (j != 16)
+		return (0);
+	// on a les 16 premiers éléments en enlevant les \n
+	buf[j] = '\0';
+	ret = i;
+	return (ret);
+}
+
+t_tetri    **ft_list_tetri(char const *list)
 {
     t_tetri **list_tetri;
     t_tetri *tetri;
-    char *tmp_str;
+    char *tmp_list;
     size_t i;
-    size_t j;
     size_t k;
-    size_t str_len;
+    size_t list_len;
+
+	int ret;
 
     list_tetri = (t_tetri **)malloc((28) * sizeof(t_tetri *));
     i = 0;
     k = 0;
-    str_len = ft_strlen(str);
-    while (str[i])
+	ret = 0;
+    list_len = ft_strlen(list);
+    while (list[i])
     {
-        if (str[i + 1] && str[i] != '\n' && str[i + 1] != '\n')
+        if (list[i + 1] && list[i] != '\n' && list[i + 1] != '\n')
         {
-            tmp_str = (char *)malloc((str_len + 1) * sizeof(char));
-            if (tmp_str == NULL)
+            tmp_list = (char *)malloc((list_len + 1) * sizeof(char));
+            if (tmp_list == NULL)
                 return (NULL);
-            j = 0;
-            while (str[i] && char_is_valid(str[i]))
-            {
-                if ((str[i] == '\n' && str[i + 1] == '\n') || str[i + 1] == '\0')
-                    break;
-                if (str[i] == '\n')
-                    i++;
-                tmp_str[j] = str[i] == '#' ? 'A' + k : str[i];
-                j++;
-                i++;
-            }
-            if ((str[i + 1] && str[i + 2]) && (str[i + 2] != '.' && str[i + 2] != '#'))
-            {
-                // printf("str[i + 2] != '.' : %c \n", str[i + 2]);    
-                return (NULL);
-            }
-            if (j != 16)
-                return (NULL);
-            tmp_str[j] = '\0';
-            offset_vertical(tmp_str);
-            offset_horizontal(tmp_str);
-            tetri = create_tetri(tmp_str);
+			ret = get_next_tetri(list + i, tmp_list, 'A' + k);
+			i += ret;
+			if (ret == 0)
+				return (NULL);
+            trim_vertical(tmp_list);
+            trim_horizontal(tmp_list);
+            tetri = create_tetri(tmp_list);
             if (tetri == NULL)
                 return (NULL);
             list_tetri[k++] = tetri;
@@ -173,7 +122,7 @@ t_tetri    **ft_list_tetri(char const *str)
         else 
             i++;
     }
-    if (i > 2 && str[i - 2] == '\n')
+    if (i > 2 && list[i - 2] == '\n')
         return (NULL);
     list_tetri[k] = 0;
     return (list_tetri);
