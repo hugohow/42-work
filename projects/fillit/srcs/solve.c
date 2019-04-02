@@ -112,8 +112,7 @@ char *solve(t_tetri **list)
     char *table;
     int size;
 
-    size = ft_strlist(list) >= 4 ? 4 : 2;
-    // printf("list_len : %zu", list_len);
+    size = ft_strlist(list)/2;
     table = (char *)malloc((17 * 28) * sizeof(char));
     if (table == NULL)
         return (NULL);

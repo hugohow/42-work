@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 22:54:04 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 22:54:08 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/02 23:40:23 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int main(int argc, char **argv)
         printf("usage");
         return (0);
     }
-
     fd = open(argv[1], O_RDONLY);
     if (fd != -1)
     {
