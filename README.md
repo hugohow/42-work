@@ -6,7 +6,7 @@ Hi! Here is all my work at [42 Sillicon Valley](https://www.42.us.org/) and [42 
 
 | Projects | description | language | state |
 |--|--|--|--|
-| bc | Recode the bc command in C |  C | :white_check_mark: |
+| [bc](/calculator-bc-42-master) | Recode the bc command in C |  C | :white_check_mark: |
 | libft | C standard library and data structures (linked list, hash table, binary tree, ...) | C |:white_check_mark: |
 
 ## Tests
