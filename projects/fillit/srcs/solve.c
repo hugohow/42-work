@@ -1,6 +1,5 @@
 #include "fillit.h"
 
-
 int is_point_ok(char *table, int col, int row, int size)
 {
     if (table[row * size + col] != '.')

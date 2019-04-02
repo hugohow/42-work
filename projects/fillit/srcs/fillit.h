@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#define LIMIT_TETRIS 26
 
 typedef struct s_position
 {
