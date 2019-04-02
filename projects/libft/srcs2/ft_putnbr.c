@@ -6,31 +6,29 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:05:53 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 17:11:38 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:04:46 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void    ft_putnbr(int nb)
+void	ft_putnbr(int nb)
 {
-    if (nb == -2147483648)
-    {
-        ft_putstr("-2147483648");
-        return ;
-    }
-    if (nb < 0)
-    {
-        nb = -nb;
-        ft_putstr("-");
-    }
-    if (nb < 10)
-    {
-        ft_putchar(nb + '0');
-    }
-    else
-    {
-        ft_putnbr(nb / 10);
-        ft_putchar(nb % 10 + '0');
-    }
+	if (nb == -2147483648)
+	{
+		ft_putstr("-2147483648");
+		return ;
+	}
+	if (nb < 0)
+	{
+		nb = -nb;
+		ft_putstr("-");
+	}
+	if (nb < 10)
+		ft_putchar(nb + '0');
+	else
+	{
+		ft_putnbr(nb / 10);
+		ft_putchar(nb % 10 + '0');
+	}
 }

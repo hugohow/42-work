@@ -6,13 +6,11 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 16:32:39 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 17:09:07 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/02 17:15:58 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-#define LL_LIMIT 9223372036854775807
 
 int	is_valid(char c)
 {

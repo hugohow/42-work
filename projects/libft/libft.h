@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 16:11:35 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 17:13:43 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/02 17:16:04 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define LIBFT_H
 # include <string.h>
+# define LL_LIMIT 9223372036854775807
 
 typedef struct	s_list
 {

@@ -6,19 +6,19 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:06:30 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 17:11:58 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:06:20 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_striter(char *s, void (*f)(char *))
+void	ft_striter(char *s, void (*f)(char *))
 {
-    if (s == NULL)
+	if (s == NULL)
 		return ;
-    while (*s)
-    {
-        f(s);
-        s++;
-    }
+	while (*s)
+	{
+		f(s);
+		s++;
+	}
 }

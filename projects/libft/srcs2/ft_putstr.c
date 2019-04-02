@@ -6,16 +6,16 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:06:10 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 17:11:45 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:05:16 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "libft.h"
 
-void ft_putstr(char const *str)
+void	ft_putstr(char const *str)
 {
-    if (str == NULL)
-        return ;
-    write(1, str, ft_strlen(str));
+	if (str == NULL)
+		return ;
+	write(1, str, ft_strlen(str));
 }

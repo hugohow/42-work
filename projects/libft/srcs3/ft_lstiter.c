@@ -6,19 +6,17 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:13:24 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 17:13:25 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:44:52 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void    ft_lstiter(t_list *lst, void (*f)(t_list *elem))
+void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-    if (lst == NULL)
-        return ;
-    else
-    {
-        f(lst);
-        ft_lstiter(lst->next, f);
-    }
+	if (lst != NULL)
+	{
+		f(lst);
+		ft_lstiter(lst->next, f);
+	}
 }

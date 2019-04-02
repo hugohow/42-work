@@ -6,13 +6,13 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:06:20 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 17:11:51 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:05:39 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void    ft_strdel(char **as)
+void	ft_strdel(char **as)
 {
-    ft_memdel((void **)as);
+	ft_memdel((void **)as);
 }
