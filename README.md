@@ -2,6 +2,17 @@
 # Welcome to 42
 
 Hi! Here is all my work at [42 Sillicon Valley](https://www.42.us.org/) and [42 Paris](https://www.42.fr/). Most of the projects are in C.
+# Configuration
+I always use my static library [libft_g](/projects/libft_g) which contains : 
+- C standard library
+ -  data structures :
+ - [ ] Linked list
+ - [ ] Hash table
+ - [ ] Binary tree
+ - Algorithms : 
+ - [ ] selection sort
+ - [ ] bubble sort
+
 
 # Projects
 
@@ -29,3 +40,5 @@ Hi! Here is all my work at [42 Sillicon Valley](https://www.42.us.org/) and [42 
 - Peer to peer evaluations
 - Moulinette
 - valgrind for memory leaks
+
+
