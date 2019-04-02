@@ -3,7 +3,7 @@
 
 Hi! Here is all my work at [42 Sillicon Valley](https://www.42.us.org/) and [42 Paris](https://www.42.fr/). Most of the projects are in C.
 # Configuration
-I always use my static library [libft_g](/projects/libft_g) which contains : 
+I always use my static library [libft_g](/libft_g) which contains : 
 - C standard library
  -  data structures :
  - [ ] Linked list
