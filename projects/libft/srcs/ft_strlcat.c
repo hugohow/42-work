@@ -1,6 +1,16 @@
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/02 17:01:22 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/02 17:10:35 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-size_t  ft_strlen(const char *str);
+#include "libft.h"
 
 size_t  ft_strlcat(char *dst, const char *src, size_t size)
 {

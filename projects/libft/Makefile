@@ -7,6 +7,7 @@ all: $(NAME)
 $(NAME):
 	$(CC) $(CFLAGS) -c srcs/*.c srcs2/*.c srcs3/*.c
 	ar rc $(NAME) *.o
+	ranlib $(NAME)
 	
 clean:
 	rm -rf *.o

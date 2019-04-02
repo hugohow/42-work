@@ -1,8 +1,17 @@
-#include <string.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/02 17:13:02 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/02 17:13:03 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-size_t  ft_strlen(const char *str);
-char    *ft_strsub(char const *str, unsigned int start, size_t len);
+
+#include "libft.h"
 
 char *ft_strtrim(char const *str)
 {

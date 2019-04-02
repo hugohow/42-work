@@ -1,8 +1,18 @@
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/02 16:44:19 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/02 17:14:02 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void    *ft_memset(void *b, int c, size_t len);
+#include "libft.h"
 
-void    ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
-    ft_memset(s, 0, n);
+	ft_memset(s, 0, n);
 }

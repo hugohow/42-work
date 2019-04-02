@@ -1,6 +1,17 @@
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/02 17:05:37 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/02 17:11:28 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void ft_putstr_fd(char const *str, int fd);
+
+#include "libft.h"
 
 void ft_putendl_fd(char const *str, int fd)
 {

@@ -1,7 +1,16 @@
-#include <unistd.h>
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/02 17:05:59 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/02 17:11:41 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-size_t ft_strlen(const char *str);
+#include "libft.h"
 
 void ft_putstr_fd(char const *str, int fd)
 {

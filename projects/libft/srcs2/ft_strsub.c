@@ -1,7 +1,17 @@
-#include <string.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/02 17:12:56 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/02 17:12:57 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-size_t  ft_strlen(const char *str);
+
+#include "libft.h"
 
 char *ft_strsub(char const *str, unsigned int start, size_t len)
 {

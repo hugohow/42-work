@@ -1,8 +1,16 @@
-#include <string.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/02 17:01:15 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/02 17:10:30 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-size_t  ft_strlen(const char *str);
-char    *ft_strcpy(char *dst, const char *src);
+#include "libft.h"
 
 char    *ft_strdup(const char *s1)
 {

@@ -1,12 +1,16 @@
-#include <string.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/02 17:13:13 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/02 17:13:14 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct      s_list
-{
-    void            *content;
-    size_t          content_size;
-    struct s_list   *next;
-}                   t_list;
+#include "libft.h"
 
 void    ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {

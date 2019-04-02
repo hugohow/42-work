@@ -1,12 +1,16 @@
-#include <string.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/02 17:13:07 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/02 17:13:08 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct      s_list
-{
-    void            *content;
-    size_t          content_size;
-    struct s_list   *next;
-}                   t_list;
+#include "libft.h"
 
 void    ft_lstadd(t_list **alst, t_list *new_el)
 {

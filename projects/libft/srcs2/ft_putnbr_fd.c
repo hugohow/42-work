@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/02 17:05:48 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/02 17:11:35 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void    ft_putstr_fd(char const *str, int fd);
-void    ft_putchar_fd(char c, int fd);
+#include "libft.h"
 
 void    ft_putnbr_fd(int nb, int fd)
 {

@@ -1,12 +1,16 @@
-#include <string.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/02 17:13:28 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/02 17:13:29 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct      s_list
-{
-    void            *content;
-    size_t          content_size;
-    struct s_list   *next;
-}                   t_list;
+#include "libft.h"
 
 t_list  *ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {

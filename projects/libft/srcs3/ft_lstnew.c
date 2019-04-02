@@ -1,14 +1,16 @@
-#include <string.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/02 17:13:35 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/02 17:13:36 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct      s_list
-{
-    void            *content;
-    size_t          content_size;
-    struct s_list   *next;
-}                   t_list;
-
-void    *ft_memcpy(void *dst, const void *src, size_t n);
+#include "libft.h"
 
 t_list *ft_lstnew(void const *content, size_t content_size)
 {
