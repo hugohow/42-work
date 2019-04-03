@@ -5,7 +5,7 @@
 - selection sort
 - bubble sort
 
-# data structures :
+# data structures
 
 - hash table
 - linked list
