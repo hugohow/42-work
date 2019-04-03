@@ -15,6 +15,8 @@
 
 # define LIBFT_H
 # include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
 # define LL_LIMIT 9223372036854775807
 
 typedef struct	s_list

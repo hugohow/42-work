@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/02 22:54:04 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 23:40:23 by hhow-cho         ###   ########.fr       */
+/*   Created: 2019/04/03 18:48:02 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/03 20:33:10 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,22 @@ int main(int argc, char **argv)
         if (buf == NULL)
             return (0);
         read(fd, buf, LIMIT_TETRIS * 28);
-		list_tetri = ft_list_tetri(buf);
-		if (list_tetri == NULL)
-		{
-			printf("error\n");
-			return (0);
-		}
-		
-		result = solve(list_tetri);
-		if (result)
-			free(result);
+        if (is_valid_input(buf) == 1)
+        {
+            list_tetri = tokenize(buf);
+            if (list_tetri == NULL)
+                printf("error\n");
+            else
+            {
+                result = solve(list_tetri);
+                if (result)
+			        free(result);
+            }
+        }
+        else
+        {
+            printf("error\n");
+        }
 		free(buf);
         close(fd);
     }

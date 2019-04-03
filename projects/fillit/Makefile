@@ -1,6 +1,6 @@
 NAME=fillit
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror
+CFLAGS=-Wall -Wextra -Werror -g
 
 all:
 	$(CC) $(CFLAGS) -o $(NAME) srcs/*.c
