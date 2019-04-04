@@ -36,6 +36,12 @@ Not verified, don't use it in prod :relieved:
 | [Drivers and Interrupts](/projects/libft-asm) | Drivers and Interrupts | T3 | C |:construction_worker: |
 | [Filesystem](/projects/Filesystem) |Filesystem | T3 | C |:construction_worker: |
 
+
+# Piscine 
+
+- Data structures: queues, stacks, trees, graphs
+- Algorithms: quick sort, merge sort, heap sort, dijkstra, A*
+
 ## Tests
 - Peer to peer evaluations
 - Moulinette
