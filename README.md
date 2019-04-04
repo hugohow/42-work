@@ -19,6 +19,7 @@ I also use my [Dockerfile](/docker_config/Dockerfile) to have a Linux environmen
 | [get_next_line](/projects/get_next_line) | read line by line any file descriptor | T1 | C |:100: |
 | [push_swap](/projects/push_swap) | Sorting algorithms | T1 | C |:100: |
 | [ft_printf](/projects/ft_printf) | syntax tree to understand printf function | T1 | C |:100: |
+| [ft_ls](/projects/ft_ls) | Implementation of ls based on binary tree | T1 | C |:100: |
 | [ft_select](/projects/ft_select) | Terminal interaction | T1 | C |:100: |
 | [Taskmaster](/projects/taskmaster) | TCP/IP server to control processes | T1 | Node js |:100: |
 | [minishell/21sh/42sh](/projects/minishell_21sh_42sh) | Recreate my own shell |  T3 | C |:100: |
@@ -36,11 +37,6 @@ Not verified, don't use it in prod :relieved:
 | [Drivers and Interrupts](/projects/libft-asm) | Drivers and Interrupts | T3 | C |:construction_worker: |
 | [Filesystem](/projects/Filesystem) |Filesystem | T3 | C |:construction_worker: |
 
-
-# Piscine 
-
-- Data structures: queues, stacks, trees, graphs
-- Algorithms: quick sort, merge sort, heap sort, dijkstra, A*
 
 ## Tests
 - Peer to peer evaluations
