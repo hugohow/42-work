@@ -17,7 +17,6 @@ I also use my [Dockerfile](/docker_config/Dockerfile) to have a Linux environmen
 | [libft](/projects/libft) | C standard library | T1 |C |:100: |
 | [fillit](/projects/fillit) | Backtracking to solve a tetris game :muscle: | T1 | C |:100: |
 | [get_next_line](/projects/get_next_line) | read line by line any file descriptor | T1 | C |:100: |
-| [push_swap](/projects/push_swap) | Sorting algorithms | T1 | C |:100: |
 | [ft_printf](/projects/ft_printf) | syntax tree to understand printf function | T1 | C |:100: |
 | [ft_ls](/projects/ft_ls) | Implementation of ls based on binary tree | T1 | C |:100: |
 | [ft_select](/projects/ft_select) | Terminal interaction | T1 | C |:100: |
