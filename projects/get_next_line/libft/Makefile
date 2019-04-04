@@ -5,8 +5,9 @@ CFLAGS=-Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME):
-	$(CC) $(CFLAGS) -c srcs/*.c srcs2/*.c srcs3/*.c
+	$(CC) $(CFLAGS) -c *.c
 	ar rc $(NAME) *.o
+	ranlib $(NAME)
 	
 clean:
 	rm -rf *.o

@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:48:02 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/03 20:33:10 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/04 17:34:05 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int main(int argc, char **argv)
     fd = open(argv[1], O_RDONLY);
     if (fd != -1)
     {
-        buf = malloc((LIMIT_TETRIS * 28) * sizeof(char));
+        buf = malloc((LIMIT_TETRIS * SIZE_BUFFER_TETRIS) * sizeof(char));
         if (buf == NULL)
             return (0);
-        read(fd, buf, LIMIT_TETRIS * 28);
+        read(fd, buf, LIMIT_TETRIS * SIZE_BUFFER_TETRIS);
         if (is_valid_input(buf) == 1)
         {
             list_tetri = tokenize(buf);

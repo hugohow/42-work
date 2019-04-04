@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 18:54:09 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/03 20:54:35 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/04 18:03:02 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define LIMIT_TETRIS 26
+#define SIZE_TETRIS 4
+#define SIZE_BUFFER_TETRIS (SIZE_TETRIS + 1) * 4 + 1
 
 typedef struct s_position
 {
@@ -43,4 +45,7 @@ void exclude_tetri(char *table, t_tetri *tetri);
 void include_tetri(char *table, t_tetri *tetri, int position, int size);
 int is_valid_input(char *buf);
 int is_valid_points(t_position *points);
+void    tetritrim(char *tetri);
+void	ft_putstr_fd(char const *str, int fd);
+
 #endif
