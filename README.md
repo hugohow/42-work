@@ -17,7 +17,7 @@ I also use my [Dockerfile](/docker_config/Dockerfile) to have a Linux environmen
 | [ft_ls](/projects/ft_ls) | Unix | Implementation of ls based on binary tree | T1 | C |:100: |
 | [ft_select](/projects/ft_select) | Unix | Terminal interaction | T1 | C |:100: |
 | [Taskmaster](/projects/taskmaster) | Unix | TCP/IP server to control processes | T1 | Node js |:100: |
-| [minishell/21sh/42sh](/projects/minishell_21sh_42sh) | Unix |  Recreate my own shell |  T3 | C |:100: |
+| [minishell/21sh/42sh](/projects/minishell_21sh_42sh) | Unix |  My own shell done with abstract syntax tree |  T3 | C |:100: |
 
 Not verified, don't use it in prod :relieved:
 
