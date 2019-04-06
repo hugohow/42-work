@@ -1,0 +1,6 @@
+version: 3
+services:
+    memory-test:
+        volumes:
+            - '/Users/hugohow-choong/42/dockerfiles/memory-test/src:/42'
+        image: 'memory-test:latest'
