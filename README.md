@@ -23,7 +23,7 @@ Not verified, don't use it in prod :relieved:
 
 | Projects | Branch |  description | Difficulty | language | state |
 |--|--|--|--|--|--|
-| [ft_malloc](/projects/ft_malloc) | Unix | Recreate paging proccess of malloc, calloc and free | T2 | C |:construction_worker: |
+| [ft_malloc](/projects/ft_malloc) | Unix | Shared library to allocate and free memory based on mmap | T2 | C |:construction_worker: |
 | [nm-otools](/projects/nm-tools) | Unix | Nm-Otools | T2 | C |:construction_worker: |
 | [libft-asm](/projects/libft-asm) | Unix | standard lib in x64 asm | T2 | x64 asm |:construction_worker: |
 | [KFS-1](/projects/little-penguin-1) | Unix | Kernel from scratch part 1 | T3 | C |:construction_worker: |
