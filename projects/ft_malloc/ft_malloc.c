@@ -25,7 +25,7 @@ void *ft_malloc(size_t size)
 	int num_pages;
 	
 	num_pages = div_roundup(required, pagesize);
-	void * new_region = mmap(0, 4096, PROT_READ|PROT_WRITE, MAP_ANON|MAP_PRIVATE, 0, 0);
+	void * new_region = mmap(0, num_pages * 4096, PROT_READ|PROT_WRITE, MAP_ANON|MAP_PRIVATE, 0, 0);
 	if (new_region == MAP_FAILED) return NULL;
 	*(size_t*)new_region = required; // We use this to free() the right number of bytes
 	return new_region+sizeof(size_t);
