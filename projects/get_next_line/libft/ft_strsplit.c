@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:12:49 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/04 16:46:39 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/07 11:55:20 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*get_word(const char *str, char c)
 	char	*word;
 	size_t	j;
 
-	word = malloc((strlen(str) + 1) * sizeof(char));
+	word = malloc((ft_strlen(str) + 1) * sizeof(char));
 	j = 0;
 	if (word == NULL)
 		return (NULL);
@@ -70,7 +70,7 @@ char	**ft_strsplit(char const *str, char c)
 		if (str[i] != c)
 		{
 			list[k++] = get_word(str + i, c);
-			i += strlen(list[k-1]);
+			i += ft_strlen(list[k-1]);
 		}
 		else
 			i++;
