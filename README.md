@@ -23,7 +23,7 @@ Not verified, don't use it in prod :relieved:
 
 | Projects | Branch |  description | Difficulty | language | state |
 |--|--|--|--|--|--|
-| [ft_malloc](/projects/ft_malloc) | Unix | Shared library to allocate and free memory based on mmap | T2 | C |:construction_worker: |
+| [ft_malloc](/projects/ft_malloc) | Unix | Shared library to create memory pools | T2 | C |:construction_worker: |
 | [nm-otools](/projects/nm-tools) | Unix | Nm-Otools | T2 | C |:construction_worker: |
 | [libft-asm](/projects/libft-asm) | Unix | standard lib in x64 asm | T2 | x64 asm |:construction_worker: |
 | [ft_linux](/projects/ft_linux) | Unix | ft_linux | TA | C |:construction_worker: |
