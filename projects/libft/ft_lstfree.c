@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 18:22:38 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/04 18:31:07 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/08 10:55:23 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ft_lstfree(t_list *head)
 	while (head != NULL)
 	{
 		tmp = head;
-		free(tmp->content);
+		if (tmp->content)
+			free(tmp->content);
 		tmp->content = NULL;
 		tmp->content_size = 0;
 		free(tmp);

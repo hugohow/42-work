@@ -1,9 +1,8 @@
-
 #include <string.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
-int get_next_line(const int fd, char **line);
+#include "get_next_line.h"
 
 /*
 ** 2 lines with 8 chars with Line Feed
@@ -11,30 +10,37 @@ int get_next_line(const int fd, char **line);
 
 int				main(void)
 {
-	char 	*line;
-	int		out;
-	int		p[2];
-	int		fd;
+	char		*line;
+	int			fd;
+	int			ret;
+	int			count_lines;
+	char		*filename;
+	int			errors;
 
-	fd = 1;
-	out = dup(fd);
-	pipe(p);
-
-	dup2(p[1], fd);
-	write(fd, "aaa\nbbb\nccc\nddd\n", 16);
-	dup2(out, fd);
-	close(p[1]);
-	get_next_line(p[0], &line);
-	printf("%d\n", strcmp(line, "aaa") == 0);
-	printf("%s\n", line);
-	get_next_line(p[0], &line);
-	printf("%d\n", strcmp(line, "bbb") == 0);
-	printf("%s\n", line);
-	get_next_line(p[0], &line);
-	printf("%d\n", strcmp(line, "ccc") == 0);
-	printf("%s\n", line);
-	get_next_line(p[0], &line);
-	printf("%d\n", strcmp(line, "ddd") == 0);
-	printf("%s\n", line);
+	filename = "gnl3_1.txt";
+	fd = open(filename, O_RDONLY);
+	if (fd > 2)
+	{
+		count_lines = 0;
+		errors = 0;
+		line = NULL;
+		while ((ret = get_next_line(fd, &line)) > 0)
+		{
+			if (count_lines == 0 && strcmp(line, "1234567890abcde") != 0)
+				errors++;
+			count_lines++;
+			if (count_lines > 50)
+				break ;
+		}
+		close(fd);
+		if (count_lines != 1)
+			printf("-> must have returned '1' once instead of %d time(s)\n", count_lines);
+		if (errors > 0)
+			printf("-> must have read \"1234567890abcde\" instead of \"%s\"\n", line);
+		if (count_lines == 1 && errors == 0)
+			printf("OK\n");
+	}
+	else
+		printf("An error occured while opening file %s\n", filename);
 	return (0);
 }

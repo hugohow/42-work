@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 18:12:01 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/07 19:52:53 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/09 16:44:24 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#define BUFF_SIZE 10
+#define BUFF_SIZE 20
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <unistd.h>
@@ -40,4 +40,8 @@ void	ft_lstfree(t_list *head);
 char	*ft_strcpy(char *dst, const char *src);
 void    *ft_memmove(void *dst, const void *src, size_t len);
 void	*ft_memset(void *b, int c, size_t len);
+void	*ft_memalloc(size_t size);
+char    *ft_strchr(const char *str, int c);
+t_list	*ft_lstpop(t_list **p_head);
+t_list	*ft_lstpush(t_list *head, void const *content, size_t content_size);
 #endif

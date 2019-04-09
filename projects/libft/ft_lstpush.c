@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_lstpush.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/02 17:00:01 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/08 13:43:52 by hhow-cho         ###   ########.fr       */
+/*   Created: 2019/04/08 18:29:43 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/08 18:32:58 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+t_list	*ft_lstpush(t_list *head, void const *content, size_t content_size)
 {
-	unsigned char *src = (unsigned char *)s;
-	
-	while (n-- > 0)
-	{
-		if (*src == (unsigned char)c)
-			return (void *)src;
-		src++;
-	}
-	return (NULL);
+	t_list	*node;
+
+	node = head;
+	while (node->next)
+		node = node->next;
+	node->next = ft_lstnew(content, content_size);
+	return (node->next);
 }
