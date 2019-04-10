@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:13:13 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 18:43:25 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/10 20:26:29 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 	else
 		return ;
 	free(*alst);
-	*alst = NULL; 
+	*alst = NULL;
 }

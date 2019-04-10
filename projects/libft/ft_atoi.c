@@ -6,20 +6,20 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 16:32:39 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/07 13:34:39 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/10 20:36:43 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int is_digit(char c)
+static int	is_digit(char c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
 
-int	is_escapable_ft_atoi(char c)
+static int	is_escapable_ft_atoi(char c)
 {
 	if (c == '\t' || c == '\v'|| c == '\f' || c == '\r'
 		|| c == '\n' || c == ' ')
@@ -27,14 +27,14 @@ int	is_escapable_ft_atoi(char c)
 	return (0);
 }
 
-int	ft_atoi(const char *str)
+int			ft_atoi(const char *str)
 {
 	long long result;
 	int i;
-  	int sign;
+	int sign;
 
 	result = 0;
-  	sign = 1;
+	sign = 1;
 	i = 0;
 	while (str[i] && is_escapable_ft_atoi(str[i]))
 		i++;

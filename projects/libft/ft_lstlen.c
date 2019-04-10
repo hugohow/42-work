@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 15:24:18 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/09 15:25:34 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/10 20:26:52 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	ft_lstlen(t_list *head)
 {
 	size_t len;
-	
+
 	len = 0;
 	while (head)
 	{
