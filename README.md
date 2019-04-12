@@ -19,7 +19,7 @@ I also use my [Dockerfile](/docker_config/Dockerfile) to have a Linux environmen
 | [Taskmaster](/projects/taskmaster) | Unix | One more Node.js process manager 🔖 | T1 | Node js |:100: |
 | [minishell/21sh/42sh](/projects/minishell_21sh_42sh) | Unix |  My own shell done with abstract syntax tree |  T3 | C |:100: |
 
-Not verified, don't use it in prod :relieved:
+My main reference and inspiration : [Linux Kernel Development by Robert Love](https://www.amazon.fr/Linux-Kernel-Development-Robert-Love/dp/0672329468)
 
 | Projects | Branch |  description | Difficulty | language | state |
 |--|--|--|--|--|--|
@@ -33,6 +33,7 @@ Not verified, don't use it in prod :relieved:
 | [Drivers and Interrupts](/projects/libft-asm) | Unix | Drivers and Interrupts | T3 | C |:construction_worker: |
 | [Filesystem](/projects/Filesystem) | Unix | Filesystem | T3 | C |:construction_worker: |
 
+Not verified, don't use it in prod :relieved:
 
 ## Tests
 - Peer to peer evaluations
