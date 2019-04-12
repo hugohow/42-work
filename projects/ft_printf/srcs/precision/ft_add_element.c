@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 17:17:28 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/12 17:17:38 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/12 21:41:31 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,7 @@
 
 char *ft_add_element(char *str, t_flag *flag, int i)
 {
-    if (flag->minus == 1 && flag->conv == ' ')
-    {
-        int j;
-        j = ft_strlen(str) - 1;
-        while (j > i)
-        {
-            str[j] = str[j - 1];
-            j--;
-        }
-        str[i] = '0';
-        return (str);
-    }
-    else if (flag->minus == 0 && str[0] == ' ')
+    if (flag->minus == 0 && str[0] == ' ')
     {
         int j;
         j = 0;

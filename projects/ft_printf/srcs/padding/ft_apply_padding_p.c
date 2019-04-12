@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 18:49:41 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/12 18:49:42 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/12 23:26:34 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char *ft_apply_padding_p(char *str, t_flag *flag, int sign)
     char *to_add;
     unsigned int str_len;
     unsigned int i;
-    int has_offset_zero;
 
     str_len = ft_strlen(str);
     if (flag->plus == 1 && sign >= 0)
@@ -27,7 +26,6 @@ char *ft_apply_padding_p(char *str, t_flag *flag, int sign)
         str_len++;
     if (flag->plus == 0 && flag->space == 1 && sign >= 0)
         str_len++;
-    has_offset_zero = flag->zero;
     // printf("flag->width : %d\n", flag->width);
     // printf("str_len : %d\n", str_len);
     to_add = malloc((flag->width + 2) * sizeof(char));
@@ -36,12 +34,12 @@ char *ft_apply_padding_p(char *str, t_flag *flag, int sign)
     {
         while (i < flag->width - str_len)
         {
-            if (has_offset_zero == 1 && flag->minus == 0)
+            if (flag->zero == 1 && flag->minus == 0)
                 to_add[i++] = '0';
             else
                 to_add[i++] = ' ';
         }
-        if (has_offset_zero == 1 && flag->minus == 0)
+        if (flag->zero == 1 && flag->minus == 0)
         {
             to_add[i++] = '0';
             to_add[i++] = '0';
@@ -51,8 +49,8 @@ char *ft_apply_padding_p(char *str, t_flag *flag, int sign)
     to_add[i] = '\0';
     // printf("to_add : %s\n", to_add);
 
-    // si l'espace doit être collé -> if (has_offset_zero == 1 && flag->minus == 0)
-    if (has_offset_zero == 1 && flag->minus == 0)
+    // si l'espace doit être collé -> if (flag->zero == 1 && flag->minus == 0)
+    if (flag->zero == 1 && flag->minus == 0)
     {
         if (flag->width > str_len)
         {
@@ -93,7 +91,7 @@ char *ft_apply_precision_p(char *str, int precision)
         return (str);
     if (str_len >= (unsigned int)precision)
     {
-        return (ft_strjoin("0x", str));
+        return (ft_strjoin(PREFIX_0x, str));
     }
     output = malloc((precision + 4) * sizeof(char));
     i = 0;

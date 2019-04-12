@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/12 22:50:40 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/12 23:05:33 by hhow-cho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PRINTF_H
 # define PRINTF_H
 
@@ -7,6 +19,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include "libft.h"
+
+# define PREFIX_0X "0X"
+# define PREFIX_0x "0x"
+# define PREFIX_0 "0"
+# define GOT_PLUS(flag, sign) (flag->plus == 1 && sign >= 0)
+# define GOT_SPACE(flag, sign) (flag->plus == 0 && flag->space == 1 && sign >= 0)
+# define GOT_PREFIX(flag, sign) (flag->hash && sign != 0)
+# define GOT_MINUS(flag, sign) (sign < 0)
+# define FILL_WITH_ZEROS(flag, sign) (flag->zero == 1 && flag->minus == 0)
 
 typedef struct	s_flag
 {
@@ -22,20 +43,7 @@ typedef struct	s_flag
 }				t_flag;
 
 char *ft_convert_base(char *decimal, char *base);
-// char    *ft_itoa_u(unsigned int nb);
-// char    *ft_itoa_uhh(signed char nb);
-// char    *ft_itoa_uh(short nb);
-// char    *ft_itoa_ul(long nb);
-// char    *ft_itoa_ull(long nb);
-// char    *ft_itoa_uj(intmax_t nb);
-// char    *ft_itoa_uz(size_t nb);
-
-// char    *ft_itoa_hh(signed char nb);
-// char    *ft_itoa_h(short nb);
-// char    *ft_itoa_l(long nb);
 char    *ft_itoa_ll(long long nb);
-// char    *ft_itoa_j(intmax_t nb);
-// char    *ft_itoa_z(size_t nb);
 
 size_t ft_count_variable(const char *format);
 size_t ft_flaglen(const char *str);
