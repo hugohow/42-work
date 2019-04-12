@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 16:11:35 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/11 11:17:42 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/12 13:38:55 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
-
+#include <wchar.h>
 typedef struct	s_list
 {
 	void			*content;
@@ -85,4 +85,10 @@ t_list			*ft_lstpop(t_list **p_head, void (*del)(void *, size_t));
 t_list			*ft_lstpeek(t_list *head, int (*cmp)(t_list *n1, t_list *n2));
 t_list			*ft_lstpush(t_list **head, void const *data, size_t data_size);
 size_t			ft_lstlen(t_list *head);
+char			*ft_convert_base(char *decimal, char *base);
+wchar_t			*ft_wstrjoin(wchar_t const *str1, wchar_t const *str2);
+size_t			ft_wcslen(const wchar_t *str);
+void			ft_wputchar(wchar_t c);
+void			ft_wputstr(wchar_t const *str);
+wchar_t			*ft_wstrsub(wchar_t const *str, unsigned int start, size_t len);
 #endif
