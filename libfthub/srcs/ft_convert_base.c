@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:18:46 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/12 13:24:27 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:08:28 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char *ft_convert_base(char *decimal, char *base)
 	while (decimal[++i])
 		result = result * 10 + (decimal[i] - '0');
 	len = size_to_malloc(result, base_len);
-	output = (char *)malloc((len + 1) * sizeof(char));
+	output = (char *)malloc((len + 2) * sizeof(char));
 	if (output == NULL)
 		return (NULL);
 	output[len--] = '\0';

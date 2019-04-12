@@ -1,20 +1,20 @@
 #include "ft_printf.h"
 
-int count_zeros_possible_to_delete(char *str, char *flag, int sign)
+int count_zeros_possible_to_delete(char *str, t_flag *flag, int sign)
 {
     int count;
     int i;
 
     i = 0;
     count = 0;
-    if (get_hash(flag) == 1 && sign != 0)
+    if (flag->hash == 1 && sign != 0)
     {
         while (str[i])
         {
             if (str[i] == '0')
             {
                 i++;
-                if (flag[ft_strlen(flag) - 1] == 'o')
+                if (flag->conv == 'o')
                 {
                     while (str[i] && str[i] == '0')
                     {
@@ -23,7 +23,7 @@ int count_zeros_possible_to_delete(char *str, char *flag, int sign)
                     }
                     break;
                 }
-                else if (flag[ft_strlen(flag) - 1] == 'x')
+                else if (flag->conv == 'x')
                 {
                     i++;
                     while (str[i] && str[i] == '0')
@@ -33,7 +33,7 @@ int count_zeros_possible_to_delete(char *str, char *flag, int sign)
                     }
                     break;
                 }
-                else if (flag[ft_strlen(flag) - 1] == 'X')
+                else if (flag->conv == 'X')
                 {
                     i++;
                     while (str[i] && str[i] == '0')
@@ -66,21 +66,21 @@ int count_zeros_possible_to_delete(char *str, char *flag, int sign)
     return (count);
 }
 
-int count_precision(char *str, char* flag, int sign)
+int count_precision(char *str, t_flag *flag, int sign)
 {
     int count;
     int i;
 
     i = 0;
     count = 0;
-    if (get_hash(flag) == 1 && sign != 0)
+    if (flag->hash == 1 && sign != 0)
     {
         while (str[i])
         {
             if (str[i] == '0')
             {
                 i++;
-                if (flag[ft_strlen(flag) - 1] == 'o')
+                if (flag->conv == 'o')
                 {
                     count++;
                     while (str[i] && str[i] != ' ')
@@ -90,7 +90,7 @@ int count_precision(char *str, char* flag, int sign)
                     }
                     break;
                 }
-                else if (flag[ft_strlen(flag) - 1] == 'x')
+                else if (flag->conv == 'x')
                 {
                     i++;
                     while (str[i] && str[i] != ' ')
@@ -100,7 +100,7 @@ int count_precision(char *str, char* flag, int sign)
                     }
                     break;
                 }
-                else if (flag[ft_strlen(flag) - 1] == 'X')
+                else if (flag->conv == 'X')
                 {
                     i++;
                     while (str[i] && str[i] != ' ')
@@ -136,11 +136,11 @@ int count_precision(char *str, char* flag, int sign)
     return (count);
 }
 
-char *delete_element(char *str, char *flag, int i)
+char *delete_element(char *str, t_flag *flag, int i)
 {
     int j;
 
-    if (get_minus(flag) == 1)
+    if (flag->minus == 1)
     {
         // on décale vers la gauche
         j = i + 1;
@@ -165,29 +165,29 @@ char *delete_element(char *str, char *flag, int i)
     return (str);
 }
 
-char *delete_one_zero(char *str, char *flag, int sign)
+char *delete_one_zero(char *str, t_flag *flag, int sign)
 {
     // char *output;
     int i;
 
     i = 0;
-    if (get_hash(flag) == 1 && sign != 0)
+    if (flag->hash == 1 && sign != 0)
     {
         while (str[i])
         {
             if (str[i] == '0')
             {
                 i++;
-                if (flag[ft_strlen(flag) - 1] == 'o')
+                if (flag->conv == 'o')
                 {
                     return (delete_element(str, flag, i));
                 }
-                else if (flag[ft_strlen(flag) - 1] == 'x')
+                else if (flag->conv == 'x')
                 {
                     i++;
                     return (delete_element(str, flag, i));
                 }
-                else if (flag[ft_strlen(flag) - 1] == 'X')
+                else if (flag->conv == 'X')
                 {
                     i++;
                     return (delete_element(str, flag, i));
@@ -213,9 +213,9 @@ char *delete_one_zero(char *str, char *flag, int sign)
 }
 
 
-char *add_element(char *str, char *flag, int i)
+char *add_element(char *str, t_flag *flag, int i)
 {
-    if (get_minus(flag) == 1 && str[ft_strlen(str) - 1] == ' ')
+    if (flag->minus == 1 && flag->conv == ' ')
     {
         int j;
         j = ft_strlen(str) - 1;
@@ -227,7 +227,7 @@ char *add_element(char *str, char *flag, int i)
         str[i] = '0';
         return (str);
     }
-    else if (get_minus(flag) == 0 && str[0] == ' ')
+    else if (flag->minus == 0 && str[0] == ' ')
     {
         int j;
         j = 0;
@@ -257,29 +257,29 @@ char *add_element(char *str, char *flag, int i)
     }
 }
 
-char *add_one_zero(char *str, char *flag, int sign)
+char *add_one_zero(char *str, t_flag *flag, int sign)
 {
     // char *output;
     int i;
 
     i = 0;
-    if (get_hash(flag) == 1 && sign != 0)
+    if (flag->hash == 1 && sign != 0)
     {
         while (str[i])
         {
             if (str[i] == '0')
             {
                 i++;
-                if (flag[ft_strlen(flag) - 1] == 'o')
+                if (flag->conv == 'o')
                 {
                     return (add_element(str, flag, i));
                 }
-                else if (flag[ft_strlen(flag) - 1] == 'x')
+                else if (flag->conv == 'x')
                 {
                     i++;
                     return (add_element(str, flag, i));
                 }
-                else if (flag[ft_strlen(flag) - 1] == 'X')
+                else if (flag->conv == 'X')
                 {
                     i++;
                     return (add_element(str, flag, i));
@@ -304,93 +304,87 @@ char *add_one_zero(char *str, char *flag, int sign)
     return (str);
 }
 
-char *delete_zeros(char *str, char* flag, int precision, int sign)
+char *delete_zeros(char *str, t_flag *flag, int sign)
 {
 
     // printf("\npour : %s, on peut supprimer : %d\n", str, count_zeros_possible_to_delete(str, flag, sign));
     // printf("\npour : %s, la preicision est de  : %d\n", str, count_precision(str, flag, sign));
-    // printf("\npour : %s, la precision voulue est de  : %d\n", str, get_precision(flag));
+    // printf("\npour : %s, la precision voulue est de  : %d\n", str, flag->precision);
 
     // plus de 0 à delete
     if (count_zeros_possible_to_delete(str, flag, sign) == 0)
         return (str);
     // la precision voulue est bien
-    if (count_precision(str, flag, sign) == get_precision(flag))
+    if (count_precision(str, flag, sign) == flag->precision)
         return (str);
     
     // il faut enlever du gras
     
     str = delete_one_zero(str, flag, sign);
-    return (delete_zeros(str, flag, precision, sign));
+    return (delete_zeros(str, flag, sign));
 }
 
-char *add_zeros(char *str, char* flag, int precision, int sign)
+char *add_zeros(char *str, t_flag *flag, int sign)
 {
     // printf("\npour : %s, la preicision est de  : %d\n", str, count_precision(str, flag, sign));
-    // printf("\npour : %s, la precision voulue est de  : %d\n", str, get_precision(flag));
+    // printf("\npour : %s, la precision voulue est de  : %d\n", str, flag->precision);
 
     // la precision voulue est bien
-    if (count_precision(str, flag, sign) == get_precision(flag))
+    if (count_precision(str, flag, sign) == flag->precision)
         return (str);
     
     // il faut ajouter du gras
     str = add_one_zero(str, flag, sign);
-    return (add_zeros(str, flag, precision, sign));
+    return (add_zeros(str, flag, sign));
 }
 
 
-char *apply_precision(char *str, char* flag, int sign)
+char *apply_precision(char *str, t_flag *flag, int sign)
 {
-    // unsigned int i;
-    // unsigned int k;
     unsigned int str_len;
-    // char *output;
-    int precision;
-
-    precision = get_precision(flag);
     str_len = ft_strlen(str);
 
 
     if (sign == 0)
     {
-        if (get_width(flag) == 0 && precision == 0)
+        if (flag->width == 0 && flag->precision == 0)
         {
             // very special case
-            if (flag[ft_strlen(flag) - 1] == 'o')
+            if (flag->conv == 'o')
                 return ("0");
-            if (get_plus(flag))
+            if (flag->plus)
                 return ("+");
-            if (get_space(flag))
+            if (flag->space)
                 return (" ");
             return ("");
         }
         // on enleve un 0 (et il ne doit y avoir qu'un seul)
     }
-    if (precision < 0)
+    if (flag->precision < 0)
         return (str);
 
-    // si precision == 0
+    // si flag->precision == 0
 
     // voir si l'element est 0 ou pas
     // si oui -> il faut 
 
 
-    // si str_len == precision
-    if (str_len == (unsigned int)precision)
+    // si str_len == flag->precision
+    if (str_len == (unsigned int)flag->precision)
         return (str);
 
     
-    if (count_precision(str, flag, sign) > get_precision(flag))
+    if (count_precision(str, flag, sign) > flag->precision)
     {
         // alors on doit enlever du gras (du 0)
-        return (delete_zeros(str, flag, precision, sign));
+        return (delete_zeros(str, flag, sign));
     }
 
     
-    if (count_precision(str, flag, sign) < get_precision(flag))
+    if (count_precision(str, flag, sign) < flag->precision)
     {
         // alors on doit rajouter du gras
-        return (add_zeros(str, flag, precision, sign));
+        return (add_zeros(str, flag, sign));
         // return (str);
     }   
 

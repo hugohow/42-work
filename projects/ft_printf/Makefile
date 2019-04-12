@@ -5,11 +5,11 @@ CFLAGS=-Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME):
-	$(CC) $(CFLAGS) -Iincludes -c srcs/*.c libft/*.c
+	$(CC) $(CFLAGS) -Iincludes -g -c srcs/*.c libft/*.c srcs/flag/*.c
 	ar rc $(NAME) *.o
 	ranlib $(NAME)
 	rm -rf *.o
-	gcc $(NAME) main.c -o main
+	gcc -g $(NAME) main.c -o main
 	./main
 
 test: re
