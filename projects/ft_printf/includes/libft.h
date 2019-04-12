@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 16:11:35 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/12 13:52:57 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/12 19:30:10 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char			*ft_strjoin(char const *str1, char const *str2);
 char			*ft_strtrim(char const *str);
 char			**ft_strsplit(char const *str, char c);
 char			*ft_itoa(int nb);
+char			*ft_ulltoa(unsigned long long nb);
 void			ft_putchar(char c);
 void			ft_putstr(char const *str);
 void			ft_putendl(char const *str);
@@ -91,4 +92,5 @@ size_t			ft_wcslen(const wchar_t *str);
 void			ft_wputchar(wchar_t c);
 void			ft_wputstr(wchar_t const *str);
 wchar_t			*ft_wstrsub(wchar_t const *str, unsigned int start, size_t len);
+
 #endif

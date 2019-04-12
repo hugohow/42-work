@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 14:20:38 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/12 16:51:04 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/12 19:30:41 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             output = "";
         if (output == NULL)
             output = "(null)";
-        output = offset(output, str);
+        output = ft_apply_padding(output, flag);
         ft_putstr_len(output, len);
     }
     else if (flag->conv == '%')
     {
         char *output;
         output = "%";
-        output = offset_d(output, flag, 1);
+        output = ft_apply_padding_d(output, flag, 1);
         ft_putstr_len(output, len);
     }
     else if (flag->conv == 'c')
@@ -59,7 +59,7 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
         output[1] = '\0';
         if (output[0] == '\0' || output[0] == 0)
             *len += 1;
-        output = offset(output, str);
+        output = ft_apply_padding(output, flag);
         ft_putstr_len(output, len);
     }
     else if (flag->conv == 'd' || flag->conv == 'i')
@@ -70,11 +70,11 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             int tmp;
             int sign;
             tmp = va_arg(*ap, int);
-            output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
+            output = ft_ulltoa((unsigned long long)(tmp < 0 ? -tmp : tmp));
             sign = tmp < 0 ? -1 : 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (flag->length == 1)
@@ -82,11 +82,11 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             int tmp;
             int sign;
             tmp = va_arg(*ap, int);
-            output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
+            output = ft_ulltoa((unsigned long long)(tmp < 0 ? -tmp : tmp));
             sign = tmp < 0 ? -1 : 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (flag->length == 2)
@@ -94,11 +94,11 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             int tmp;
             int sign;
             tmp = va_arg(*ap, int);
-            output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
+            output = ft_ulltoa((unsigned long long)(tmp < 0 ? -tmp : tmp));
             sign = tmp < 0 ? -1 : 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (flag->length == 3)
@@ -106,11 +106,11 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             long tmp;
             int sign;
             tmp = va_arg(*ap, long);
-            output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
+            output = ft_ulltoa((unsigned long long)(tmp < 0 ? -tmp : tmp));
             sign = tmp < 0 ? -1 : 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (flag->length == 4)
@@ -118,11 +118,11 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             long long tmp;
             int sign;
             tmp = va_arg(*ap, long long);
-            output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
+            output = ft_ulltoa((unsigned long long)(tmp < 0 ? -tmp : tmp));
             sign = tmp < 0 ? -1 : 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (flag->length == 5)
@@ -130,11 +130,11 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             intmax_t tmp;
             int sign;
             tmp = va_arg(*ap, intmax_t);
-            output = ft_itoa_ll((unsigned long long)(tmp < 0 ? -tmp : tmp));
+            output = ft_ulltoa((unsigned long long)(tmp < 0 ? -tmp : tmp));
             sign = tmp < 0 ? -1 : 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (flag->length == 6)
@@ -142,11 +142,11 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             size_t tmp;
             int sign;
             tmp = va_arg(*ap, size_t);
-            output = ft_itoa_ll((unsigned long long)(tmp));
+            output = ft_ulltoa((unsigned long long)(tmp));
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
     }
@@ -158,7 +158,7 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             unsigned int tmp;
             int sign;
             tmp = va_arg(*ap, unsigned int);
-            output = ft_itoa_ll((unsigned long long)(tmp));
+            output = ft_ulltoa((unsigned long long)(tmp));
             if (flag->conv == 'o')
                 output = ft_convert_base(output, "01234567");
             if (flag->conv == 'x')
@@ -167,8 +167,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
                 output = ft_convert_base(output, "0123456789ABCDEF");
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (flag->length == 1)
@@ -176,7 +176,7 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             unsigned int tmp;
             int sign;
             tmp = va_arg(*ap, unsigned int);
-            output = ft_itoa_ll((unsigned long long)(tmp));
+            output = ft_ulltoa((unsigned long long)(tmp));
             if (flag->conv == 'o')
                 output = ft_convert_base(output, "01234567");
             if (flag->conv == 'x')
@@ -185,8 +185,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
                 output = ft_convert_base(output, "0123456789ABCDEF");
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (flag->length == 2)
@@ -194,7 +194,7 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             unsigned int tmp;
             int sign;
             tmp = va_arg(*ap, unsigned int);
-            output = ft_itoa_ll((unsigned long long)(tmp));
+            output = ft_ulltoa((unsigned long long)(tmp));
             if (flag->conv == 'o')
                 output = ft_convert_base(output, "01234567");
             if (flag->conv == 'x')
@@ -203,8 +203,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
                 output = ft_convert_base(output, "0123456789ABCDEF");
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (flag->length == 3)
@@ -212,7 +212,7 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             unsigned long tmp;
             int sign;
             tmp = va_arg(*ap, unsigned long);
-            output = ft_itoa_ll((unsigned long long)(tmp));
+            output = ft_ulltoa((unsigned long long)(tmp));
             if (flag->conv == 'o')
                 output = ft_convert_base(output, "01234567");
             if (flag->conv == 'x')
@@ -221,8 +221,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
                 output = ft_convert_base(output, "0123456789ABCDEF");
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (flag->length == 4)
@@ -230,7 +230,7 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             unsigned long long tmp;
             int sign;
             tmp = va_arg(*ap, unsigned long long);
-            output = ft_itoa_ll((unsigned long long)(tmp));
+            output = ft_ulltoa((unsigned long long)(tmp));
             if (flag->conv == 'o')
                 output = ft_convert_base(output, "01234567");
             if (flag->conv == 'x')
@@ -239,8 +239,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
                 output = ft_convert_base(output, "0123456789ABCDEF");
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (flag->length == 5)
@@ -248,7 +248,7 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             uintmax_t tmp;
             int sign;
             tmp = va_arg(*ap, uintmax_t);
-            output = ft_itoa_ll((unsigned long long)(tmp));
+            output = ft_ulltoa((unsigned long long)(tmp));
             if (flag->conv == 'o')
                 output = ft_convert_base(output, "01234567");
             if (flag->conv == 'x')
@@ -257,8 +257,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
                 output = ft_convert_base(output, "0123456789ABCDEF");
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
         else if (flag->length == 6)
@@ -266,7 +266,7 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             size_t tmp;
             int sign;
             tmp = va_arg(*ap, size_t);
-            output = ft_itoa_ll((unsigned long long)(tmp));
+            output = ft_ulltoa((unsigned long long)(tmp));
             if (flag->conv == 'o')
                 output = ft_convert_base(output, "01234567");
             if (flag->conv == 'x')
@@ -275,8 +275,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
                 output = ft_convert_base(output, "0123456789ABCDEF");
             sign = 1;
             sign = tmp == 0 ? 0 : sign;
-            output = offset_d(output, flag, sign);
-            output = apply_precision(output, flag, sign);
+            output = ft_apply_padding_d(output, flag, sign);
+            output = ft_apply_precision(output, flag, sign);
             ft_putstr_len(output, len);
         }
     }
@@ -312,7 +312,7 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
         woutput = (wchar_t *)malloc(2 * sizeof(wchar_t));
         woutput[0] = (wchar_t)va_arg(*ap, int);
         woutput[1] = L'\0';
-        woutput = woffset(woutput, str);
+        woutput = ft_apply_padding_w(woutput, flag);
 		ft_wputstr(woutput);
     	*len += ft_wcslen(woutput);
     }
@@ -322,7 +322,7 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
         woutput = va_arg(*ap, wchar_t*);
         if (flag->precision > 0 && (unsigned int)flag->precision < ft_wcslen(woutput))
             woutput = ft_wstrsub(woutput, 0, flag->precision);
-        woutput = woffset(woutput, str);
+        woutput = ft_apply_padding_w(woutput, flag);
 		ft_wputstr(woutput);
     	*len += ft_wcslen(woutput);
     }

@@ -28,7 +28,7 @@ char *add_prefix(char *str, char conv)
 }
 
 
-char *offset_d(char *str, t_flag *flag, int sign)
+char *ft_apply_padding_d(char *str, t_flag *flag, int sign)
 {
     char *to_add;
     unsigned int str_len;
