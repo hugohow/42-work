@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 16:59:11 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 17:21:33 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/11 10:43:58 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 	{
 		*(unsigned char*)(dst + i) = *(unsigned char*)(src + i);
 		if (*(unsigned char*)(src + i) == (unsigned char)c)
-			break;
+			break ;
 		i++;
 	}
 	if (i == n)

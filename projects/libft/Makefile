@@ -88,8 +88,8 @@ $(NAME): $(OBJS)
 	@ranlib $@
 	@echo "Compiling & indexing" [ $(NAME) ] $(SUCCESS)
 
-%.o: %.c $(INCLUDES)/libft.h
-	@$(CC) -c -o $@ $< -I $(INCLUDES)
+%.o: %.c
+	@$(CC) -c -o $@ $< 
 	@echo "Linking" [ $< ] $(OK)
 
 clean:
