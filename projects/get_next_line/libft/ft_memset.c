@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:00:31 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 17:36:10 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/11 10:49:37 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	*ft_memset(void *b, int c, size_t len)
 {
 	size_t i;
+
 	i = 0;
 	while (i < len)
 	{

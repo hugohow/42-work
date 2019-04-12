@@ -6,10 +6,9 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:12:49 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/10 20:38:29 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/11 10:45:35 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libft.h"
 
@@ -70,7 +69,7 @@ char			**ft_strsplit(char const *str, char c)
 		if (str[i] != c)
 		{
 			list[k++] = get_word(str + i, c);
-			i += ft_strlen(list[k-1]) - 1;
+			i += ft_strlen(list[k - 1]) - 1;
 		}
 	}
 	list[k++] = 0;

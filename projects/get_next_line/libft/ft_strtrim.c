@@ -6,20 +6,20 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:13:02 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/10 20:38:44 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/11 10:50:50 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int is_escapable_fttrim(char c)
+static int	is_escapable_fttrim(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n')
 		return (1);
 	return (0);
 }
 
-static int count_len_fttrim(const char *str)
+static int	count_len_fttrim(const char *str)
 {
 	int i;
 	int len;
@@ -44,10 +44,10 @@ static int count_len_fttrim(const char *str)
 
 char		*ft_strtrim(char const *str)
 {
-	int i;
-	int k;
-	int len;
-	char *output;
+	int		i;
+	int		k;
+	int		len;
+	char	*output;
 
 	if (str == NULL)
 		return (NULL);

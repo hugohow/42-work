@@ -6,17 +6,16 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:12:30 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 18:13:06 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/11 10:48:31 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libft.h"
 
 char	*ft_strmapi(char const *str, char (*f)(unsigned int, char))
 {
-	char	*new_str;
-	unsigned int i;
+	char			*new_str;
+	unsigned int	i;
 
 	if (str == NULL)
 		return (NULL);
