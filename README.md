@@ -8,11 +8,11 @@ I also use my [Dockerfile](/docker_config/Dockerfile) to have a Linux environmen
 
 # Projects
 
-| Projects | Branch | description | Difficulty | language | mark |
+| Projects | Branch | description | Difficulty | language | mark / 100 |
 |--|--|--|--|--|--|
-| [libft](/projects/libft) | Base | C standard library | T1 |C | 125 / 100 |
+| [libft](/projects/libft) | Base | C standard library | T1 |C | 125 |
 | [fillit](/projects/fillit) | Base |Backtracking to solve a tetris game | T1 | C |:100: |
-| [get_next_line](/projects/get_next_line) | Base | read line by line any file descriptor | T1 | C | 125 / 100 |
+| [get_next_line](/projects/get_next_line) | Base | read line by line any file descriptor | T1 | C | 125 |
 | [ft_printf](/projects/ft_printf) | Algorithms | ft_printf("test %-12x et %--2.4s %24s !\n", 42, NULL, "coco"); | T1 | C |:100: |
 | [ft_ls](/projects/ft_ls) | Unix | Implementation of ls based on binary tree | T1 | C |:100: |
 | [ft_select](/projects/ft_select) | Unix | Terminal interaction | T1 | C |:100: |
