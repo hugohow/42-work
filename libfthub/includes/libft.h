@@ -92,4 +92,6 @@ size_t			ft_wcslen(const wchar_t *str);
 void			ft_wputchar(wchar_t c);
 void			ft_wputstr(wchar_t const *str);
 wchar_t			*ft_wstrsub(wchar_t const *str, unsigned int start, size_t len);
+void			ft_lstdelnode(t_list **head, size_t pos);
+int			get_next_line(int const fd, char **line)
 #endif
