@@ -1,0 +1,7 @@
+FOLDER=~/42FileChecker
+URL=https://github.com/jgigault/42FileChecker
+
+if [ ! -d "$FOLDER" ] ; then
+    git clone "$URL" "$FOLDER"
+fi
+sudo ~/42FileChecker/42FileChecker.sh --project "libft" --path "/projects/libft/"
