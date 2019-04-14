@@ -794,51 +794,51 @@ ret = 41
 [KO]
 -------------------------------------
 TEST : %p, NULL
-ft_printf  --> 007fff5e4e27a0
+ft_printf  --> 007fff57ffc6d0
 ret = 0
 printf     --> 0x0
 ret = 3
 [KO]
 -------------------------------------
 TEST : %p, &data
-ft_printf  --> 007fff5e4e27a0
+ft_printf  --> 007fff57ffc6d0
 ret = 0
-printf     --> 0x7fff5e4e27f8
+printf     --> 0x7fff57ffc728
 ret = 14
 [KO]
 -------------------------------------
 TEST : %p, &p_basic_02
-ft_printf  --> 007fff5e4e27a0
+ft_printf  --> 007fff57ffc6d0
 ret = 0
-printf     --> 0x101721c00
+printf     --> 0x107c07a60
 ret = 11
 [KO]
 -------------------------------------
 TEST : %20p, &data
-ft_printf  --> 007fff5e4e27a0
+ft_printf  --> 007fff57ffc6d0
 ret = 0
-printf     -->       0x7fff5e4e27f8
+printf     -->       0x7fff57ffc728
 ret = 20
 [KO]
 -------------------------------------
 TEST : %-25p, &data
-ft_printf  --> 007fff5e4e27a0
+ft_printf  --> 007fff57ffc6d0
 ret = 0
-printf     --> 0x7fff5e4e27f8           
+printf     --> 0x7fff57ffc728           
 ret = 25
 [KO]
 -------------------------------------
 TEST : %2p, &data
-ft_printf  --> 007fff5e4e27a0
+ft_printf  --> 007fff57ffc6d0
 ret = 0
-printf     --> 0x7fff5e4e27f8
+printf     --> 0x7fff57ffc728
 ret = 14
 [KO]
 -------------------------------------
 TEST : %----24p et hello %2p %12p, &ret, &p_all_01, NULL
-ft_printf  -->  et hello  007fff5e4e27a0007fff5e4e27a0007fff5e4e27a0
+ft_printf  -->  et hello  007fff57ffc6d0007fff57ffc6d0007fff57ffc6d0
 ret = 11
-printf     --> 0x7fff5e4e27f4           et hello 0x101722200          0x0
+printf     --> 0x7fff57ffc724           et hello 0x107c08060          0x0
 ret = 58
 [KO]
 -------------------------------------
@@ -892,9 +892,9 @@ ret = -1
 [KO]
 -------------------------------------
 TEST : test%-8p %---32p %#5.3x%#024X, &ret, &tret, 0x25, 0
-ft_printf  --> test  0x025000000000000000000000000007fff5e4e27a0007fff5e4e27a0
+ft_printf  --> test  0x025000000000000000000000000007fff57ffc6d0007fff57ffc6d0
 ret = 35
-printf     --> test0x7fff5e4e27f4 0x7fff5e4e27f4                   0x025000000000000000000000000
+printf     --> test0x7fff57ffc724 0x7fff57ffc724                   0x025000000000000000000000000
 ret = 81
 [KO]
 -------------------------------------

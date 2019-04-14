@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 22:50:40 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/12 23:05:33 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/14 19:26:01 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ char *ft_add_zeros(char *str, t_flag *flag, int sign);
 int	ft_count_current_precision(char *str, t_flag *flag, int sign);
 char *ft_delete_element(char *str, t_flag *flag, int i);
 char *ft_delete_zeros(char *str, t_flag *flag, int sign);
+char			*ft_strcat(char *s1, const char *s2);
 #endif

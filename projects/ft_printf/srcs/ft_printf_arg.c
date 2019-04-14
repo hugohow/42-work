@@ -6,23 +6,17 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 14:20:38 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/12 19:30:41 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/14 19:30:45 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 
-void ft_putstr_len(char *str, size_t *len)
-{
-    ft_putstr(str);
-    *len += ft_strlen(str);
-}
-
 char *ft_flag_replace(char *str, char *to_replace)
 {
     str[ft_strlen(str) - 1] = '\0';
-    return (ft_strjoin(str, to_replace));
+    return (ft_strcat(str, to_replace));
 }
 
 void ft_print_arg(va_list *ap, char *str, size_t *len)
@@ -42,14 +36,16 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
         if (output == NULL)
             output = "(null)";
         output = ft_apply_padding(output, flag);
-        ft_putstr_len(output, len);
+        ft_putstr(output);
+        *len += ft_strlen(output);
     }
     else if (flag->conv == '%')
     {
         char *output;
         output = "%";
         output = ft_apply_padding_d(output, flag, 1);
-        ft_putstr_len(output, len);
+        ft_putstr(output);
+        *len += ft_strlen(output);
     }
     else if (flag->conv == 'c')
     {
@@ -60,7 +56,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
         if (output[0] == '\0' || output[0] == 0)
             *len += 1;
         output = ft_apply_padding(output, flag);
-        ft_putstr_len(output, len);
+        ft_putstr(output);
+        *len += ft_strlen(output);
     }
     else if (flag->conv == 'd' || flag->conv == 'i')
     {
@@ -75,7 +72,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
         else if (flag->length == 1)
         {
@@ -87,7 +85,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
         else if (flag->length == 2)
         {
@@ -99,7 +98,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
         else if (flag->length == 3)
         {
@@ -111,7 +111,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
         else if (flag->length == 4)
         {
@@ -123,7 +124,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
         else if (flag->length == 5)
         {
@@ -135,7 +137,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
         else if (flag->length == 6)
         {
@@ -147,7 +150,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
     }
     else if (flag->conv == 'o' || flag->conv == 'x' || flag->conv == 'X' || flag->conv == 'u')
@@ -169,7 +173,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
         else if (flag->length == 1)
         {
@@ -187,7 +192,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
         else if (flag->length == 2)
         {
@@ -205,7 +211,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
         else if (flag->length == 3)
         {
@@ -223,7 +230,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
         else if (flag->length == 4)
         {
@@ -241,7 +249,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
         else if (flag->length == 5)
         {
@@ -259,7 +268,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
         else if (flag->length == 6)
         {
@@ -277,7 +287,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
             sign = tmp == 0 ? 0 : sign;
             output = ft_apply_padding_d(output, flag, sign);
             output = ft_apply_precision(output, flag, sign);
-            ft_putstr_len(output, len);
+            ft_putstr(output);
+            *len += ft_strlen(output);
         }
     }
     else if (flag->conv == 'p')
@@ -304,7 +315,8 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
         // if (flag->precision > 0)
         // if (flag->precision <= 0)
         //     output = ft_strjoin("0x", output);
-        // ft_putstr_len(output, len);
+        // ft_putstr(output);
+        *len += ft_strlen(output);
     }
     else if (flag->conv == 'C')
     {
@@ -344,5 +356,6 @@ void ft_print_arg(va_list *ap, char *str, size_t *len)
     else
     {
     }
-
+    free(flag);
+    flag = NULL;
 }

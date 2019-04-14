@@ -6,11 +6,12 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 14:20:34 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/12 19:41:33 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/14 19:29:47 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#define MAX_ADDED 1
 
 int ft_printf(const char* format, ...)
 {
@@ -22,7 +23,7 @@ int ft_printf(const char* format, ...)
     char    *flag;
 
     format_len = ft_strlen(format);
-    flag = (char *)malloc((format_len + 2) * sizeof(char));
+    flag = (char *)malloc((format_len + MAX_ADDED + 1) * sizeof(char));
 	if (flag == NULL)
 		return (-1);
     n = ft_count_variable(format);
@@ -33,7 +34,7 @@ int ft_printf(const char* format, ...)
     {
         if (format[i] == '%')
         {
-            bzero((void *)flag, format_len + 1);
+            bzero((void *)flag, format_len + MAX_ADDED + 1);
             flag = ft_strncpy(flag, format + i, (int)ft_flaglen(format + i) + 1);
             ft_print_arg(&ap, flag, &len);
             i += (int)ft_flaglen(format + i);
@@ -45,6 +46,8 @@ int ft_printf(const char* format, ...)
         }
         i++;
     }
+    free(flag);
+    flag = NULL;
     va_end(ap);
     return (len);
 }
