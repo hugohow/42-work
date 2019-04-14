@@ -1,7 +1,7 @@
 
 # Welcome to 42
 
-[![Build Status](https://travis-ci.com/hugohow/42-work.svg?token=Jw7jEUexNDDegHg3WW9m&branch=master)](https://travis-ci.com/hugohow/42-work)
+[![Build Status](https://travis-ci.org/hugohow/42-work.svg?branch=master)](https://travis-ci.org/hugohow/42-work)
 
 Hi! Here is all my work at [42 Sillicon Valley](https://www.42.us.org/) and [42 Paris](https://www.42.fr/). Most of the projects are in C.
 # Configuration
