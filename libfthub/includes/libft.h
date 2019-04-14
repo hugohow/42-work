@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 16:11:35 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/12 19:28:13 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/14 20:18:09 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,24 @@ typedef struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct	s_node_ht
+{
+	const char			*key;
+	void				*datum;
+	struct	s_node_ht	*next;
+}				t_node_ht;
+
+typedef struct	s_ht
+{
+	size_t		size;
+	t_node_ht	**table;
+}				t_ht;
+
+t_ht			*ft_ht_create(size_t size);
+t_node_ht		*ft_ht_add(t_ht *hash_table, const char *key, void *datum);
+void			*ft_ht_get(t_ht *hash_table, const char *key);
+void			ft_ht_free(t_ht *hash_table);
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
@@ -93,5 +111,5 @@ void			ft_wputchar(wchar_t c);
 void			ft_wputstr(wchar_t const *str);
 wchar_t			*ft_wstrsub(wchar_t const *str, unsigned int start, size_t len);
 void			ft_lstdelnode(t_list **head, size_t pos);
-int			get_next_line(int const fd, char **line)
+int				get_next_line(int const fd, char **line);
 #endif
