@@ -44,6 +44,7 @@ test:
 	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o test hash_table_tests/test.c hash_table/*.c srcs/*.c
 	@echo "Compile" $(OK)
 	./test
+	rm -rf test
 
 clean:
 	@rm -rf $(OBJS) $(OBJ_DIR)
