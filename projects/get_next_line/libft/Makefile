@@ -66,6 +66,7 @@ SRCS	=	ft_memset.c					\
 			ft_lstpeek.c				\
 			ft_lstpush.c				\
 			ft_lstlen.c					\
+			ft_lstdelnode.c				\
 
 
 OBJS	=	$(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 16:11:35 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/11 11:17:42 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/13 13:15:43 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ t_list			*ft_lstpop(t_list **p_head, void (*del)(void *, size_t));
 t_list			*ft_lstpeek(t_list *head, int (*cmp)(t_list *n1, t_list *n2));
 t_list			*ft_lstpush(t_list **head, void const *data, size_t data_size);
 size_t			ft_lstlen(t_list *head);
+void			ft_lstdelnode(t_list **head, size_t pos);
 #endif
