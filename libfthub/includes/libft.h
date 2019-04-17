@@ -23,23 +23,6 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-typedef struct	s_node_ht
-{
-	const char			*key;
-	void				*datum;
-	struct	s_node_ht	*next;
-}				t_node_ht;
-
-typedef struct	s_ht
-{
-	size_t		size;
-	t_node_ht	**table;
-}				t_ht;
-
-t_ht			*ft_ht_create(size_t size);
-t_node_ht		*ft_ht_add(t_ht *hash_table, const char *key, void *datum);
-void			*ft_ht_get(t_ht *hash_table, const char *key);
-void			ft_ht_free(t_ht *hash_table);
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
 void			*ft_memcpy(void *dst, const void *src, size_t n);

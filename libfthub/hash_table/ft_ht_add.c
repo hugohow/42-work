@@ -6,13 +6,13 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 19:57:51 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/14 20:24:09 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/17 17:13:26 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ht.h"
 
-t_node_ht *ft_ht_add(t_ht *hash_table, const char *key, void *datum)
+t_node_ht	*ft_ht_add(t_ht *hash_table, const char *key, void *datum)
 {
 	size_t index;
 	t_node_ht *node;
@@ -34,16 +34,19 @@ t_node_ht *ft_ht_add(t_ht *hash_table, const char *key, void *datum)
 		hash_table->table[index] = node;
 		index++;
 		hash_table->table[index] = 0;
+		return (node);
 	}
-	node = hash_table->table[index];
-	while (node->next)
-		node = node->next;
-	
-	node->next = (t_node_ht *)malloc(sizeof(t_node_ht));
-	if (node->next == NULL)
-		return (NULL);
-	(node->next)->key = key;
-	(node->next)->datum = datum;
-	(node->next)->next = NULL;
-	return (node->next);
+	else
+	{
+		node = hash_table->table[index];
+		while (node->next)
+			node = node->next;
+		node->next = (t_node_ht *)malloc(sizeof(t_node_ht));
+		if (node->next == NULL)
+			return (NULL);
+		(node->next)->key = key;
+		(node->next)->datum = datum;
+		(node->next)->next = NULL;
+		return (node->next);
+	}
 }

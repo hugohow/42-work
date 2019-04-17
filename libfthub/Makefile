@@ -40,6 +40,11 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 		@$(CC) $(CFLAGS) -c $< -o $@ $(LFLAGS)/$(INCLS)
 		@echo "Linking" [ $< ] $(OK)
 
+test:
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o test hash_table_tests/test.c hash_table/*.c srcs/*.c
+	@echo "Compile" $(OK)
+	./test
+
 clean:
 	@rm -rf $(OBJS) $(OBJ_DIR)
 	@echo "Cleaning" [ $(NAME) ] "..." $(OK)
@@ -50,4 +55,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test

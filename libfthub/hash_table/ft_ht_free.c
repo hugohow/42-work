@@ -1,28 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ht_create.c                                     :+:      :+:    :+:   */
+/*   ft_ht_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/14 19:55:02 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/14 20:18:23 by hhow-cho         ###   ########.fr       */
+/*   Created: 2019/04/14 20:07:08 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/04/17 17:26:01 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ht.h"
 
-t_ht			*ft_ht_create(size_t size)
+static void		ft_node_ht_free(t_node_ht *node)
 {
-	t_ht *hash_table;
+	if (node)
+	{
+		ft_node_ht_free(node->next);
+		free(node);
+		node = NULL;
+	}
+}
 
-	hash_table = (t_ht *)malloc(sizeof(t_ht));
-	if (hash_table == NULL)
-		return (NULL);
-	hash_table->size = size;
-	hash_table->table = (t_node_ht **)malloc(size * sizeof(t_node_ht *));
-	if (hash_table == NULL)
-		return (NULL);
-	hash_table->table[0] = 0;
-	return (hash_table);
+
+void			ft_ht_free(t_ht **p_hash_table)
+{
+	int i;
+	t_node_ht *node;
+
+	i = 0;
+	if (*p_hash_table)
+	{
+		while ((*p_hash_table)->table[i])
+		{
+			node = (*p_hash_table)->table[i];
+			ft_node_ht_free(node);
+			i++;
+		}
+		free(*p_hash_table);
+		*p_hash_table = NULL;
+	}
 }
