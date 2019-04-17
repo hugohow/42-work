@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:05:12 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/17 17:25:00 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/17 17:40:43 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 # define HT_H
 # include <strings.h>
 # include <stdlib.h>
+
 typedef struct	s_node_ht
 {
 	const char			*key;
 	void				*datum;
-	struct	s_node_ht	*next;
+	struct s_node_ht	*next;
 }				t_node_ht;
 
 typedef struct	s_ht

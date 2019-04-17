@@ -6,16 +6,29 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 19:57:51 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/17 17:13:26 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/17 17:39:13 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ht.h"
 
-t_node_ht	*ft_ht_add(t_ht *hash_table, const char *key, void *datum)
+static t_node_ht	*ft_create_node(const char *key, void *datum)
 {
-	size_t index;
 	t_node_ht *node;
+
+	node = (t_node_ht *)malloc(sizeof(t_node_ht));
+	if (node == NULL)
+		return (NULL);
+	node->key = key;
+	node->datum = datum;
+	node->next = NULL;
+	return (node);
+}
+
+t_node_ht			*ft_ht_add(t_ht *hash_table, const char *key, void *datum)
+{
+	size_t		index;
+	t_node_ht	*node;
 
 	if (hash_table == NULL)
 		return (NULL);
@@ -25,12 +38,7 @@ t_node_ht	*ft_ht_add(t_ht *hash_table, const char *key, void *datum)
 		index++;
 	if (hash_table->table[index] == NULL)
 	{
-		node = (t_node_ht *)malloc(sizeof(t_node_ht));
-		if (node == NULL)
-			return (NULL);
-		node->key = key;
-		node->datum = datum;
-		node->next = NULL;
+		node = ft_create_node(key, datum);
 		hash_table->table[index] = node;
 		index++;
 		hash_table->table[index] = 0;
@@ -41,12 +49,7 @@ t_node_ht	*ft_ht_add(t_ht *hash_table, const char *key, void *datum)
 		node = hash_table->table[index];
 		while (node->next)
 			node = node->next;
-		node->next = (t_node_ht *)malloc(sizeof(t_node_ht));
-		if (node->next == NULL)
-			return (NULL);
-		(node->next)->key = key;
-		(node->next)->datum = datum;
-		(node->next)->next = NULL;
+		node->next = ft_create_node(key, datum);
 		return (node->next);
 	}
 }

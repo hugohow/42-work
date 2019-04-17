@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 20:07:08 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/17 17:26:01 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/17 17:39:48 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ static void		ft_node_ht_free(t_node_ht *node)
 	}
 }
 
-
 void			ft_ht_free(t_ht **p_hash_table)
 {
-	int i;
-	t_node_ht *node;
+	int			i;
+	t_node_ht	*node;
 
 	i = 0;
 	if (*p_hash_table)
