@@ -61,7 +61,7 @@ clean:
 	@echo "Cleaning" [ $(NAME) ] "..." $(OK)
 
 fclean: clean
-	@rm -rf $(NAME) $(LIB_DIR)
+	@rm -rf $(NAME) $(LIB_DIR) test.dSYM
 	@rm -f $(NAME)
 
 re: fclean all
