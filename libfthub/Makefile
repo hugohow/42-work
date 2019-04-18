@@ -1,9 +1,14 @@
 
 NAME    := libft.a
+TEST_BIN	:= test
 
 INC_DIR := includes
-SRC_DIR := srcs
+SRC_DIR := core
 OBJ_DIR := objs
+
+CORE_TEST_DIR	:= core_tests
+HT_DIR	:= hash_table
+HT_TEST_DIR	:= hash_table_tests
 
 INCLS   := $(INC_DIR)
 SRCS    := $(wildcard $(SRC_DIR)/*.c)
@@ -40,14 +45,19 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 		@$(CC) $(CFLAGS) -c $< -o $@ $(LFLAGS)/$(INCLS)
 		@echo "Linking" [ $< ] $(OK)
 
-test:
-	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o test hash_table_tests/test.c hash_table/*.c srcs/*.c
+test: re
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(CORE_TEST_DIR)/*.c $(OBJS)
 	@echo "Compile" $(OK)
-	./test
-	rm -rf test
+	@echo "Launch tests" $(HT_DIR)
+	@./$(TEST_BIN)
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(HT_TEST_DIR)/*.c $(HT_DIR)/*.c $(OBJS)
+	@echo "Compile" $(OK)
+	@echo "Launch tests" $(HT_DIR)
+	@./$(TEST_BIN)
+	make fclean
 
 clean:
-	@rm -rf $(OBJS) $(OBJ_DIR)
+	@rm -rf $(OBJS) $(OBJ_DIR) $(TEST_BIN)
 	@echo "Cleaning" [ $(NAME) ] "..." $(OK)
 
 fclean: clean
