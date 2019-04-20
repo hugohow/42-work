@@ -10,16 +10,16 @@ I also use my [Dockerfile](/docker_config/Dockerfile) to have a Linux environmen
 
 # Projects
 
-| Projects | Branch | description | Difficulty | language | mark / 100 |
-|--|--|--|--|--|--|
-| [libft](/projects/libft) | Base | C standard library | T1 |C | 125 |
-| [fillit](https://github.com/rrsw/fillit) | Base |Backtracking to solve a tetris game | T1 | C | 100 |
-| [get_next_line](/projects/get_next_line) | Base | read line by line any file descriptor | T1 | C | 125 |
-| [ft_printf](https://github.com/hugohow/ft_printf) | Algorithms | ft_printf("test %-12x et %--2.4s %24s !\n", 42, NULL, "coco"); | T1 | C |:100: |
-| [ft_ls](/projects/ft_ls) | Unix | Implementation of ls based on binary tree | T1 | C |:100: |
-| [ft_select](/projects/ft_select) | Unix | Terminal interaction | T1 | C |:100: |
-| [Taskmaster](/projects/taskmaster) | Unix | One more Node.js process manager 🔖 | T1 | Node js |:100: |
-| [minishell/21sh/42sh](/projects/minishell_21sh_42sh) | Unix |  My own shell done with abstract syntax tree |  T3 | C |:100: |
+| Projects | Branch | description | Difficulty | language | mark / 100 | status |
+|--|--|--|--|--|--|--|
+| [libft](/projects/libft) | Base | C standard library | T1 |C | 125 | [![Build Status](https://travis-ci.org/hugohow/42-work.svg?branch=master)](https://travis-ci.org/hugohow/42-work)|
+| [fillit](https://github.com/rrsw/fillit) | Base |Backtracking to solve a tetris game | T1 | C | 100 | [![Build Status](https://travis-ci.org/rrsw/fillit.svg?branch=master)](https://travis-ci.org/rrsw/fillit)|
+| [get_next_line](/projects/get_next_line) | Base | read line by line any file descriptor | T1 | C | 125 | |
+| [ft_printf](https://github.com/hugohow/ft_printf) | Algorithms | ft_printf("test %-12x et %--2.4s %24s !\n", 42, NULL, "coco"); | T1 | C |:100: | |
+| [ft_ls](/projects/ft_ls) | Unix | Implementation of ls based on binary tree | T1 | C |:100: | |
+| [ft_select](/projects/ft_select) | Unix | Terminal interaction | T1 | C |:100: | |
+| [Taskmaster](/projects/taskmaster) | Unix | One more Node.js process manager 🔖 | T1 | Node js |:100: | |
+| [minishell/21sh/42sh](/projects/minishell_21sh_42sh) | Unix |  My own shell done with abstract syntax tree |  T3 | C |:100:   | |
 
 My main reference and inspiration : [Linux Kernel Development by Robert Love](https://www.amazon.fr/Linux-Kernel-Development-Robert-Love/dp/0672329468)
 
