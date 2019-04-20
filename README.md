@@ -1,8 +1,6 @@
 
 # Welcome to 42
 
-[![Build Status](https://travis-ci.org/hugohow/42-work.svg?branch=master)](https://travis-ci.org/hugohow/42-work)
-
 Hi! Here is all my work at [42 Sillicon Valley](https://www.42.us.org/) and [42 Paris](https://www.42.fr/). Most of the projects are in C.
 # Configuration
 I always use my static library [LibftHub](/libfthub).
