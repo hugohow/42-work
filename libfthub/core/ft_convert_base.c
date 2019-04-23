@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:18:46 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/12 16:08:28 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:22:47 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static size_t size_to_malloc(long long nb, size_t base_len)
 	return (size);
 }
 
-char *ft_convert_base(char *decimal, char *base)
+char	*ft_convert_base(char *decimal, char *base)
 {
 	char		*output;
 	long long	result;

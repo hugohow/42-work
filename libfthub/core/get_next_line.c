@@ -6,12 +6,12 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 18:11:57 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/13 17:26:32 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:23:08 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-# define BUFF_SIZE 10
+#define BUFF_SIZE 10
 
 static t_list	*init(t_list **head, int fd)
 {

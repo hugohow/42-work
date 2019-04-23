@@ -46,9 +46,13 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 		@echo "Linking" [ $< ] $(OK)
 
 test: re
-	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(CORE_TEST_DIR)/*.c $(OBJS)
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(CORE_TEST_DIR)/test.c $(OBJS)
 	@echo "Compile" $(OK)
-	@echo "Launch tests" $(HT_DIR)
+	@echo "Launch tests test.c"
+	@./$(TEST_BIN)
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(CORE_TEST_DIR)/test_added.c $(OBJS)
+	@echo "Compile" $(OK)
+	@echo "Launch tests test_added.c"
 	@./$(TEST_BIN)
 	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(HT_TEST_DIR)/*.c $(HT_DIR)/*.c $(OBJS)
 	@echo "Compile" $(OK)
