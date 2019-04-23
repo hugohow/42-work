@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 16:11:35 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/23 16:09:54 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/04/23 20:40:16 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,7 @@ wchar_t			*ft_wstrsub(wchar_t const *str, unsigned int start, size_t len);
 void			ft_lstdelnode(t_list **head, size_t pos);
 int				get_next_line(int const fd, char **line);
 char			*ft_strcat_r(const char *src, char *dst);
+char			*ft_str_insert(char *str, char c, int index);
+char			*ft_str_left_shift(char *str, int len);
+char			*ft_str_right_shift(char *str, int len);
 #endif
