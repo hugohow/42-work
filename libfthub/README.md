@@ -1,33 +1,46 @@
-## Functions <a name="functions"></a>
+## Hash table
 
-Type         | List of Functions
-:--------------------|:----------
-Binary tree         |  
-Math        |  
-Linked list        | ft_lstfree, ft_lstadd, ft_lstiter, ft_lstdel, ft_lstdelone, ft_lstnew, ft_lstmap, ft_lstlen, ft_lstpush, ft_lstpop
-wchar       | ft_wclen, ft_putwchar, ft_putwchar_fd, ft_putwstr, ft_putwstr_fd, ft_wcslen, ft_wcsdup, ft_wcscpy, ft_wcsnew, ft_wcsncpy
-Array       |  
-Stack       |  
-Errno       |  
-Type       | ft_isascii, ft_isalnum, ft_isalpha 
-Stdio       | ft_putchar, ft_putchar_fd, ft_putnchar, ft_putnchar_fd, t_putstr, t_putstr_fd, ft_putendl, ft_putendl_fd, ft_putnbr, ft_putnbr_fd 
-Matrix      |  
-Printf      |  
-Stdlib      | ft_atoi, ft_itoa 
-String      | ft_strequ, ft_strnequ, ft_memcmp, ft_strcmp, ft_strncmp, ft_strcat, t_strncat, ft_strchr, ft_strrchr, ft_strnchr, ft_strcpy, ft_strncpy, ft_strstr, ft_strnstr, ft_strdup, ft_strndup, ft_strnew, ft_strjoin, ft_strmap, ft_strmapi, ft_strrev, ft_strsub, ft_strtrim, ft_strtok, ft_strsplit, ft_strclr, ft_strdel, ft_striter, ft_striteri, ft_memdel, ft_memcpy, ft_memccpy, ft_memchr, ft_memmove, ft_memset, ft_memalloc, ft_strlen, ft_strnlen, ft_strlcat, ft_strlcpy
-Strings     | ft_bzero
-Classic  |  
+```
+typedef struct	s_node_ht
+{
+	const char			*key;
+	void				*datum;
+	struct s_node_ht	*next;
+}				t_node_ht;
 
+typedef struct	s_ht
+{
+	size_t		size;
+	t_node_ht	**table;
+}				t_ht;
+```
 
-## Setup <a name="setup"></a>
+- t_ht			*ft_ht_create(size_t size);
+- t_node_ht		*ft_ht_add(t_ht *hash_table, const char *key, void *datum);
+- t_node_ht		*ft_ht_get(t_ht *hash_table, const char *key);
+- void			ft_ht_free(t_ht **p_hash_table);
 
-Command       |  Description
-:-------------|:-------------
-`make`        | Compile the library.
-`make clean`  | Remove objects files.
-`make fclean` | Remove objects files and the library.
-`make re`     | Re-compile the library.
-`make test`   | Compile the library, runs a series of tests.
-`make install`| Install the library.
+## Linked list
 
-The binary `libft.a` will be created at the root of the project's directory.
+```
+typedef struct	s_list
+{
+	void			*content;
+	size_t			content_size;
+	struct s_list	*next;
+}				t_list;
+```
+
+- void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
+- void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
+- void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+- t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+- t_list			*ft_lstnew(void const *content, size_t content_size);
+- void			ft_lstadd(t_list **alst, t_list *new_el);
+- void			ft_lstfree(t_list *head);
+- t_list			*ft_lstpop(t_list **p_head, void (*del)(void *, size_t));
+- t_list			*ft_lstpeek(t_list *head, int (*cmp)(t_list *n1, t_list *n2));
+- t_list			*ft_lstpush(t_list **head, void const *data, size_t data_size);
+- size_t			ft_lstlen(t_list *head);
+
+## Binary tree
