@@ -4,17 +4,14 @@
 Hi! Here is all my work at [42 Sillicon Valley](https://www.42.us.org/) and [42 Paris](https://www.42.fr/). Most of the projects are in C.
 # Configuration
 
-My static library : [LibftHub](/libfthub). [![Build Status](https://travis-ci.org/hugohow/42-work.svg?branch=master)](https://travis-ci.org/hugohow/42-work)
-
-C standard library, Bigint, hash table, linked list, binary tree, red black tree, ...
-
-
+My static library : [LibftHub](/libfthub).
 My [Dockerfile](/docker_config/Dockerfile).
 
 # Projects
 
 | Projects | Branch | description | Difficulty | language | mark / 100 | status |
 |--|--|--|--|--|--|--|
+| [LibftHub](/libfthub) | Personnal | C standard library, Bigint, hash table, linked list, binary tree, red black tree, ... |  |C |  | [![Build Status](https://travis-ci.org/hugohow/42-work.svg?branch=master)](https://travis-ci.org/hugohow/42-work)|
 | [libft](/projects/libft) | Base | C standard library | T1 |C | 125 | [![Build Status](https://travis-ci.org/hugohow/42-work.svg?branch=master)](https://travis-ci.org/hugohow/42-work)|
 | [fillit](https://github.com/rrsw/fillit) | Base |Backtracking to solve a tetris game | T1 | C | 100 | [![Build Status](https://travis-ci.org/rrsw/fillit.svg?branch=master)](https://travis-ci.org/rrsw/fillit)|
 | [get_next_line](/projects/get_next_line) | Base | read line by line any file descriptor | T1 | C | 125 | |
