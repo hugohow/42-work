@@ -3,8 +3,13 @@
 
 Hi! Here is all my work at [42 Sillicon Valley](https://www.42.us.org/) and [42 Paris](https://www.42.fr/). Most of the projects are in C.
 # Configuration
-I always use my static library [LibftHub](/libfthub).
-I also use my [Dockerfile](/docker_config/Dockerfile) to have a Linux environment.
+
+My static library : [LibftHub](/libfthub). [![Build Status](https://travis-ci.org/hugohow/42-work.svg?branch=master)](https://travis-ci.org/hugohow/42-work)
+
+C standard library, Bigint, hash table, linked list, binary tree, red black tree, ...
+
+
+My [Dockerfile](/docker_config/Dockerfile).
 
 # Projects
 
