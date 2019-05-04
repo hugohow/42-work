@@ -9,6 +9,8 @@ OBJ_DIR := objs
 CORE_TEST_DIR	:= core_tests
 HT_DIR	:= hash_table
 HT_TEST_DIR	:= hash_table_tests
+BIGINT_DIR	:= bigint
+BIGINT_TEST_DIR	:= bigint_tests
 
 INCLS   := $(INC_DIR)
 SRCS    := $(wildcard $(SRC_DIR)/*.c)
@@ -46,6 +48,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 		@echo "Linking" [ $< ] $(OK)
 
 test: re
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(BIGINT_TEST_DIR)/*.c $(BIGINT_DIR)/*.c $(OBJS)
+	@echo "Compile" $(OK)
+	@echo "Launch tests" $(BIGINT_DIR)
+	@./$(TEST_BIN)
 	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(CORE_TEST_DIR)/test.c $(OBJS)
 	@echo "Compile" $(OK)
 	@echo "Launch tests test.c"
