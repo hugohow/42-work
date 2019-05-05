@@ -10,7 +10,7 @@ ft_terminal_init()
 
 ft_terminal_prompt(char *str)
 
-int ft_terminal_ask(char **line, t_choice **choices) -> return response (behave like get next line)
+int ft_terminal_ask(char **line, int step, t_choice **choices) -> return response (behave like get next line)
 
 0 -> over
 -1 -> error
