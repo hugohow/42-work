@@ -1,6 +1,6 @@
 ## Hash table
 
-```
+```C
 typedef struct	s_node_ht
 {
 	const char			*key;
@@ -15,14 +15,16 @@ typedef struct	s_ht
 }				t_ht;
 ```
 
+```C
 - t_ht			*ft_ht_create(size_t size);
 - t_node_ht		*ft_ht_add(t_ht *hash_table, const char *key, void *datum);
 - t_node_ht		*ft_ht_get(t_ht *hash_table, const char *key);
 - void			ft_ht_free(t_ht **p_hash_table);
+```
 
 ## Linked list
 
-```
+```C
 typedef struct	s_list
 {
 	void			*content;
@@ -30,7 +32,7 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 ```
-
+```C
 - void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 - void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 - void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
@@ -42,5 +44,5 @@ typedef struct	s_list
 - t_list			*ft_lstpeek(t_list *head, int (*cmp)(t_list *n1, t_list *n2));
 - t_list			*ft_lstpush(t_list **head, void const *data, size_t data_size);
 - size_t			ft_lstlen(t_list *head);
-
+```
 ## Binary tree
