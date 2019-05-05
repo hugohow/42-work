@@ -1,3 +1,6 @@
+Termcaps utilies for 42 students
+
+Inspired by https://github.com/SBoudrias/Inquirer.js/
 
 # Methods
 
