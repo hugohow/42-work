@@ -6,10 +6,13 @@ Inspired by https://github.com/SBoudrias/Inquirer.js/
 
 ft_terminal_init()
 
-
 ft_terminal_prompt(char *str)
 
-char *ft_terminal_ask() -> return response
+int ft_terminal_ask(char **line, t_choice **choices) -> return response (behave like get next line)
+
+0 -> over
+-1 -> error
+bytes sizes
 
 t_choice **ft_terminal_question(t_choice **choices)
 
