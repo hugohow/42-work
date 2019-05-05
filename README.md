@@ -14,7 +14,7 @@ My [Dockerfile](/docker_config/Dockerfile).
 | [LibftHub](/libfthub) | Personnal | C standard library, Bigint, hash table, linked list, binary tree, red black tree, ... |  |C |  | [![Build Status](https://travis-ci.org/hugohow/42-work.svg?branch=master)](https://travis-ci.org/hugohow/42-work)|
 | [libft](/projects/libft) | Base | C standard library | T1 |C | 125 | [![Build Status](https://travis-ci.org/hugohow/42-work.svg?branch=master)](https://travis-ci.org/hugohow/42-work)|
 | [fillit](https://github.com/rrsw/fillit) | Base |Backtracking to solve a tetris game | T1 | C | 100 | [![Build Status](https://travis-ci.org/rrsw/fillit.svg?branch=master)](https://travis-ci.org/rrsw/fillit)|
-| [get_next_line](/projects/get_next_line) | Base | read line by line any file descriptor | T1 | C | 125 | |
+| [get_next_line](/projects/get_next_line) | Base | <=> readline in JS | T1 | C | 125 | |
 | [ft_printf](https://github.com/hugohow/ft_printf) | Algorithms | ft_printf("test %-12x et %--2.4s %24s !\n", 42, NULL, "coco"); | T1 | C |:100: | [![Build Status](https://travis-ci.org/hugohow/ft_printf.svg?branch=master)](https://travis-ci.org/hugohow/ft_printf)|
 | [ft_ls](/projects/ft_ls) | Unix | Implementation of ls based on binary tree | T1 | C |:100: | |
 | [ft_select](/projects/ft_select) | Unix | Terminal interaction | T1 | C |:100: | |
