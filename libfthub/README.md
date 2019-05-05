@@ -16,10 +16,10 @@ typedef struct	s_ht
 ```
 
 ```C
-- t_ht			*ft_ht_create(size_t size);
-- t_node_ht		*ft_ht_add(t_ht *hash_table, const char *key, void *datum);
-- t_node_ht		*ft_ht_get(t_ht *hash_table, const char *key);
-- void			ft_ht_free(t_ht **p_hash_table);
+t_ht			*ft_ht_create(size_t size);
+t_node_ht		*ft_ht_add(t_ht *hash_table, const char *key, void *datum);
+t_node_ht		*ft_ht_get(t_ht *hash_table, const char *key);
+void			ft_ht_free(t_ht **p_hash_table);
 ```
 
 ## Linked list
@@ -33,16 +33,16 @@ typedef struct	s_list
 }				t_list;
 ```
 ```C
-- void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-- void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-- void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-- t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-- t_list			*ft_lstnew(void const *content, size_t content_size);
-- void			ft_lstadd(t_list **alst, t_list *new_el);
-- void			ft_lstfree(t_list *head);
-- t_list			*ft_lstpop(t_list **p_head, void (*del)(void *, size_t));
-- t_list			*ft_lstpeek(t_list *head, int (*cmp)(t_list *n1, t_list *n2));
-- t_list			*ft_lstpush(t_list **head, void const *data, size_t data_size);
-- size_t			ft_lstlen(t_list *head);
+void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
+void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
+void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+t_list			*ft_lstnew(void const *content, size_t content_size);
+void			ft_lstadd(t_list **alst, t_list *new_el);
+void			ft_lstfree(t_list *head);
+t_list			*ft_lstpop(t_list **p_head, void (*del)(void *, size_t));
+t_list			*ft_lstpeek(t_list *head, int (*cmp)(t_list *n1, t_list *n2));
+t_list			*ft_lstpush(t_list **head, void const *data, size_t data_size);
+size_t			ft_lstlen(t_list *head);
 ```
 ## Binary tree
