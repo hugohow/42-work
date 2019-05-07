@@ -11,6 +11,8 @@ HT_DIR	:= hash_table
 HT_TEST_DIR	:= hash_table_tests
 BIGINT_DIR	:= bigint
 BIGINT_TEST_DIR	:= bigint_tests
+BTREE_DIR	:= btree
+BTREE_TEST_DIR	:= btree_tests
 
 INCLS   := $(INC_DIR)
 SRCS    := $(wildcard $(SRC_DIR)/*.c)
@@ -52,6 +54,14 @@ test: re
 	@echo "Compile" $(OK)
 	@echo "Launch tests" $(BIGINT_DIR)
 	@./$(TEST_BIN)
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(HT_TEST_DIR)/*.c $(HT_DIR)/*.c $(OBJS)
+	@echo "Compile" $(OK)
+	@echo "Launch tests" $(HT_DIR)
+	@./$(TEST_BIN)
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(BTREE_TEST_DIR)/*.c $(BTREE_DIR)/*.c $(OBJS)
+	@echo "Compile" $(OK)
+	@echo "Launch tests" $(BTREE_DIR)
+	@./$(TEST_BIN)
 	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(CORE_TEST_DIR)/test.c $(OBJS)
 	@echo "Compile" $(OK)
 	@echo "Launch tests test.c"
@@ -59,10 +69,6 @@ test: re
 	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(CORE_TEST_DIR)/test_added.c $(OBJS)
 	@echo "Compile" $(OK)
 	@echo "Launch tests test_added.c"
-	@./$(TEST_BIN)
-	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(HT_TEST_DIR)/*.c $(HT_DIR)/*.c $(OBJS)
-	@echo "Compile" $(OK)
-	@echo "Launch tests" $(HT_DIR)
 	@./$(TEST_BIN)
 	make fclean
 
