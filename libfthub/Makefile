@@ -13,6 +13,8 @@ BIGINT_DIR	:= bigint
 BIGINT_TEST_DIR	:= bigint_tests
 BTREE_DIR	:= btree
 BTREE_TEST_DIR	:= btree_tests
+AVLT_DIR	:= avltree
+AVLT_TEST_DIR	:= avltree_tests
 
 INCLS   := $(INC_DIR)
 SRCS    := $(wildcard $(SRC_DIR)/*.c)
@@ -50,25 +52,31 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 		@echo "Linking" [ $< ] $(OK)
 
 test: re
-	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(BIGINT_TEST_DIR)/*.c $(BIGINT_DIR)/*.c $(OBJS)
+	# @$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(BIGINT_TEST_DIR)/*.c $(BIGINT_DIR)/*.c $(OBJS)
+	# @echo "Compile" $(OK)
+	# @echo "Launch tests" $(BIGINT_DIR)
+	# @./$(TEST_BIN)
+	# @$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(CORE_TEST_DIR)/test.c $(OBJS)
+	# @echo "Compile" $(OK)
+	# @echo "Launch tests test.c"
+	# @./$(TEST_BIN)
+	# @$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(CORE_TEST_DIR)/test_added.c $(OBJS)
+	# @echo "Compile" $(OK)
+	# @echo "Launch tests test_added.c"
+	# @./$(TEST_BIN)
+	# @$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(HT_TEST_DIR)/*.c $(HT_DIR)/*.c $(OBJS)
+	# @echo "Compile" $(OK)
+	# @echo "Launch tests" $(HT_DIR)
+	# @./$(TEST_BIN)
+
+	# @$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(BTREE_TEST_DIR)/*.c $(BTREE_DIR)/*.c $(OBJS)
+	# @echo "Compile" $(OK)
+	# @echo "Launch tests" $(BTREE_DIR)
+	# @./$(TEST_BIN)
+
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(AVLT_TEST_DIR)/*.c $(AVLT_DIR)/*.c $(OBJS)
 	@echo "Compile" $(OK)
-	@echo "Launch tests" $(BIGINT_DIR)
-	@./$(TEST_BIN)
-	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(HT_TEST_DIR)/*.c $(HT_DIR)/*.c $(OBJS)
-	@echo "Compile" $(OK)
-	@echo "Launch tests" $(HT_DIR)
-	@./$(TEST_BIN)
-	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(BTREE_TEST_DIR)/*.c $(BTREE_DIR)/*.c $(OBJS)
-	@echo "Compile" $(OK)
-	@echo "Launch tests" $(BTREE_DIR)
-	@./$(TEST_BIN)
-	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(CORE_TEST_DIR)/test.c $(OBJS)
-	@echo "Compile" $(OK)
-	@echo "Launch tests test.c"
-	@./$(TEST_BIN)
-	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(CORE_TEST_DIR)/test_added.c $(OBJS)
-	@echo "Compile" $(OK)
-	@echo "Launch tests test_added.c"
+	@echo "Launch tests" $(AVLT_DIR)
 	@./$(TEST_BIN)
 	make fclean
 

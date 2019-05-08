@@ -60,27 +60,29 @@ size_t			ft_lstlen(t_list *head);
 ```
 ## Binary tree
 
+## AVL
+
 ```C
-typedef struct s_node_bt 
+typedef struct s_node_avlt 
 {
 	void 					*content;
 	size_t					content_size;
-	struct s_node_bt		*left;
-	struct s_node_bt		*right;
-}				t_node_bt;
+	struct s_node_avlt		*left;
+	struct s_node_avlt		*right;
+	int						height;
+}				t_node_avlt;
 ```
 ```C
-t_node_bt	*ft_bt_add(t_node_bt **p_root, void *content, size_t content_size, int (*cmp)(t_node_bt *, t_node_bt *));
-void		ft_bt_apply_inorder(t_node_bt *root, void (*f)(t_node_bt *));
-void		ft_bt_apply_postorder(t_node_bt *root, void (*f)(t_node_bt *));
-t_node_bt	*ft_bt_create(void *content, size_t content_size);
-void		ft_bt_free(t_node_bt **p_root);
-t_node_bt	*ft_bt_insert(t_node_bt **p_root, t_node_bt *node, int (*cmp)(t_node_bt *, t_node_bt *));
-int			ft_bt_is_valid(t_node_bt *root);
+t_node_avlt	*ft_avlt_add(t_node_avlt **p_root, void *content, size_t content_size, int (*cmp)(t_node_avlt *, t_node_avlt *));
+void		ft_avlt_apply_inorder(t_node_avlt *root, void (*f)(t_node_avlt *));
+void		ft_avlt_apply_postorder(t_node_avlt *root, void (*f)(t_node_avlt *));
+t_node_avlt	*ft_avlt_create(void *content, size_t content_size);
+void		ft_avlt_free(t_node_avlt **p_root);
+t_node_avlt	*ft_avlt_insert(t_node_avlt **p_root, t_node_avlt *node, int (*cmp)(t_node_avlt *, t_node_avlt *));
+int			ft_avlt_is_valid(t_node_avlt *root);
+t_node_avlt	*ft_avlt_left_rot(t_node_avlt *node);
+t_node_avlt	*ft_avlt_right_rot(t_node_avlt *node);
 ```
-
-## AVL
-
 ## Red black tree
 
 
