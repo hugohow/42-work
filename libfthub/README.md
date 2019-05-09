@@ -132,7 +132,7 @@ t_node_avlt	*ft_avlt_right_rot(t_node_avlt *node);
 ```C
 void		ft_terminal_init()
 void		ft_terminal_prompt(char *str)
-int		*ft_terminal_ask(char **response, t_choice **choices) -> return response
+int			*ft_terminal_ask(char **response, t_choice **choices) -> return response
 t_choice	**ft_terminal_question(t_choice **choices)
 void		ft_terminal_exit()
 ```
