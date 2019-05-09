@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stack_push.c                                    :+:      :+:    :+:   */
+/*   queue.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/09 13:44:17 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/09 15:19:27 by hhow-cho         ###   ########.fr       */
+/*   Created: 2019/05/09 14:42:33 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/05/09 15:00:35 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stack.h"
+#ifndef QUEUE_H
+# define QUEUE_H
+# include "libft.h"
 
-int	ft_stack_push(t_list **stack_top, void const *content, size_t content_size)
+typedef struct	s_queue
 {
-	t_list *node;
+	struct s_list	*head;
+	struct s_list	*tail;
+	size_t			size;
+}				t_queue;
 
-	if (stack_top == NULL)
-		return (0);
-	node = ft_lstnew(content, content_size);
-	if (node == NULL)
-		return (0);
-	if (*stack_top)
-		node->next = *stack_top;
-	*stack_top = node;
-	return (1);
-}
+t_queue	*ft_queue_init(void);
+int		ft_queue_enqueue(t_queue **p_queue, void const *content, size_t content_size);
+int		ft_queue_dequeue(t_queue **p_queue);
+#endif

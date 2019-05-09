@@ -56,12 +56,27 @@ void			ft_lstfree(t_list *head);
 size_t			ft_lstlen(t_list *head);
 ```
 
-### Stack
+# Stack - last in, first out
 ```C
 t_list	**ft_stack_init(void);
-void	ft_stack_pop(t_list **stack_top);
-void	ft_stack_push(t_list **stack_top, void const *content, size_t content_size);
+int		ft_stack_pop(t_list **stack_top);
+int		ft_stack_push(t_list **stack_top, void const *content, size_t content_size);
 void	ft_stack_display(t_list **stack_top, void (*ft_print)(t_list *node));
+```
+
+# Queue - first in, first out
+```C
+typedef struct	s_queue
+{
+	struct s_list	**head;
+	struct s_list	**tail;
+	size_t			size;
+}				t_queue;
+```
+```C
+t_queue	*ft_queue_init(void);
+int		ft_queue_enqueue(t_queue **p_queue, void const *content, size_t content_size);
+int		ft_queue_dequeue(t_queue **p_queue);
 ```
 
 

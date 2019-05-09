@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stack_push.c                                    :+:      :+:    :+:   */
+/*   ft_queue_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/09 13:44:17 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/09 15:19:27 by hhow-cho         ###   ########.fr       */
+/*   Created: 2019/05/09 14:43:39 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/05/09 14:45:33 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stack.h"
+#include "queue.h"
 
-int	ft_stack_push(t_list **stack_top, void const *content, size_t content_size)
+t_queue	*ft_queue_init(void)
 {
-	t_list *node;
+	t_queue *queue;
 
-	if (stack_top == NULL)
-		return (0);
-	node = ft_lstnew(content, content_size);
-	if (node == NULL)
-		return (0);
-	if (*stack_top)
-		node->next = *stack_top;
-	*stack_top = node;
-	return (1);
+	queue = (t_queue *)malloc(sizeof(t_queue));
+	if (queue == NULL)
+		return (NULL);
+	queue->head = NULL;
+	queue->tail = NULL;
+	queue->size = 0;
+	return (queue);
 }
