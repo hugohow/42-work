@@ -15,6 +15,8 @@ BTREE_DIR	:= btree
 BTREE_TEST_DIR	:= btree_tests
 AVLT_DIR	:= avltree
 AVLT_TEST_DIR	:= avltree_tests
+STACK_DIR	:= stack
+STACK_TEST_DIR	:= stack_tests
 
 INCLS   := $(INC_DIR)
 SRCS    := $(wildcard $(SRC_DIR)/*.c)
@@ -76,6 +78,11 @@ test: re
 	@echo "Compile" $(OK)
 	@echo "Launch tests" $(AVLT_DIR)
 	@./$(TEST_BIN)
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(STACK_TEST_DIR)/*.c $(STACK_DIR)/*.c $(OBJS)
+	@echo "Compile" $(OK)
+	@echo "Launch tests" $(STACK_DIR)
+	@./$(TEST_BIN)
+
 	make fclean
 
 clean:
