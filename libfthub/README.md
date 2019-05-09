@@ -53,11 +53,17 @@ t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list			*ft_lstnew(void const *content, size_t content_size);
 void			ft_lstadd(t_list **alst, t_list *new_el);
 void			ft_lstfree(t_list *head);
-t_list			*ft_lstpop(t_list **p_head, void (*del)(void *, size_t));
-t_list			*ft_lstpeek(t_list *head, int (*cmp)(t_list *n1, t_list *n2));
-t_list			*ft_lstpush(t_list **head, void const *data, size_t data_size);
 size_t			ft_lstlen(t_list *head);
 ```
+
+### Stack
+```C
+t_list	**ft_stack_init(void);
+void	ft_stack_pop(t_list **stack_top);
+void	ft_stack_push(t_list **stack_top, void const *content, size_t content_size);
+```
+
+
 ## Binary tree
 
 ```C
