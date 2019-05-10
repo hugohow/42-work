@@ -1,6 +1,3 @@
-#include "terminal.h"
-
-
 int main()
 {
 	t_config old_config;

@@ -55,6 +55,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 		@$(CC) $(CFLAGS) -c $< -o $@ $(LFLAGS)/$(INCLS)
 		@echo "Linking" [ $< ] $(OK)
 
+testterminal: re
+	@$(CC) $(CFLAGS) -lncurses -g $(LFLAGS)/$(INCLS) terminal/*.c terminal/*/*.c $(OBJS) -o $(TEST_BIN)
+	@./$(TEST_BIN)
+
 test: re
 	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(BIGINT_TEST_DIR)/*.c $(BIGINT_DIR)/*.c $(OBJS)
 	@echo "Compile" $(OK)
@@ -88,9 +92,6 @@ test: re
 	@echo "Compile" $(OK)
 	@echo "Launch tests" $(QUEUE_DIR)
 	@./$(TEST_BIN)
-
-	# @$(CC) $(CFLAGS) -lncurses -g $(LFLAGS)/$(INCLS) terminal/*.c terminal/*/*.c $(OBJS) -o $(TEST_BIN)
-	# @./$(TEST_BIN)
 	make fclean
 
 clean:
