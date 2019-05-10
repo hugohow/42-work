@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_quote_closed.c                               :+:      :+:    :+:   */
+/*   ft_press_arrow_r.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/09 17:00:57 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/10 09:56:14 by hhow-cho         ###   ########.fr       */
+/*   Created: 2019/05/10 10:39:21 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/05/10 11:03:22 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "terminal.h"
 
-int ft_is_quote_closed(char *cmd)
-{
-    int i;
-    int count_opened;
-    int count_closed;
-
-    count_opened = 0;
-    count_closed = 0;
-    i = 0;
-    while (cmd[i])
-    {
-        if (cmd[i] == '"')
-        {
-            count_opened++;
-        }
-        i++;
-    }
-    return (count_opened % 2 != 0);
+int ft_press_arrow_r(t_cmd **p_cmd, t_cmd **cmd_historic)
+{	
+	(void)cmd_historic;
+	if ((*p_cmd)->cursor_index + 1 > (int)ft_strlen((*p_cmd)->cmd_str))
+		return (1);
+	(*p_cmd)->cursor_index = (*p_cmd)->cursor_index + 1;
+	return (1);
 }

@@ -89,7 +89,7 @@ test: re
 	@echo "Launch tests" $(QUEUE_DIR)
 	@./$(TEST_BIN)
 
-	# @$(CC) $(CFLAGS) -lncurses -g $(LFLAGS)/$(INCLS) terminal/*.c terminal/utils/*.c $(OBJS) -o $(TEST_BIN)
+	# @$(CC) $(CFLAGS) -lncurses -g $(LFLAGS)/$(INCLS) terminal/*.c terminal/*/*.c $(OBJS) -o $(TEST_BIN)
 	# @./$(TEST_BIN)
 	make fclean
 

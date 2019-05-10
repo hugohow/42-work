@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 16:04:52 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/09 18:29:10 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/10 11:01:43 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,25 @@ int		ft_terminal_init(t_config *old_config, t_config *new_config);
 void	ft_terminal_exit(t_config *old_config);
 int		ft_terminal_prompt(int fd, const char *str);
 t_cmd	*ft_terminal_cmd_init(const char *str);
-int		ft_terminal_ask(int fd, t_cmd **p_cmd, t_cmd **cmd_historic);
-
+int		ft_terminal_ask(t_cmd **p_cmd, t_cmd **cmd_historic);
+void	ft_refresh_screen(t_cmd **p_cmd);
+int		ft_get_col(t_cmd **p_cmd);
 int		ft_get_window_size(int *rows, int *cols);
 int		ft_read_key(void);
+
+
+int	ft_press_printable_char(t_cmd **p_cmd, t_cmd **cmd_historic);
+int	ft_press_enter(t_cmd **p_cmd, t_cmd **cmd_historic);
+int	ft_press_back(t_cmd **p_cmd, t_cmd **cmd_historic);
+int	ft_press_tab(t_cmd **p_cmd, t_cmd **cmd_historic);
+int 	ft_press_arrow_l(t_cmd **p_cmd, t_cmd **cmd_historic);
+int 	ft_press_arrow_r(t_cmd **p_cmd, t_cmd **cmd_historic);
+typedef int			(t_ft_press)(t_cmd **, t_cmd **);
+
+typedef struct	s_ft_press_key
+{
+	int			key;
+	t_ft_press 	*ft;
+}				t_ft_press_key;
+
 #endif
