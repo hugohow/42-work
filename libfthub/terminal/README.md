@@ -1,3 +1,5 @@
+```C
+
 int main()
 {
 	t_config old_config;
@@ -32,3 +34,4 @@ int main()
 	ft_terminal_exit(&old_config);
 	return (0);
 }
+```
