@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 09:15:38 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/10 09:46:22 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:40:46 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,23 @@ static void delete_n_lines(int n)
     int i;
 
     i = 0;
+	tputs(tgetstr("dl", NULL), 1, my_outc);
     while (i < n)
     {
         tputs(tgetstr("up", NULL), 1, my_outc); 
         tputs(tgetstr("dl", NULL), 1, my_outc);
         i++;
     }
-    tputs(tgetstr("dl", NULL), 1, my_outc);
     ft_putstr("\r");
 }
 
 void ft_refresh_screen(t_cmd **p_cmd)
 {
     delete_n_lines(count_nb_line((*p_cmd)->cmd_str));
+	if ((*p_cmd)->brackets_closed == 0)
+		ft_putstr_fd("\033[32;1m", 1);
+	else
+		ft_putstr_fd("\033[0m", 1);
     ft_putstr_fd((*p_cmd)->cmd_str, 1);
     go_to_col(ft_get_col(p_cmd));
 }

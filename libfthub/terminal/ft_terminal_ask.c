@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 16:36:14 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/10 11:04:33 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/13 17:53:25 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,6 @@ int	ft_terminal_ask(t_cmd **p_cmd, t_cmd **cmd_historic)
 	ret = ft_read_key();
 	(*p_cmd)->last_key = ret;
 	result = (*(ft_find_ft(ret)))(p_cmd, cmd_historic);
-
-
-	// if (isatty(0) == 0)
-	// {
-	// 	tmp = ft_strdup((*p_cmd)->cmd_str);
-	// 	if (tmp == NULL)
-	// 		return (-1);
-	// 	ret = get_next_line(fd, &tmp);
-	// 	(*p_cmd)->cmd_str = tmp;
-	// }
-	// else
-	// {
-	// }
+	(*p_cmd)->brackets_closed = ft_str_brackets_is_valid((*p_cmd)->cmd_str, ft_strlen((*p_cmd)->cmd_str));
 	return (result);
 }
