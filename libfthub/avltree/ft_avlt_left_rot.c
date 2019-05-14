@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 15:54:00 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/07 17:41:59 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/14 18:53:35 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,27 @@ static int get_height(t_node_avlt *node)
 	return (node->height);
 }
 
-//   x
-//        y
-//     z
+//   root
+// x       pivot
+//		y       z
 
-//      y
-// x
-//     z
+//      pivot
+// root        z
+//x    y
 
-t_node_avlt	*ft_avlt_left_rot(t_node_avlt *x)
+t_node_avlt	*ft_avlt_left_rot(t_node_avlt *root)
 {
+	t_node_avlt *pivot;
 	t_node_avlt *y;
-	t_node_avlt *z;
 
-	if (x == NULL)
-		return (NULL);
-	y = x->right;
-	z = y->left;
+	if (root == NULL || root->right == NULL)
+		return (root);
+	pivot = root->right;
+	y = pivot->left;
 
-	y->left = x;
-	x->right = z;
-
-	x->height = 1 + max(get_height(x->left), get_height(x->right));
-	y->height = 1 + max(get_height(y->left), get_height(y->right));
-
-	return (y);
+	pivot->left = root;
+	root->right = y;
+	root->height = 1 + max(get_height(root->left), get_height(root->right));
+	pivot->height = 1 + max(get_height(pivot->left), get_height(pivot->right));
+	return (pivot);
 }
