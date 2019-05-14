@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_press_arrow_r.c                                 :+:      :+:    :+:   */
+/*   ft_press_arrow_up.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/10 10:39:21 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/10 11:03:22 by hhow-cho         ###   ########.fr       */
+/*   Created: 2019/05/13 19:15:47 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/05/13 22:31:44 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "terminal.h"
 
-int ft_press_arrow_r(t_cmd **p_cmd, t_cmd **cmd_historic)
-{	
-	(void)cmd_historic;
-	if ((*p_cmd)->cursor_index + 1 > (int)ft_strlen((*p_cmd)->cmd_str))
+int ft_press_arrow_up(t_cmd **p_cmd, t_list **p_stack)
+{
+	// int k;
+	// t_cmd *cmd;
+	
+	if (ft_get_row(p_cmd) == 0)
+	{
+		(*p_cmd)->search_mode = 1;
+		ft_terminal_ask_historic(p_cmd, p_stack);
 		return (1);
-	(*p_cmd)->cursor_index = (*p_cmd)->cursor_index + 1;
+	}
+	else
+	{
+
+	}
 	return (1);
 }

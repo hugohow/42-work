@@ -56,7 +56,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 		@echo "Linking" [ $< ] $(OK)
 
 testterminal: re
-	@$(CC) $(CFLAGS) -lncurses -g $(LFLAGS)/$(INCLS) terminal/*.c terminal/*/*.c $(OBJS) -o $(TEST_BIN)
+	@$(CC) $(CFLAGS) -lncurses -g $(LFLAGS)/$(INCLS) terminal/*.c terminal/*/*.c $(STACK_DIR)/*.c $(OBJS) -o $(TEST_BIN)
 	@./$(TEST_BIN)
 
 test: re

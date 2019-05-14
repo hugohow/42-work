@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 09:15:38 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/13 18:40:46 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/13 19:33:57 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,46 @@ int ft_get_col(t_cmd **p_cmd)
     return (col);
 }
 
+int ft_get_row(t_cmd **p_cmd)
+{
+    int row;
+    int i;
+
+    i = 0;
+    row = 0;
+    while (((*p_cmd)->cmd_str)[i] && i != (*p_cmd)->cursor_index)
+    {
+        if (((*p_cmd)->cmd_str)[i] == '\n')
+            row++;
+        i++;
+    }
+    return (row);
+}
+
 static int count_nb_line(char *cmd)
 {
     int nb_line;
+	int i;
+	int rows;
+	int cols;
+
     nb_line = 0;
+	i = 0;
+	ft_get_window_size(&rows, &cols);
     while (*cmd)
     {
+		if (i != 0 && i % cols == 0)
+		{
+			nb_line++;
+			i = 0;			
+		}
         if (*cmd == '\n')
-            nb_line++;
+		{
+			nb_line++;
+			i = 0;
+		}
         cmd++;
+		i++;
     }
     return (nb_line);
 }
