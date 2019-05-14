@@ -11,7 +11,7 @@ My [Dockerfile](/docker_config/Dockerfile).
 
 | Projects | Branch | description | Difficulty | language | mark / 100 | status |
 |--|--|--|--|--|--|--|
-| [LibftHub](/libfthub) | Personnal | C standard library, Bigint, hash table, linked list, binary tree, red black tree, ... |  |C |  | [![Build Status](https://travis-ci.org/hugohow/42-work.svg?branch=master)](https://travis-ci.org/hugohow/42-work)|
+| [LibftHub](/libfthub) | Personnal | C standard library, Bigint, hash table, linked list, binary tree, red black tree, AVL tree ... |  |C |  | [![Build Status](https://travis-ci.org/hugohow/42-work.svg?branch=master)](https://travis-ci.org/hugohow/42-work)|
 | [libft](/projects/libft) | Base | C standard library | T1 |C | 125 | [![Build Status](https://travis-ci.org/hugohow/42-work.svg?branch=master)](https://travis-ci.org/hugohow/42-work)|
 | [fillit](https://github.com/rrsw/fillit) | Base |Backtracking to solve a tetris game | T1 | C | 100 | [![Build Status](https://travis-ci.org/rrsw/fillit.svg?branch=master)](https://travis-ci.org/rrsw/fillit)|
 | [get_next_line](/projects/get_next_line) | Base | <=> readline in JS | T1 | C | 125 | |
