@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 16:04:52 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/15 22:23:53 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/15 23:41:42 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct	s_cmd
 	int  last_key;
 	int	brackets_closed;
 	int	search_mode;
-	int search_index;
 	t_choice **choices;
 }				t_cmd;
 
@@ -59,7 +58,7 @@ void	ft_refresh_screen(t_cmd **p_cmd);
 void 	ft_clear_cmd(t_cmd **p_cmd);
 void	ft_print_cmd(t_cmd **p_cmd);
 int		ft_get_col(t_cmd **p_cmd);
-int		ft_get_row(t_cmd **p_cmd);
+int		ft_get_row_from_bottom(t_cmd **p_cmd);
 int		ft_get_window_size(int *rows, int *cols);
 int		ft_read_key(void);
 
