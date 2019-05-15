@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 16:03:47 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/09 16:19:18 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/15 18:15:24 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,6 @@ int ft_terminal_init(t_config *old_config, t_config *new_config)
     }
 	tcgetattr(STDIN_FILENO, old_config);
 	*new_config = *old_config;
-	// new_config->c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
-	// new_config->c_oflag &= ~(OPOST);
-	// new_config->c_cflag |= (CS8);
-	// new_config->c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
     new_config->c_lflag &= ~(ICANON | ECHO);
 	new_config->c_lflag |= ISIG;
     new_config->c_cc[VMIN] = 1;

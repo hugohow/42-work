@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 16:36:14 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/13 22:28:53 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/15 19:15:50 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,22 @@ t_ft_press *ft_find_ft(int ret)
 	return (fts_press[i].ft);
 }
 
-int	ft_terminal_ask(t_cmd **p_cmd, t_list **p_stack)
+
+
+int	ft_terminal_ask(t_cmd **p_cmd)
 {
 	int	 ret;
 	int	 result;
-	
+	static t_list **stack_historic;
+
+	if (stack_historic == NULL)
+		stack_historic = ft_stack_init();
 	if (p_cmd == NULL || *p_cmd == NULL)
 		return (-1);
 	ft_refresh_screen(p_cmd);
 	ret = ft_read_key();
 	(*p_cmd)->last_key = ret;
-	result = (*(ft_find_ft(ret)))(p_cmd, p_stack);
+	result = (*(ft_find_ft(ret)))(p_cmd, stack_historic);
 
 	return (result);
 }

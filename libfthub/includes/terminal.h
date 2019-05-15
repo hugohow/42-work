@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 16:04:52 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/13 22:37:08 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/15 19:16:44 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		ft_terminal_init(t_config *old_config, t_config *new_config);
 void	ft_terminal_exit(t_config *old_config);
 int		ft_terminal_prompt(int fd, const char *str);
 t_cmd	*ft_terminal_cmd_init(const char *str);
-int		ft_terminal_ask(t_cmd **p_cmd, t_list **p_stack);
+int		ft_terminal_ask(t_cmd **p_cmd);
 int		ft_terminal_ask_historic(t_cmd **p_cmd, t_list **p_stack);
 void	ft_refresh_screen(t_cmd **p_cmd);
 int		ft_get_col(t_cmd **p_cmd);
