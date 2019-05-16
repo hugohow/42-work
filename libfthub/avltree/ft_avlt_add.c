@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 11:44:31 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/07 14:49:59 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/16 14:26:10 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ t_node_avlt	*ft_avlt_add(t_node_avlt **p_root, void *content, size_t content_siz
 	node = ft_avlt_create(content, content_size);
 	if (node == NULL)
 		return (NULL);
-	node = ft_avlt_insert(p_root, node, cmp);
+	if (*p_root == NULL)
+		*p_root = node;
+	else
+		node = ft_avlt_insert(p_root, node, cmp);
 	if (node == NULL)
 		return (NULL);
 	return (node);
