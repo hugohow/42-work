@@ -1,3 +1,9 @@
+### Steps to create this
+
+## Init
+
+## Ask function
+
 ```C
 
 int main()
