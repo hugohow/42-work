@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 16:04:52 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/15 19:16:44 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/15 23:41:42 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct	s_cmd
 	int  last_key;
 	int	brackets_closed;
 	int	search_mode;
-	int search_index;
 	t_choice **choices;
 }				t_cmd;
 
@@ -56,8 +55,10 @@ t_cmd	*ft_terminal_cmd_init(const char *str);
 int		ft_terminal_ask(t_cmd **p_cmd);
 int		ft_terminal_ask_historic(t_cmd **p_cmd, t_list **p_stack);
 void	ft_refresh_screen(t_cmd **p_cmd);
+void 	ft_clear_cmd(t_cmd **p_cmd);
+void	ft_print_cmd(t_cmd **p_cmd);
 int		ft_get_col(t_cmd **p_cmd);
-int		ft_get_row(t_cmd **p_cmd);
+int		ft_get_row_from_bottom(t_cmd **p_cmd);
 int		ft_get_window_size(int *rows, int *cols);
 int		ft_read_key(void);
 
@@ -71,6 +72,7 @@ int 	ft_press_arrow_right(t_cmd **p_cmd, t_list **p_stack);
 int 	ft_press_arrow_up(t_cmd **p_cmd, t_list **p_stack);
 int 	ft_press_arrow_down(t_cmd **p_cmd, t_list **p_stack);
 typedef int			(t_ft_press)(t_cmd **, t_list **);
+t_ft_press *ft_apply_press(int ret);
 
 typedef struct	s_ft_press_key
 {

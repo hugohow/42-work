@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 10:39:21 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/15 19:16:10 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/15 23:02:33 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,5 @@ int ft_press_arrow_right(t_cmd **p_cmd, t_list **p_stack)
 		return (1);
 	(*p_cmd)->cursor_index = (*p_cmd)->cursor_index + 1;
 	(*p_cmd)->search_mode = 0;
-	(*p_cmd)->search_index = 0;
 	return (1);
 }
