@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 12:55:38 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/04 15:24:45 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/30 16:29:08 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,40 @@ char *ft_bigint_round(char *dst, int precision, size_t limit)
 		dst[i] = '\0';
 		return (dst);
 	}
+	else if (dst[i] == '5' && dst[i + 1] == 0)
+	{
+		if (i < (int)limit)
+		{
+			int j;
+
+			j = i - 1;
+			if (dst[i - 1] == '.')
+			{
+				i--;
+				j--;
+			}
+			if ((dst[j] - '0') % 2 == 0)
+			{
+				dst[i] = 0;
+				return (dst);	
+			}
+			else
+			{
+				to_add = get_to_add(precision_cpy);
+				dst = ft_bigint_add(dst, to_add, limit);
+				free(to_add);
+				return (ft_bigint_round(dst, precision_cpy, limit));
+			}
+		}
+		return (NULL);
+	}
 	else if (dst[i] < '5')
 	{
-		if (i + precision < (int)limit)
+		if (i < (int)limit)
 		{
-			if (dst[i + precision - 1] == '.')
-				precision--;
-			dst[i + precision] = 0;
+			if (dst[i - 1] == '.')
+				i--;
+			dst[i] = 0;
 			return (dst);
 		}
 		return (NULL);

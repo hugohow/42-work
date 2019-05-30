@@ -163,7 +163,7 @@ int main(void)
     printf("\033[32mRound to 2 \033[00m\n");
     output = ft_bigint_round(output, 2, len_limit);
 	printf("result :\t%s\n", output);
-    assert(ft_strcmp(output, "2262626362628.73") == 0);
+    assert(ft_strcmp(output, "2262626362628.72") == 0);
     printf("\033[32mRound to 1 \033[00m\n");
     output = ft_bigint_round(output, 1, len_limit);
 	printf("result :\t%s\n", output);
@@ -180,6 +180,56 @@ int main(void)
     output = ft_bigint_round(output, 0, len_limit);
 	printf("result :\t%s\n", output);
     assert(ft_strcmp(output, "2262626362629") == 0);
+
+	printf("-------------Test bankers'rounding-------------\n");
+	output = ft_strcpy(output, "10.5");
+    output = ft_bigint_round(output, 0, len_limit);
+	printf("result 10.5 :\t%s\n", output);
+    assert(ft_strcmp(output, "10") == 0);
+	output = ft_strcpy(output, "11.5");
+    output = ft_bigint_round(output, 0, len_limit);
+	printf("result 11.5 :\t%s\n", output);
+    assert(ft_strcmp(output, "12") == 0);
+
+	output = ft_strcpy(output, "2.5");
+    output = ft_bigint_round(output, 0, len_limit);
+	printf("result 2.5 :\t%s\n", output);
+    assert(ft_strcmp(output, "2") == 0);
+
+	output = ft_strcpy(output, "3.5");
+    output = ft_bigint_round(output, 0, len_limit);
+	printf("result 3.5 :\t%s\n", output);
+    assert(ft_strcmp(output, "4") == 0);
+
+	output = ft_strcpy(output, "4.5");
+    output = ft_bigint_round(output, 0, len_limit);
+	printf("result 4.5 :\t%s\n", output);
+    assert(ft_strcmp(output, "4") == 0);
+
+	output = ft_strcpy(output, "0.5");
+    output = ft_bigint_round(output, 0, len_limit);
+	printf("result 0.5 :\t%s\n", output);
+    assert(ft_strcmp(output, "0") == 0);
+	output = ft_strcpy(output, "1.5");
+    output = ft_bigint_round(output, 0, len_limit);
+	printf("result 1.5 :\t%s\n", output);
+    assert(ft_strcmp(output, "2") == 0);
+
+	output = ft_strcpy(output, "2.5");
+    output = ft_bigint_round(output, 0, len_limit);
+	printf("result 2.5 :\t%s\n", output);
+    assert(ft_strcmp(output, "2") == 0);
+
+	output = ft_strcpy(output, "3.5");
+    output = ft_bigint_round(output, 0, len_limit);
+	printf("result 3.5 :\t%s\n", output);
+    assert(ft_strcmp(output, "4") == 0);
+
+	output = ft_strcpy(output, "4.5");
+    output = ft_bigint_round(output, 0, len_limit);
+	printf("result 4.5 :\t%s\n", output);
+    assert(ft_strcmp(output, "4") == 0);
+
 	free(output);
 	free(to_add);	
     return (0);
