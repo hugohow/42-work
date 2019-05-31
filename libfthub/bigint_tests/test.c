@@ -15,10 +15,16 @@ int main(void)
 
 
 	printf("-------------Test bigint-------------\n");
-    size_t len_limit = 99999;
+    size_t len_limit;
+
+	len_limit = 99999;
     char *output;
-	char *to_add;    output = malloc(len_limit*sizeof(char));
-	to_add = malloc(len_limit*sizeof(char));
+	char *to_add;
+
+	output = NULL;
+	to_add = NULL; 
+	output = ft_memalloc(len_limit*sizeof(char));
+	to_add = ft_memalloc(len_limit*sizeof(char));
     output = ft_strcpy(output, "10101010101010.10101010101");
 	to_add = ft_strcpy(to_add, "999999");
 	printf("-------------Test ft_bigint_multiply_by_two-------------\n");
@@ -231,6 +237,8 @@ int main(void)
     assert(ft_strcmp(output, "4") == 0);
 
 	free(output);
+	output = NULL;
 	free(to_add);	
+	to_add = NULL;
     return (0);
 }

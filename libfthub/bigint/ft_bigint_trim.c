@@ -6,13 +6,13 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 17:02:01 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/03 17:36:20 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/31 16:22:42 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char *ft_bigint_trim_right(char *str)
+static char	*ft_bigint_trim_right(char *str)
 {
 	size_t i;
 	size_t len;
@@ -27,7 +27,7 @@ static char *ft_bigint_trim_right(char *str)
 	return (str);
 }
 
-static char *ft_bigint_trim_left(char *str)
+static char	*ft_bigint_trim_left(char *str)
 {
 	size_t nb;
 	size_t i;
@@ -53,7 +53,7 @@ static char *ft_bigint_trim_left(char *str)
 	return (str);
 }
 
-char *ft_bigint_trim(char *str)
+char		*ft_bigint_trim(char *str)
 {
 	str = ft_bigint_trim_left(str);
 	str = ft_bigint_trim_right(str);

@@ -6,19 +6,20 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 12:55:38 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/30 16:29:08 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/05/31 16:44:08 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "libft.h"
 
-static char *get_to_add(int n)
+static char	*get_to_add(int n)
 {
-	int i;
-	char *to_add;
+	int		i;
+	char	*to_add;
 
-	to_add = (char *)malloc((n + 3) * sizeof(char));
+	if (!(to_add = (char *)ft_memalloc((n + 4) * sizeof(char))))
+		return (NULL);
 	to_add = ft_strcpy(to_add, "0.1");
 	i = 2;
 	while (n != 0)
@@ -30,19 +31,18 @@ static char *get_to_add(int n)
 	to_add[i] = '1';
 	i++;
 	to_add[i] = 0;
-    return (to_add);
+	return (to_add);
 }
 
-static int get_index(char *str, char c)
+static int	get_index(char *str, char c)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (str[i] && str[i] != c)
-        i++;
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
 	return (i);
 }
-
 
 char *ft_bigint_round(char *dst, int precision, size_t limit)
 {
@@ -97,7 +97,7 @@ char *ft_bigint_round(char *dst, int precision, size_t limit)
 			{
 				to_add = get_to_add(precision_cpy);
 				dst = ft_bigint_add(dst, to_add, limit);
-				free(to_add);
+				ft_memdel((void **)&to_add);
 				return (ft_bigint_round(dst, precision_cpy, limit));
 			}
 		}
@@ -116,6 +116,6 @@ char *ft_bigint_round(char *dst, int precision, size_t limit)
 	}
 	to_add = get_to_add(precision_cpy);
 	dst = ft_bigint_add(dst, to_add, limit);
-	free(to_add);
+	ft_memdel((void **)&to_add);
 	return (ft_bigint_round(dst, precision_cpy, limit));
 }
