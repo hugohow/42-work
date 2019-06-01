@@ -1,7 +1,7 @@
 
 NAME    := libft.a
 TEST_BIN	:= test
-
+OS 		:= $(shell uname)
 INC_DIR := includes
 SRC_DIR := core
 OBJ_DIR := objs
@@ -25,7 +25,12 @@ SRCS    := $(wildcard $(SRC_DIR)/*.c)
 OBJS    := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC      := gcc
-CFLAGS  += -Wall -Werror -Wextra -g
+ifeq ($(UNAME),Linux)
+    CFLAGS  += -Wall -Wextra -g
+endif
+ifeq ($(UNAME),Darwin)
+    CFLAGS  += -Wall -Wextra -Werror -g
+endif
 LFLAGS  += -I.
 AR      := ar rcs
 RLIB    := ranlib

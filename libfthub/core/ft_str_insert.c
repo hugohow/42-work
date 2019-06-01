@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 20:35:47 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/23 20:38:56 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/06/01 15:14:37 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ char	*ft_str_insert(char *str, char c, int index)
 {
 	char	*tmp;
 	char	*output;
-	int		j;
 
-	j = 0;
 	tmp = malloc((index + 2) * sizeof(char));
 	if (tmp == NULL || str == NULL)
 		return (NULL);

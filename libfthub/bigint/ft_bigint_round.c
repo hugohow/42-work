@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 12:55:38 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/04 15:24:45 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/06/01 15:16:52 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int get_index(char *str, char c)
 
     i = 0;
     while (str[i] && str[i] != c)
-        i++;
+		i++;
 	return (i);
 }
 

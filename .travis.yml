@@ -1,5 +1,6 @@
 os:
   - osx
+  - ubuntu
 language:
   - c
 compiler:
