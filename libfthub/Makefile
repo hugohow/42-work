@@ -65,10 +65,6 @@ testterminal: re
 	@./$(TEST_BIN)
 
 test: re
-	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(BIGINT_TEST_DIR)/*.c $(BIGINT_DIR)/*.c $(OBJS)
-	@echo "Compile" $(OK)
-	@echo "Launch tests" $(BIGINT_DIR)
-	@./$(TEST_BIN)
 	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(CORE_TEST_DIR)/test.c $(OBJS)
 	@echo "Compile" $(OK)
 	@echo "Launch tests test.c"
@@ -95,6 +91,10 @@ test: re
 	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(AVLT_TEST_DIR)/*.c $(AVLT_DIR)/*.c $(OBJS)
 	@echo "Compile" $(OK)
 	@echo "Launch tests" $(AVLT_DIR)
+	@./$(TEST_BIN)
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(BIGINT_TEST_DIR)/*.c $(BIGINT_DIR)/*.c $(OBJS)
+	@echo "Compile" $(OK)
+	@echo "Launch tests" $(BIGINT_DIR)
 	@./$(TEST_BIN)
 	make fclean
 
