@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 22:15:01 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/15 23:49:53 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/06/02 21:58:20 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int     my_outc(int c)
 {
-    return (write (STDOUT_FILENO, &c, 1));
+    return (write (STDIN_FILENO, &c, 1));
 }
 
 
@@ -91,10 +91,10 @@ int ft_get_row_from_bottom(t_cmd **p_cmd)
 void ft_print_cmd(t_cmd **p_cmd)
 {
 	if ((*p_cmd)->brackets_closed == 0)
-		ft_putstr_fd("\033[32;1m", 1);
+		ft_putstr_fd("\033[32;1m", STDIN_FILENO);
 	else
-		ft_putstr_fd("\033[0m", 1);
-    ft_putstr_fd((*p_cmd)->cmd_str, 1);
+		ft_putstr_fd("\033[0m", STDIN_FILENO);
+    ft_putstr_fd((*p_cmd)->cmd_str, STDIN_FILENO);
     go_to_col(ft_get_col(p_cmd));
 	// go_to_row_from_bottom(ft_get_row_from_bottom(p_cmd));
 }

@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 22:15:01 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/15 22:18:40 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/06/02 21:58:02 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int     my_outc(int c)
 {
-    return (write (STDOUT_FILENO, &c, 1));
+    return (write (STDIN_FILENO, &c, 1));
 }
 
 static int count_nb_line(char *cmd)
