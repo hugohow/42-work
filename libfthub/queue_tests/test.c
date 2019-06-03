@@ -56,5 +56,6 @@ int main(void)
 	assert(queue->head == NULL);
 	assert(queue->tail == NULL);
 	assert(queue->size == 0);
+	free(queue);
 	return (0);
 }

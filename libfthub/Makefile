@@ -84,10 +84,6 @@ test: re
 	@echo "Compile" $(OK)
 	@echo "Launch tests" $(STACK_DIR)
 	@./$(TEST_BIN)
-	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(QUEUE_TEST_DIR)/*.c $(QUEUE_DIR)/*.c $(OBJS)
-	@echo "Compile" $(OK)
-	@echo "Launch tests" $(QUEUE_DIR)
-	@./$(TEST_BIN)
 	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(BIGINT_TEST_DIR)/*.c $(BIGINT_DIR)/*.c $(OBJS)
 	@echo "Compile" $(OK)
 	@echo "Launch tests" $(BIGINT_DIR)
@@ -95,6 +91,10 @@ test: re
 	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(AVLT_TEST_DIR)/*.c $(AVLT_DIR)/*.c $(OBJS)
 	@echo "Compile" $(OK)
 	@echo "Launch tests" $(AVLT_DIR)
+	@./$(TEST_BIN)
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(QUEUE_TEST_DIR)/*.c $(QUEUE_DIR)/*.c $(OBJS)
+	@echo "Compile" $(OK)
+	@echo "Launch tests" $(QUEUE_DIR)
 	@./$(TEST_BIN)
 	make fclean
 

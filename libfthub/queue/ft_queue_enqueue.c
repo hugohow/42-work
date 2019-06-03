@@ -6,17 +6,17 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 14:47:04 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/09 15:07:18 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/06/03 13:10:17 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "queue.h"
 
-int	ft_queue_enqueue(t_queue **p_queue, void const *content, size_t content_size)
+int	ft_queue_enqueue(t_queue **p_queue, void const *content, size_t size)
 {
 	t_list *node;
 
-	node = ft_lstnew(content, content_size);
+	node = ft_lstnew(content, size);
 	if (node == NULL || p_queue == NULL || *p_queue == NULL)
 		return (0);
 	if (((*p_queue)->tail) == NULL)
