@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 16:11:35 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/31 17:33:42 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:17:19 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char			*ft_str_left_shift(char *str, int len);
 char			*ft_str_right_shift(char *str, int len);
 char			*ft_bigint_add(char *dst, const char *to_add, size_t limit);
 char			*ft_bigint_divide_by_two(char *output, size_t limit);
-char			*ft_bigint_multiply_by_two(char *output);
+char			*ft_bigint_multiply_by_two(char *output, size_t limit);
 char			*ft_bigint_shift_right(char *str, size_t nb, size_t limit);
 char			*ft_bigint_trim(char *str);
 char			*ft_bigint_round(char *dst, int precision, size_t limit);
