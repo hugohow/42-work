@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 12:55:38 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/06/01 15:23:27 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/06/03 13:44:05 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char		*ft_bigint_round(char *dst, int precision, size_t limit)
 	char	*to_add;
 	int		precision_cpy;
 
-	if (precision < 0)
+	if (precision < 0 || dst == NULL)
 		return (dst);
 	precision_cpy = precision;
 	i = ft_bigint_get_index(dst, '.');

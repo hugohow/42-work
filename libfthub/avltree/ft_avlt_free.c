@@ -6,14 +6,13 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 14:43:44 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/05/14 11:39:30 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/06/03 12:43:15 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "avltree.h"
 
-static void free_node(t_node_avlt *node)
+static void	free_node(t_node_avlt *node)
 {
 	if (node)
 	{
@@ -23,7 +22,7 @@ static void free_node(t_node_avlt *node)
 	}
 }
 
-void	ft_avlt_free(t_node_avlt **p_root)
+void		ft_avlt_free(t_node_avlt **p_root)
 {
 	if (p_root == NULL || *p_root == NULL)
 		return ;

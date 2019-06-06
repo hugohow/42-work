@@ -87,5 +87,6 @@ int main(void)
 	assert((root->right)->left == NULL);
 	printf("\033[32mCheck if root->left->left->right is NULL \033[00m\n");
 	assert((root->right)->left == NULL);
+	ft_avlt_free(&root);
 	return (0);
 }
