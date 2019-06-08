@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 20:04:28 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/17 17:11:05 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/06/08 22:52:18 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 t_node_ht		*ft_ht_get(t_ht *hash_table, const char *key)
 {
-	size_t i;
+	int			index;
+	t_node_ht	*node;
 
 	if (hash_table == NULL)
 		return (NULL);
-	i = 0;
-	while (hash_table->table[i] &&
-		ft_strcmp((hash_table->table[i])->key, key) != 0)
-		i++;
-	if (hash_table->table[i] == 0)
-		return (NULL);
-	return (hash_table->table[i]);
+	index = ft_ht_get_hash(key, hash_table->size);
+	node = hash_table->list[index];
+	while (node)
+	{
+		if (ft_strcmp(node->key, key) == 0)
+			break;
+		node = node->next;
+	}
+	return (node);
 }

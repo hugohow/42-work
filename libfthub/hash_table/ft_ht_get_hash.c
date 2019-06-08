@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_avlt_free.c                                     :+:      :+:    :+:   */
+/*   ft_ht_get_hash.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/07 14:43:44 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/06/08 15:08:04 by hhow-cho         ###   ########.fr       */
+/*   Created: 2019/06/08 22:38:20 by hhow-cho          #+#    #+#             */
+/*   Updated: 2019/06/08 22:57:02 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "avltree.h"
+#include "ht.h"
 
-static void	ft_free_node(t_node_avlt *node)
+int	ft_ht_get_hash(const char *str, size_t size)
 {
-	if (node)
+	unsigned long long	key;
+	int 				i;
+
+	i = 0;
+	key = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i])
 	{
-		ft_memdel((void *)(&(node->content)));
-		node->content_size = 0;
-		ft_memdel((void *)(&node));
+		key += str[i] * i;
+		i++;
 	}
-}
-
-void		ft_avlt_free(t_node_avlt **p_root)
-{
-	if (p_root == NULL || *p_root == NULL)
-		return ;
-	ft_avlt_apply_postorder(*p_root, &ft_free_node);
-	*p_root = NULL;
+	key = key % size;
+	return ((int)key);
 }

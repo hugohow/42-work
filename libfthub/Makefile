@@ -19,6 +19,7 @@ STACK_DIR	:= stack
 STACK_TEST_DIR	:= stack_tests
 QUEUE_DIR	:= queue
 QUEUE_TEST_DIR	:= queue_tests
+GNL_DIR	:= gnl
 
 INCLS   := $(INC_DIR)
 SRCS    := $(wildcard $(SRC_DIR)/*.c)
@@ -73,10 +74,6 @@ test: re
 	@echo "Compile" $(OK)
 	@echo "Launch tests test_added.c"
 	@./$(TEST_BIN)
-	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(HT_TEST_DIR)/*.c $(HT_DIR)/*.c $(OBJS)
-	@echo "Compile" $(OK)
-	@echo "Launch tests" $(HT_DIR)
-	@./$(TEST_BIN)
 	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(BTREE_TEST_DIR)/*.c $(BTREE_DIR)/*.c $(OBJS)
 	@echo "Compile" $(OK)
 	@echo "Launch tests" $(BTREE_DIR)
@@ -95,6 +92,10 @@ test: re
 	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(QUEUE_TEST_DIR)/*.c $(QUEUE_DIR)/*.c $(OBJS)
 	@echo "Compile" $(OK)
 	@echo "Launch tests" $(QUEUE_DIR)
+	@./$(TEST_BIN)
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(HT_TEST_DIR)/*.c $(HT_DIR)/*.c $(OBJS)
+	@echo "Compile" $(OK)
+	@echo "Launch tests" $(HT_DIR)
 	@./$(TEST_BIN)
 	make fclean
 
