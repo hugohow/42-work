@@ -1,6 +1,6 @@
 os:
   - osx
-  - ubuntu
+  - linux
 language:
   - c
 compiler:
