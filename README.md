@@ -18,7 +18,7 @@ My [Dockerfile](/docker_config/Dockerfile).
 | [ft_printf](https://github.com/hugohow/ft_printf) | Algorithms | ft_printf("test %-12x et %--2.4s %24s !\n", 42, NULL, "coco"); | T1 | C | 110 | [![Build Status](https://travis-ci.org/hugohow/ft_printf.svg?branch=master)](https://travis-ci.org/hugohow/ft_printf)|
 | [ft_ls](https://github.com/hugohow/ft_ls) | Unix | Implementation of ls based on avl tree | T1 | C | 113 | [![Build Status](https://travis-ci.org/hugohow/ft_ls.svg?branch=master)](https://travis-ci.org/hugohow/ft_ls)|
 | [ft_select](/projects/ft_select) | Unix | Terminal interaction | T1 | C |:100: | |
-| [Taskmaster](/projects/taskmaster) | Unix | One more Node.js process manager 🔖 | T1 | Node js |:100: | |
+| [Taskmaster](https://github.com/hugohow/Taskmaster) | Unix | One more Node.js process manager 🔖 | T1 | Node js |:100: | |
 | [minishell/21sh/42sh](https://github.com/hugohow/42sh) | Unix |  My own shell done with abstract syntax tree |  T3 | C |:100:   | [![Build Status](https://travis-ci.org/hugohow/42sh.svg?branch=master)](https://travis-ci.org/hugohow/42sh) |
 
 My main reference and inspiration : [Linux Kernel Development by Robert Love](https://www.amazon.fr/Linux-Kernel-Development-Robert-Love/dp/0672329468)
