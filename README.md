@@ -35,7 +35,7 @@ My main reference and inspiration : [Linux Kernel Development by Robert Love](ht
 | [Drivers and Interrupts](/projects/libft-asm) | Unix | Drivers and Interrupts | T3 | C |:construction_worker: |
 | [Filesystem](/projects/Filesystem) | Unix | Filesystem | T3 | C |:construction_worker: |
 
-Not verified, don't use it in prod :relieved:
+Verified but don't use it in prod :relieved:
 
 ## Tests
 - Peer to peer evaluations
