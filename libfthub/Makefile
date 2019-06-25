@@ -19,6 +19,8 @@ STACK_DIR	:= stack
 STACK_TEST_DIR	:= stack_tests
 QUEUE_DIR	:= queue
 QUEUE_TEST_DIR	:= queue_tests
+SHELL_DIR	:= shell
+SHELL_TEST_DIR	:= shell_tests
 GNL_DIR	:= gnl
 
 INCLS   := $(INC_DIR)
@@ -97,6 +99,11 @@ test: re
 	@echo "Compile" $(OK)
 	@echo "Launch tests" $(HT_DIR)
 	@./$(TEST_BIN)
+	@$(CC) $(CFLAGS) -g $(LFLAGS)/$(INCLS) -o $(TEST_BIN) $(SHELL_TEST_DIR)/*.c $(SHELL_DIR)/*.c $(OBJS)
+	@echo "Compile" $(OK)
+	@echo "Launch tests" $(SHELL_DIR)
+	@./$(TEST_BIN)
+
 	make fclean
 
 clean:
