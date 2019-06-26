@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:00:44 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/02 17:37:59 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/06/26 21:28:32 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	size_t	i;
 
+	if (s == NULL)
+		return (NULL);
 	if ((char)c == '\0')
 		return (char *)(s + ft_strlen(s));
 	i = 0;

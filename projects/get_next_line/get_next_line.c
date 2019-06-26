@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 18:11:57 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/04/13 13:39:05 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/06/26 21:56:09 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_list	*init(t_list **head, int fd)
 			return (node);
 		node = node->next;
 	}
-	node = ft_lstpush(head, "", fd);
+	node = ft_lstpush(head, NULL, fd);
 	return (node);
 }
 
@@ -33,6 +33,8 @@ static t_list	*fill(t_list *node, int fd, int *p_ret)
 	int		nb_bytes;
 	char	*to_free;
 
+	if (node->content == NULL)
+		node->content = ft_strdup("");
 	while (ft_strchr(node->content, '\n') == 0)
 	{
 		nb_bytes = read(fd, buf, BUFF_SIZE);

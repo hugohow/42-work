@@ -6,7 +6,7 @@
 /*   By: hhow-cho <hhow-cho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 16:08:11 by hhow-cho          #+#    #+#             */
-/*   Updated: 2019/06/25 13:53:37 by hhow-cho         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:04:00 by hhow-cho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int main(void)
 	ft_strcpy(dst, "////bonjour/");
 	printf("\033[32mCheck basic %s \033[00m\n", dst);
 	printf("result : %s\n", ft_path_trim(dst));
-	assert(ft_strcmp(ft_path_trim(dst), "/bonjour/") == 0);
+	assert(ft_strcmp(ft_path_trim(dst), "/bonjour") == 0);
 
 
 	ft_strcpy(dst, "/./././bonjour/.");
@@ -197,30 +197,30 @@ int main(void)
 	ft_strcpy(dst, "/hello/");
 	printf("\033[32mCheck basic %s \033[00m\n", dst);
 	printf("result : %s\n", ft_path_trim(dst));
-	assert(ft_strcmp(ft_path_trim(dst), "/hello/") == 0);
+	assert(ft_strcmp(ft_path_trim(dst), "/hello") == 0);
 
 	ft_strcpy(dst, "//hello/");
 	printf("\033[32mCheck basic %s \033[00m\n", dst);
 	printf("result : %s\n", ft_path_trim(dst));
-	assert(ft_strcmp(ft_path_trim(dst), "/hello/") == 0);
+	assert(ft_strcmp(ft_path_trim(dst), "/hello") == 0);
 
 
 	ft_strcpy(dst, "//he/.//llo/");
 	printf("\033[32mCheck basic %s \033[00m\n", dst);
 	printf("result : %s\n", ft_path_trim(dst));
-	assert(ft_strcmp(ft_path_trim(dst), "/he/llo/") == 0);
+	assert(ft_strcmp(ft_path_trim(dst), "/he/llo") == 0);
 
 
 	ft_strcpy(dst, ".././..///he/.//llo/");
 	printf("\033[32mCheck basic %s \033[00m\n", dst);
 	printf("result : %s\n", ft_path_trim(dst));
-	assert(ft_strcmp(ft_path_trim(dst), "he/llo/") == 0);
+	assert(ft_strcmp(ft_path_trim(dst), "he/llo") == 0);
 
 
 	ft_strcpy(dst, "/.././..///he/.//llo/");
 	printf("\033[32mCheck basic %s \033[00m\n", dst);
 	printf("result : %s\n", ft_path_trim(dst));
-	assert(ft_strcmp(ft_path_trim(dst), "/he/llo/") == 0);
+	assert(ft_strcmp(ft_path_trim(dst), "/he/llo") == 0);
 
 
 
@@ -294,11 +294,29 @@ int main(void)
 	printf("result : %s\n", ft_path_trim(dst));
 	assert(ft_strcmp(ft_path_trim(dst), "") == 0);
 
+	ft_strcpy(dst, "./a/libft/../../");
+	printf("\033[32mCheck basic %s \033[00m\n", dst);
+	printf("result : %s\n", ft_path_trim(dst));
+	assert(ft_strcmp(ft_path_trim(dst), "") == 0);
+
 
 	ft_strcpy(dst, "./a/libft/../..//P//A//D");
 	printf("\033[32mCheck basic %s \033[00m\n", dst);
 	printf("result : %s\n", ft_path_trim(dst));
 	assert(ft_strcmp(ft_path_trim(dst), "P/A/D") == 0);
+
+
+	ft_strcpy(dst, "./a/libft/../..//P//A//D/");
+	printf("\033[32mCheck basic %s \033[00m\n", dst);
+	printf("result : %s\n", ft_path_trim(dst));
+	assert(ft_strcmp(ft_path_trim(dst), "P/A/D") == 0);
+
+
+	ft_strcpy(dst, "/.");
+	printf("\033[32mCheck basic %s \033[00m\n", dst);
+	printf("result : %s\n", ft_path_trim(dst));
+	assert(ft_strcmp(ft_path_trim(dst), "/") == 0);
+
 	// int i;
 
 	// while (list[i])
