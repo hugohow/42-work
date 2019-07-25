@@ -19,7 +19,9 @@ My [Dockerfile](/docker_config/Dockerfile).
 | [ft_ls](https://github.com/hugohow/ft_ls) | Unix | Implementation of ls based on avl tree | T1 | C | 113 | [![Build Status](https://travis-ci.org/hugohow/ft_ls.svg?branch=master)](https://travis-ci.org/hugohow/ft_ls)|
 | [ft_select](https://github.com/hugohow/ft_select) | Unix | Terminal interaction | T1 | C |:100: | |
 | [Taskmaster](https://github.com/hugohow/Taskmaster) | Unix | One more Node.js process manager 🔖 | T1 | Node js |:100: | |
-| [minishell/21sh/42sh](https://github.com/hugohow/42sh) | Unix |  My own shell done with abstract syntax tree |  T3 | C |:100:   | [![Build Status](https://travis-ci.org/hugohow/42sh.svg?branch=master)](https://travis-ci.org/hugohow/42sh) |
+| [minish](https://github.com/hugohow/42sh) | Unix |  My own shell done with abstract syntax tree |  T3 | C | 125   | [![Build Status](https://travis-ci.org/hugohow/42sh.svg?branch=master)](https://travis-ci.org/hugohow/42sh) |
+| [21sh](https://github.com/hugohow/42sh) | Unix |  Deal with redirections, pipe, and terminal interaction |  T3 | C |:100:   | [![Build Status](https://travis-ci.org/hugohow/42sh.svg?branch=master)](https://travis-ci.org/hugohow/42sh) |
+| [42sh](https://github.com/hugohow/42sh) | Unix |  Final project of unix branch |  T3 | C |:100:   | [![Build Status](https://travis-ci.org/hugohow/42sh.svg?branch=master)](https://travis-ci.org/hugohow/42sh) |
 
 My main reference and inspiration : [Linux Kernel Development by Robert Love](https://www.amazon.fr/Linux-Kernel-Development-Robert-Love/dp/0672329468)
 
